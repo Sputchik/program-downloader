@@ -6,7 +6,6 @@ url_VCRedistributables^2005-2022=https://de1-dl.techpowerup.com/files/eymR8pE9f5
 url_Wireless^Bluetooth=https://downloadmirror.intel.com/794069/BT-23.10.0-64UWD-Win10-Win11.exe
 url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip
 url_Blender=https://www.blender.org/download/release/Blender4.0/blender-4.0.2-windows-x64.msi/
-:: Fucking adobe having no direct link but shit ton of commerce redirects motherfuckers live in hell as well
 url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe
 url_Python=https://www.python.org/ftp/python/3.12.2/python-3.12.2-amd64.exe
@@ -58,7 +57,6 @@ url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Insta
 url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe
 url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe
 url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe
-::igor pavlov fucking pussy limiting downloads motherfucker live in hell son of a whore
 url_7-Zip=https://www.dropbox.com/scl/fi/8o8e23yzonv1ftpcp8lwz/7z2301-x64.exe?rlkey=1vibl6fb9pr051hwyfiptv8km&dl=1
 url_Throttlestop=https://de1-dl.techpowerup.com/files/e2UdmIrn6eJkp-8FUUXJxA/1709089790/ThrottleStop_9.6.zip
 url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip
