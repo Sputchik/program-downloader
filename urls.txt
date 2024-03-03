@@ -1,4 +1,4 @@
-version=1.0
+version=1.1
 
 set "url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe"
 set "url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe"
@@ -51,7 +51,7 @@ set "url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhack
 set "url_Avidemux=https://download.fosshub.com/Protected/expiretime=1709095481;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXZpZGVtdXguaHRtbA==/3a1c122eed9dd24b3896edbf67ed38f2ac8cfee3e0559e042d0de0f6922b5778/5b92987559eee027c3d78f03/6325d1cea6ea567e2da04399/Avidemux_2.8.1VC++64bits.exe"
 set "url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix"
 set "url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1"
-set "url_NVCleanstall=https://de1-dl.techpowerup.com/files/e_dAdYQSFQepUUEz6Pa9EA/1709510520/NVCleanstall_1.16.0.exe"
+set "url_NVCleanstall=https://de1-dl.techpowerup.com/files/8Ef4NG3qlResTvVftaYQeg/1709517080/Visual-C-Runtimes-All-in-One-Feb-2024.zip"
 set "url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe"
 set "url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1810_Standard.exe"
 set "url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe"
