@@ -43,11 +43,11 @@ url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe
 url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
 url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip
 url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.2/TranslucentTB-portable-x64.zip
-url_qBitTorrent=https://download.fosshub.com/Protected/expiretime=1709095252;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vcUJpdHRvcnJlbnQuaHRtbA==/76653f952fd0aa14272d015db941599d09012ee77cc1f6bfffaecd75845bc0ff/5b8793a7f9ee5a5c3e97a3b2/65a7174906dece042d3e0d06/qbittorrent_4.6.3_x64_setup.exe
+url_qBitTorrent=https://kumisystems.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.6.3/qbittorrent_4.6.3_x64_setup.exe
 url_uTorrentPro=https://www.dropbox.com/scl/fi/afcpr2on650rxmr8kf2at/uTorrentPro_v3.6.0.47016.exe?rlkey=1ily5iq5bk0luznfyoww9qc9h&dl=1
 url_Everything=https://www.voidtools.com/Everything-1.4.1.1024.x64-Setup.exe
 url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe
-url_Avidemux=https://download.fosshub.com/Protected/expiretime=1709095481;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXZpZGVtdXguaHRtbA==/3a1c122eed9dd24b3896edbf67ed38f2ac8cfee3e0559e042d0de0f6922b5778/5b92987559eee027c3d78f03/6325d1cea6ea567e2da04399/Avidemux_2.8.1VC++64bits.exe
+url_Avidemux=https://unlimited.dl.sourceforge.net/project/avidemux/avidemux/2.8.1/Avidemux_2.8.1%20VC%2B%2B%2064bits.exe
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
 url_NVCleanstall=https://de1-dl.techpowerup.com/files/pVbgZ4nmYrt3MjQ7oj2R6Q/1709520363/NVCleanstall_1.16.0.exe
