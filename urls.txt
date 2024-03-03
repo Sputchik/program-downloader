@@ -9,8 +9,8 @@ url_Blender=https://www.blender.org/download/release/Blender4.0/blender-4.0.2-wi
 url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe
 url_Python=https://www.python.org/ftp/python/3.12.2/python-3.12.2-amd64.exe
-url_jre8_2022=https://www.dropbox.com/scl/fi/zfcu7p7gticjn38oiorkg/jre-8u202-windows-x64.exe?rlkey=c1bfqgt1b4b2kkydgmx937kae&dl=1
-url_jdk8_2022=https://www.dropbox.com/scl/fi/8u4i0d533i9bf9gflqsi9/jdk-8u202-windows-x64.exe?rlkey=7qsc2ke2z0hi6zbzxj6cvrkh2&dl=1
+url_jre8_202=https://www.dropbox.com/scl/fi/zfcu7p7gticjn38oiorkg/jre-8u202-windows-x64.exe?rlkey=c1bfqgt1b4b2kkydgmx937kae&dl=1
+url_jdk8_202=https://www.dropbox.com/scl/fi/8u4i0d533i9bf9gflqsi9/jdk-8u202-windows-x64.exe?rlkey=7qsc2ke2z0hi6zbzxj6cvrkh2&dl=1
 url_jdk^Latest=https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe
 url_jre^Latest=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249553_4d245f941845490c91360409ecffb3b4
 url_Node.js=https://nodejs.org/dist/v21.6.2/node-v21.6.2-x64.msi
