@@ -1,8 +1,8 @@
-version=1.03
+version=1.0
 
 url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
-url_VCRedistributables^2005-2022=https://de1-dl.techpowerup.com/files/eymR8pE9f5_yXfJuq4YR0w/1709091213/Visual-C-Runtimes-All-in-One-Feb-2024.zip
+url_VCRedistributables^2005-2022=https://de1-dl.techpowerup.com/files/y6mdvHYcbkSNK0r9CgipSw/1709520385/Visual-C-Runtimes-All-in-One-Feb-2024.zip
 url_Wireless^Bluetooth=https://downloadmirror.intel.com/794069/BT-23.10.0-64UWD-Win10-Win11.exe
 url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip
 url_Blender=https://www.blender.org/download/release/Blender4.0/blender-4.0.2-windows-x64.msi/
@@ -50,7 +50,7 @@ url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/pr
 url_Avidemux=https://download.fosshub.com/Protected/expiretime=1709095481;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXZpZGVtdXguaHRtbA==/3a1c122eed9dd24b3896edbf67ed38f2ac8cfee3e0559e042d0de0f6922b5778/5b92987559eee027c3d78f03/6325d1cea6ea567e2da04399/Avidemux_2.8.1VC++64bits.exe
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
-url_NVCleanstall=https://de1-dl.techpowerup.com/files/8Ef4NG3qlResTvVftaYQeg/1709517080/Visual-C-Runtimes-All-in-One-Feb-2024.zip
+url_NVCleanstall=https://de1-dl.techpowerup.com/files/pVbgZ4nmYrt3MjQ7oj2R6Q/1709520363/NVCleanstall_1.16.0.exe
 url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe
 url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1810_Standard.exe
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
