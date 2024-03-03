@@ -1,71 +1,71 @@
-version=1.01
+version=1.02
 
-set "url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe"
-set "url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe"
-set "url_VCRedistributables^2005-2022=https://de1-dl.techpowerup.com/files/eymR8pE9f5_yXfJuq4YR0w/1709091213/Visual-C-Runtimes-All-in-One-Feb-2024.zip"
-set "url_Wireless^Bluetooth=https://downloadmirror.intel.com/794069/BT-23.10.0-64UWD-Win10-Win11.exe"
-set "url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip"
-set "url_Blender=https://www.blender.org/download/release/Blender4.0/blender-4.0.2-windows-x64.msi/"
+url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
+url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
+url_VCRedistributables^2005-2022=https://de1-dl.techpowerup.com/files/eymR8pE9f5_yXfJuq4YR0w/1709091213/Visual-C-Runtimes-All-in-One-Feb-2024.zip
+url_Wireless^Bluetooth=https://downloadmirror.intel.com/794069/BT-23.10.0-64UWD-Win10-Win11.exe
+url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip
+url_Blender=https://www.blender.org/download/release/Blender4.0/blender-4.0.2-windows-x64.msi/
 :: Fucking adobe having no direct link but shit ton of commerce redirects motherfuckers live in hell as well
-set "url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1"
-set "url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe"
-set "url_Python=https://www.python.org/ftp/python/3.12.2/python-3.12.2-amd64.exe"
-set "url_jre8_2022=https://www.dropbox.com/scl/fi/zfcu7p7gticjn38oiorkg/jre-8u202-windows-x64.exe?rlkey=c1bfqgt1b4b2kkydgmx937kae&dl=1"
-set "url_jdk8_2022=https://www.dropbox.com/scl/fi/8u4i0d533i9bf9gflqsi9/jdk-8u202-windows-x64.exe?rlkey=7qsc2ke2z0hi6zbzxj6cvrkh2&dl=1"
-set "url_jdk^Latest=https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe"
-set "url_jre^Latest=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249553_4d245f941845490c91360409ecffb3b4"
-set "url_Node.js=https://nodejs.org/dist/v21.6.2/node-v21.6.2-x64.msi"
-set "url_Telegram=https://telegram.org/dl/desktop/win64"
-set "url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86"
-set "url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe"
-set "url_Slack=https://downloads.slack-edge.com/releases/windows/4.36.140/prod/x64/SlackSetup.exe"
-set "url_VSCode=https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"
-set "url_Sublime^Text=https://www.sublimetext.com/download_thanks?target=win-x64#direct-downloads"
-set "url_IntelliJ^IDEA=https://download.jetbrains.com/idea/ideaIU-2023.3.4.exe"
-set "url_VS^2022^Installer=https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=enterprise&channel=Release&version=VS2022&source=VSLandingPage&cid=2030"
-set "url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US"
-set "url_Librewolf=https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-windows-x86_64-setup.exe"
-set "url_QuteBrowser=https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0-amd64.exe"
-set "url_Chrome=https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B7D823907-25CE-91ED-483E-A59290C7382D%7D%26lang%3Den%26browser%3D3%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe"
-set "url_Chromium=https://download-chromium.appspot.com/dl/Win_x64?type=snapshots"
-set "url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/122.0.6261.69-1.1/ungoogled-chromium_122.0.6261.69-1.1_installer_x64.exe"
-set "url_Vivaldi=https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.63.x64.exe"
-set "url_WaterFox=https://cdn1.waterfox.net/waterfox/releases/latest/windows"
-set "url_Microsoft^Edge=https://c2rsetup.officeapps.live.com/c2r/downloadEdge.aspx?platform=Default&source=EdgeStablePage&Channel=Stable&language=en&brand=M100"
-set "url_Brave=https://referrals.brave.com/latest/BraveBrowserSetup-BRV029.exe"
-set "url_Opera=https://net.geo.opera.com/opera/stable/windows?utm_tryagain=yes&http_referrer=https://duckduckgo.com/&utm_site=opera_com&utm_lastpage=opera.com/"
-set "url_Opera^GX=https://net.geo.opera.com/opera_gx/stable/windows?utm_tryagain=yes&http_referrer=https://duckduckgo.com/&utm_site=opera_com&utm_lastpage=opera.com/"
-set "url_iTunes=https://www.apple.com/itunes/download/win64"
-set "url_iCloud=https://secure-appldnld.apple.com/windows/061-91601-20200323-974a39d0-41fc-4761-b571-318b7d9205ed/iCloudSetup.exe"
-set "url_AltStore=https://cdn.altstore.io/file/altstore/altinstaller.zip"
-set "url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe"
-set "url_3uTools=https://url.3u.com/zmAJjyaa"
-set "url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe"
-set "url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe"
-set "url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip"
-set "url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.2/TranslucentTB-portable-x64.zip"
-set "url_qBitTorrent=https://download.fosshub.com/Protected/expiretime=1709095252;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vcUJpdHRvcnJlbnQuaHRtbA==/76653f952fd0aa14272d015db941599d09012ee77cc1f6bfffaecd75845bc0ff/5b8793a7f9ee5a5c3e97a3b2/65a7174906dece042d3e0d06/qbittorrent_4.6.3_x64_setup.exe"
-set "url_uTorrentPro=https://www.dropbox.com/scl/fi/afcpr2on650rxmr8kf2at/uTorrentPro_v3.6.0.47016.exe?rlkey=1ily5iq5bk0luznfyoww9qc9h&dl=1"
-set "url_Everything=https://www.voidtools.com/Everything-1.4.1.1024.x64-Setup.exe"
-set "url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe"
-set "url_Avidemux=https://download.fosshub.com/Protected/expiretime=1709095481;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXZpZGVtdXguaHRtbA==/3a1c122eed9dd24b3896edbf67ed38f2ac8cfee3e0559e042d0de0f6922b5778/5b92987559eee027c3d78f03/6325d1cea6ea567e2da04399/Avidemux_2.8.1VC++64bits.exe"
-set "url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix"
-set "url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1"
-set "url_NVCleanstall=https://de1-dl.techpowerup.com/files/8Ef4NG3qlResTvVftaYQeg/1709517080/Visual-C-Runtimes-All-in-One-Feb-2024.zip"
-set "url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe"
-set "url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1810_Standard.exe"
-set "url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe"
-set "url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe"
-set "url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe"
-set "url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe"
+url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
+url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe
+url_Python=https://www.python.org/ftp/python/3.12.2/python-3.12.2-amd64.exe
+url_jre8_2022=https://www.dropbox.com/scl/fi/zfcu7p7gticjn38oiorkg/jre-8u202-windows-x64.exe?rlkey=c1bfqgt1b4b2kkydgmx937kae&dl=1
+url_jdk8_2022=https://www.dropbox.com/scl/fi/8u4i0d533i9bf9gflqsi9/jdk-8u202-windows-x64.exe?rlkey=7qsc2ke2z0hi6zbzxj6cvrkh2&dl=1
+url_jdk^Latest=https://download.oracle.com/java/21/latest/jdk-21_windows-x64_bin.exe
+url_jre^Latest=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249553_4d245f941845490c91360409ecffb3b4
+url_Node.js=https://nodejs.org/dist/v21.6.2/node-v21.6.2-x64.msi
+url_Telegram=https://telegram.org/dl/desktop/win64
+url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86
+url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
+url_Slack=https://downloads.slack-edge.com/releases/windows/4.36.140/prod/x64/SlackSetup.exe
+url_VSCode=https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user
+url_Sublime^Text=https://www.sublimetext.com/download_thanks?target=win-x64#direct-downloads
+url_IntelliJ^IDEA=https://download.jetbrains.com/idea/ideaIU-2023.3.4.exe
+url_VS^2022^Installer=https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=enterprise&channel=Release&version=VS2022&source=VSLandingPage&cid=2030
+url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US
+url_Librewolf=https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-windows-x86_64-setup.exe
+url_QuteBrowser=https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0-amd64.exe
+url_Chrome=https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B7D823907-25CE-91ED-483E-A59290C7382D%7D%26lang%3Den%26browser%3D3%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe
+url_Chromium=https://download-chromium.appspot.com/dl/Win_x64?type=snapshots
+url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/122.0.6261.69-1.1/ungoogled-chromium_122.0.6261.69-1.1_installer_x64.exe
+url_Vivaldi=https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.63.x64.exe
+url_WaterFox=https://cdn1.waterfox.net/waterfox/releases/latest/windows
+url_Microsoft^Edge=https://c2rsetup.officeapps.live.com/c2r/downloadEdge.aspx?platform=Default&source=EdgeStablePage&Channel=Stable&language=en&brand=M100
+url_Brave=https://referrals.brave.com/latest/BraveBrowserSetup-BRV029.exe
+url_Opera=https://net.geo.opera.com/opera/stable/windows?utm_tryagain=yes&http_referrer=https://duckduckgo.com/&utm_site=opera_com&utm_lastpage=opera.com/
+url_Opera^GX=https://net.geo.opera.com/opera_gx/stable/windows?utm_tryagain=yes&http_referrer=https://duckduckgo.com/&utm_site=opera_com&utm_lastpage=opera.com/
+url_iTunes=https://www.apple.com/itunes/download/win64
+url_iCloud=https://secure-appldnld.apple.com/windows/061-91601-20200323-974a39d0-41fc-4761-b571-318b7d9205ed/iCloudSetup.exe
+url_AltStore=https://cdn.altstore.io/file/altstore/altinstaller.zip
+url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe
+url_3uTools=https://url.3u.com/zmAJjyaa
+url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe
+url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
+url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip
+url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2023.2/TranslucentTB-portable-x64.zip
+url_qBitTorrent=https://download.fosshub.com/Protected/expiretime=1709095252;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vcUJpdHRvcnJlbnQuaHRtbA==/76653f952fd0aa14272d015db941599d09012ee77cc1f6bfffaecd75845bc0ff/5b8793a7f9ee5a5c3e97a3b2/65a7174906dece042d3e0d06/qbittorrent_4.6.3_x64_setup.exe
+url_uTorrentPro=https://www.dropbox.com/scl/fi/afcpr2on650rxmr8kf2at/uTorrentPro_v3.6.0.47016.exe?rlkey=1ily5iq5bk0luznfyoww9qc9h&dl=1
+url_Everything=https://www.voidtools.com/Everything-1.4.1.1024.x64-Setup.exe
+url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe
+url_Avidemux=https://download.fosshub.com/Protected/expiretime=1709095481;badurl=aHR0cHM6Ly93d3cuZm9zc2h1Yi5jb20vQXZpZGVtdXguaHRtbA==/3a1c122eed9dd24b3896edbf67ed38f2ac8cfee3e0559e042d0de0f6922b5778/5b92987559eee027c3d78f03/6325d1cea6ea567e2da04399/Avidemux_2.8.1VC++64bits.exe
+url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
+url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
+url_NVCleanstall=https://de1-dl.techpowerup.com/files/8Ef4NG3qlResTvVftaYQeg/1709517080/Visual-C-Runtimes-All-in-One-Feb-2024.zip
+url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe
+url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1810_Standard.exe
+url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
+url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe
+url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe
+url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe
 ::igor pavlov fucking pussy limiting downloads motherfucker live in hell son of a whore
-set "url_7-Zip=https://www.dropbox.com/scl/fi/8o8e23yzonv1ftpcp8lwz/7z2301-x64.exe?rlkey=1vibl6fb9pr051hwyfiptv8km&dl=1"
-set "url_Throttlestop=https://de1-dl.techpowerup.com/files/e2UdmIrn6eJkp-8FUUXJxA/1709089790/ThrottleStop_9.6.zip"
-set "url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip"
-set "url_4KVideoDownloaderPlus=https://www.dropbox.com/scl/fi/zlv1wxvhu514a74t05n20/4K_Video_Downloader_Plus_v1.4.4.61.x64.exe?rlkey=o1q8yy2j7tjk0iv9goe3l6klk&dl=1"
-set "url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe"
-set "url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi"
-set "url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe?ref=mcnet"
-set "url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi?ref=mcnet"
-set "url_MS^Store=Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}"
-set "url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.4.exe"
+url_7-Zip=https://www.dropbox.com/scl/fi/8o8e23yzonv1ftpcp8lwz/7z2301-x64.exe?rlkey=1vibl6fb9pr051hwyfiptv8km&dl=1
+url_Throttlestop=https://de1-dl.techpowerup.com/files/e2UdmIrn6eJkp-8FUUXJxA/1709089790/ThrottleStop_9.6.zip
+url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip
+url_4KVideoDownloaderPlus=https://www.dropbox.com/scl/fi/zlv1wxvhu514a74t05n20/4K_Video_Downloader_Plus_v1.4.4.61.x64.exe?rlkey=o1q8yy2j7tjk0iv9goe3l6klk&dl=1
+url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe
+url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
+url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe?ref=mcnet
+url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi?ref=mcnet
+url_MS^Store=Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.4.exe
