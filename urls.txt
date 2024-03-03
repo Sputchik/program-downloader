@@ -1,6 +1,6 @@
 version=1.0
 
-url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
+url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 url_VCRedistributables^2005-2022=https://www.dropbox.com/scl/fi/z5tnllhpevnqgkzz6drz6/Visual-C-Runtimes-All-in-One-Feb-2024.zip?rlkey=c131ba2ildejiuabkms78znqw&dl=1
 url_DirectX^Runtimes^Offline=https://www.dropbox.com/scl/fi/8lpgsxglkizlx5elckg0n/DirectX-Redist-Jun-2010.zip?rlkey=p5gi95ejq68jlimikohey6mfq&dl=1
