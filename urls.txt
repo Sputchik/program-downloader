@@ -28,7 +28,7 @@ url_Librewolf=https://gitlab.com/api/v4/projects/44042130/packages/generic/libre
 url_QuteBrowser=https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0-amd64.exe
 url_Chrome=https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B7D823907-25CE-91ED-483E-A59290C7382D%7D%26lang%3Den%26browser%3D3%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe
 url_Chromium=https://download-chromium.appspot.com/dl/Win_x64?type=snapshots
-url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/122.0.6261.69-1.1/ungoogled-chromium_122.0.6261.69-1.1_installer_x64.exe
+url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/122.0.6261.94-1.1/ungoogled-chromium_122.0.6261.94-1.1_installer_x64.exe
 url_Vivaldi=https://downloads.vivaldi.com/stable/Vivaldi.6.5.3206.63.x64.exe
 url_WaterFox=https://cdn1.waterfox.net/waterfox/releases/latest/windows
 url_Microsoft^Edge=https://c2rsetup.officeapps.live.com/c2r/downloadEdge.aspx?platform=Default&source=EdgeStablePage&Channel=Stable&language=en&brand=M100
