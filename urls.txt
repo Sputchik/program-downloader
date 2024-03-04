@@ -51,7 +51,7 @@ url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/pr
 url_Avidemux=https://www.dropbox.com/scl/fi/t2tjzv9sxnhzsm9gmmjlo/Avidemux_2.8.1VC-64bits.exe?rlkey=s7k2ggdawno0n9f71ir2sf9yo&dl=1
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
-url_NVCleanstall=https://de1-dl.techpowerup.com/files/pVbgZ4nmYrt3MjQ7oj2R6Q/1709520363/NVCleanstall_1.16.0.exe
+url_NVCleanstall=https://www.dropbox.com/scl/fi/d6g0w32vlhf46ursrqmvz/NVCleanstall_1.16.0.exe?rlkey=ev1xw87zctr14s3hade1hgei8&dl=1
 url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe
 url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1810_Standard.exe
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
