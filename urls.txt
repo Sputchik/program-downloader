@@ -1,4 +1,4 @@
-version=1.01
+version=1.0
 
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
@@ -53,7 +53,7 @@ url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/Trading
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
 url_NVCleanstall=https://www.dropbox.com/scl/fi/d6g0w32vlhf46ursrqmvz/NVCleanstall_1.16.0.exe?rlkey=ev1xw87zctr14s3hade1hgei8&dl=1
 url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.0.2-Full-Installer-x64.exe
-url_K-Lite Codec=https://files2.codecguide.com/K-Lite_Codec_Pack_1815_Standard.exe
+url_K-Lite^Codec=https://files2.codecguide.com/K-Lite_Codec_Pack_1815_Standard.exe
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
 url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe
 url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe
