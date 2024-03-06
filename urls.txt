@@ -1,5 +1,6 @@
 version=1.0
 
+url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 url_VCRedistributables^2005-2022=https://www.dropbox.com/scl/fi/z5tnllhpevnqgkzz6drz6/Visual-C-Runtimes-All-in-One-Feb-2024.zip?rlkey=c131ba2ildejiuabkms78znqw&dl=1
