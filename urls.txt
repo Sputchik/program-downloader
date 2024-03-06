@@ -1,4 +1,4 @@
-version=1.01
+version=1.0
 
 url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
@@ -41,7 +41,7 @@ url_iTunes^=https://www.apple.com/itunes/download/win64
 url_iCloud=https://secure-appldnld.apple.com/windows/061-91601-20200323-974a39d0-41fc-4761-b571-318b7d9205ed/iCloudSetup.exe
 url_AltStore=https://cdn.altstore.io/file/altstore/altinstaller.zip
 url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe
-url_3uTools=https://dl.3u.com/update/v300/dl/3uTools_v3.08.025_Setup_x86.exe
+url_3uTools=https://url.3u.com/zmAJjyaa
 url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe
 url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
 url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip
