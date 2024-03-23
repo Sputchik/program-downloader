@@ -8,7 +8,7 @@ url_DirectX^Runtimes^Offline=https://www.dropbox.com/scl/fi/8lpgsxglkizlx5elckg0
 url_Wireless^Bluetooth=https://downloadmirror.intel.com/816424/BT-23.30.0-64UWD-Win10-Win11.exe
 url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip
 url_Blender=https://ftp.halifax.rwth-aachen.de/blender/release/Blender4.0/blender-4.0.2-windows-x64.msi
-url_Blender^3.3.X^LTS=https://www.blender.org/download/release/Blender3.3/blender-3.3.17-windows-x64.msi
+url_Blender^3.3.X^LTS=https://mirrors.sahilister.in/blender/release/Blender3.3/blender-3.3.17-windows-x64.msi
 url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe
 url_Python=https://www.python.org/ftp/python/3.12.2/python-3.12.2-amd64.exe
