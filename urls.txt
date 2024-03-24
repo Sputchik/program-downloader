@@ -84,7 +84,7 @@ url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Insta
 url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe
 url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe
 url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe
-url_7-Zip=https://www.dropbox.com/scl/fi/8o8e23yzonv1ftpcp8lwz/7z2301-x64.exe?rlkey=1vibl6fb9pr051hwyfiptv8km&dl=1
+url_7-Zip=https://www.dropbox.com/scl/fi/c21w876f78bdu3gzc9lwe/7z2403-x64.exe?rlkey=fgdvwvh7xg7zxhb7y5uj22mru&dl=1
 url_Throttlestop=https://www.dropbox.com/scl/fi/duhzn19ul2fud54hbsbv3/ThrottleStop_9.6.zip?rlkey=cf4g1n4bf1cx8z1yezaaso6rw&dl=1
 url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip
 url_4KVideoDownloaderPlus=https://www.dropbox.com/scl/fi/gsla8awfyjqc1zy4yx5id/4K_Video_Downloader_Plus_v1.5.1.76.x64.exe?rlkey=v5c1g5ltya64uynofwrn1wil3&dl=1
