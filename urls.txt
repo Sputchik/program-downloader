@@ -1,6 +1,8 @@
-version=1.1
+version=1.11
 
-url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe
+url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
+url_Blender^3.6.X^LTS-=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi
+url_Resource^Hacker=https://www.dropbox.com/scl/fi/uyn38fair4c7qu331hd6c/reshacker_setup.exe?rlkey=lnyabn8wqba1o9i25viklm9h5&dl=1
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 url_VCRedistributables^2005-2022=https://www.dropbox.com/scl/fi/z5tnllhpevnqgkzz6drz6/Visual-C-Runtimes-All-in-One-Feb-2024.zip?rlkey=c131ba2ildejiuabkms78znqw&dl=1
@@ -23,7 +25,7 @@ url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
 url_Slack=https://downloads.slack-edge.com/releases/windows/4.36.140/prod/x64/SlackSetup.exe
 url_VSCode=https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user
 url_Sublime^Text=https://download.sublimetext.com/sublime_text_build_4169_x64_setup.exe
-url_IntelliJ^IDEA=https://download.jetbrains.com/idea/ideaIU-2023.3.4.exe
+url_IntelliJ^IDEA=https://download-cdn.jetbrains.com/idea/ideaIU-2023.3.6.exe
 url_VS^2022^Installer=https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=enterprise&channel=Release&version=VS2022&source=VSLandingPage&cid=2030
 url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US
 url_Librewolf=https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-windows-x86_64-setup.exe
@@ -45,7 +47,6 @@ url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe
 url_3uTools=https://url.3u.com/zmAJjyaa
 url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe
 url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
-url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip
 url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/TranslucentTB-portable-x64.zip
 url_qBitTorrent=https://kumisystems.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.6.3/qbittorrent_4.6.3_x64_setup.exe
 url_uTorrentPro=https://www.dropbox.com/scl/fi/dbjisibimw93x09j5eese/uTorrentPro_v3.6.0.47028.exe?rlkey=jhtw5764fmyu6za6qm969tazz&dl=1
@@ -55,7 +56,7 @@ url_Avidemux=https://www.dropbox.com/scl/fi/t2tjzv9sxnhzsm9gmmjlo/Avidemux_2.8.1
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtoh2ox938tqz9x50e039/Revo_Uninstaller_Pro_v5.2.6.exe?rlkey=jez60d1mqogi319f9ydwcy7sj&dl=1
 url_NVCleanstall=https://www.dropbox.com/scl/fi/d6g0w32vlhf46ursrqmvz/NVCleanstall_1.16.0.exe?rlkey=ev1xw87zctr14s3hade1hgei8&dl=1
-url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.1-Full-Installer-x64.exe
+url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.1.1-Full-Installer-x64.exe
 url_K-Lite^Codec=https://files2.codecguide.com/K-Lite_Codec_Pack_1820_Full.exe
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
 url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe
