@@ -23,7 +23,8 @@ url_Premier^Pro^2024=https://drive.usercontent.google.com/download?id=1H01w14B7Y
 url_Acrobat^Pro^2024=https://drive.usercontent.google.com/download?id=17KLJmzC8YmURrTsVAzG-yrXsCQs65eop&export=download&authuser=0&confirm=t&uuid=9c608c38-24b0-4232-a8ca-3cd7c5bdb6f7&at=APZUnTVulymrZU4w1SeFXFUq_pjg%3A1711290233039
 url_Cinema4D^2024.3.2=https://drive.usercontent.google.com/download?id=1tBXzspEchgdjvN7QDwlfG_Y7TIDMGAtE&export=download&authuser=0&confirm=t&uuid=5a7fbc33-90e2-4d6e-9074-b8aaa62f12e9&at=APZUnTV8GUqO72xEEAj2zRz3kWJQ%3A1711290530858
 url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
-url_Blender^3.6.X^LTS-=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi
+url_VCLibs_14.00=https://download.microsoft.com/download/4/7/c/47c6134b-d61f-4024-83bd-b9c9ea951c25/Microsoft.VCLibs.x64.14.00.Desktop.appx
+url_Blender^3.6.X^LTS=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi
 url_Resource^Hacker=https://www.dropbox.com/scl/fi/uyn38fair4c7qu331hd6c/reshacker_setup.exe?rlkey=lnyabn8wqba1o9i25viklm9h5&dl=1
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
