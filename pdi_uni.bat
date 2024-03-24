@@ -88,8 +88,8 @@ set "Messengers=Telegram;Telegram^Portable;Discord;Slack;Viber"
 set "Coding=PyCharm;Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;Resource^Hacker;VSCode;Sublime^Text;IntelliJ^IDEA;VS^2022^Installer;Adobe^Creative^Cloud"
 set "Browsers=Firefox;Librewolf;QuteBrowser;Chrome;Chromium;Ungoogled^Chromium;Vivaldi;WaterFox;Microsoft^Edge;Brave;Opera;Opera^GX"
 set "iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver"
-set "Misc=TranslucentTB;qBitTorrent;uTorrentPro;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns"
-set "Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2"
+set "Misc=TranslucentTB;qBitTorrent;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns"
+set "Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;uTorrentPro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2"
 set "Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher"
 
 for %%C in (%Categories%) do (
