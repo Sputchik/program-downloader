@@ -4,12 +4,23 @@ set "Do=0"
 set "full_path=%0"
 set "origin=%~dp0"
 set "exitdumb=0"
+set "skipURL=0"
+dir "!origin!Programs\*.exe" /b /a-d >nul 2>&1
+set "err3=%ERRORLEVEL%"
+dir "!origin!Programs\*.msi" /b /a-d >nul 2>&1
+set "err2=%ERRORLEVEL%"
+dir "!origin!Programs\*.zip" /b /a-d >nul 2>&1
+set "err1=%ERRORLEVEL%"
 if ["%~1"]==["zip"] (
     set "exitdumb=2"
     call :start
+    set "exitdumb=0"
     call :zip
     set "donez=1"
-    goto :Yes
+    set "Do=1"
+    set "donem=0"
+    set "done=0"
+    goto :pain
 )
 if "%1" == "exit" (
     echo Exiting early...
@@ -20,20 +31,17 @@ if ["%~1"]==["exe"] (
     call :start
     set "donem=1"
     set "donez=1"
+    set "exitdumb=0"
     call :exe
     set "done=1"
-    goto :Yes
+    set "Do=1"
+    goto :pain
 )
 :start
 set "psCommand=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 
 set "full_path=%0"
 set "origin=%~dp0"
-if exist "!origin!Programs" (
-    echo.
-) else (
-    mkdir "!origin!Programs"
-)
 
 set "donez=0"
 set "donem=0"
@@ -58,29 +66,55 @@ set "Programs_SilentNoRestart=Opera;Opera^GX"
 set "Programs_Vivaldi=Vivaldi"
 set "Programs_VS2022=VS^2022^Installer"
 set "Programs_WaterFox=WaterFox"
-if !exitdumb!==0 (
-    goto :CAT
-) else if !exitdumb!==2 (
-    goto :eof
-) else (
-    exit /b
-    goto :End
-)
+
 :CAT
-cls
+set "Categories=GeneralDeps;Messengers;Coding;Browsers;iPhonething;Misc;Cracked;Games"
+if %skipURL%==0 (
+    call :validatingurls
+) else (
+    goto :LastCheck
+)
+if %versionMatch%==0 (
+    goto :LastCheck
+)
+set "msi=Blender;Blender^3.3.X^LTS;jdk^Latest;Minecraft^Legacy^Launcher;Epic^Games;Node.js"
+set "zip=Chromium;Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;AltStore;Futurestore;TranslucentTB;ThrottleStop;Autoruns;TradingView"
+set "iso=AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024"
+set "Extensions=msi;zip;iso"
 :: Initialize program lists for each category, using `^` as a placeholder for spaces
-set "Categories=GeneralDeps;Messengers;Coding;Browsers;iPhonething;Misc;Games"
 
-set "GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth;"
+set "GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth"
 set "Messengers=Telegram;Telegram^Portable;Discord;Slack;Viber"
-set "Coding=PyCharm;Blender;Blender^3.3.X^LTS;VSCode;Sublime^Text;IntelliJ^IDEA;VS^2022^Installer;Adobe^Creative^Cloud"
+set "Coding=PyCharm;Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;Resource^Hacker;VSCode;Sublime^Text;IntelliJ^IDEA;VS^2022^Installer;Adobe^Creative^Cloud"
 set "Browsers=Firefox;Librewolf;QuteBrowser;Chrome;Chromium;Ungoogled^Chromium;Vivaldi;WaterFox;Microsoft^Edge;Brave;Opera;Opera^GX"
-set "iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver;Futurestore"
-set "Misc=TranslucentTB;Resource^Hacker;qBitTorrent;uTorrentPro;Everything;Process^Hacker;AviDemux;TradingView;Revo^Uninstaller^Pro;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns;4KVideoDownloaderPlus"
-set "Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;MS^Store"
+set "iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver"
+set "Misc=TranslucentTB;qBitTorrent;uTorrentPro;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns"
+set "Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2"
+set "Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher"
 
+for %%C in (%Categories%) do (
+    set "programs=!%%C!"
+    for %%P in (!programs!) do (
+        set "prog=%%P"
+        ::set "prog=!prog:^= !"
+        set "selected_!prog!=0"
+    )
+)
+set "cat=1"
+cls
+
+set "url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512"
+set "url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652"
+set "url_Substance3D^Sampler^4.3.2=https://drive.usercontent.google.com/download?id=1gL_niWUD21-Jsn87Rvue8S0bb8uAeuBx&export=download&authuser=0&confirm=t&uuid=002accc5-9fd3-4692-8b37-0957f2abdfb9&at=APZUnTXrxPV4VHpTLjqjL9tbCLay%3A1711290056424"
+set "url_Photoshop^2024=https://drive.usercontent.google.com/download?id=1z_Uvh41Cokaczyd4mOUZ4MJJ3zdmUolA&export=download&authuser=0&confirm=t&uuid=e6a1c357-643c-43e5-ba0b-afcd4343cff3&at=APZUnTUPQo89xKfP6i3b5XeQvMvi%3A1711290117536"
+set "url_Illustrator^2024=https://drive.usercontent.google.com/download?id=18GjCaeww8x2XnhYKqG_kB-4tRdtbISnV&export=download&authuser=0&confirm=t&uuid=ed328df6-63ba-44f7-9861-74699cb456e6&at=APZUnTV9rsguEpQLqti89K6VgX6k%3A1711290149842"
+set "url_Premier^Pro^2024=https://drive.usercontent.google.com/download?id=1H01w14B7YRACXhJRXj_NFyp7sXyaXJmy&export=download&authuser=0&confirm=t&uuid=c8cf53d5-c34e-4b6a-a8a1-3b3bb681e620&at=APZUnTWuwR9XHtRLJ__kbfWrWM0S%3A1711290187752"
+set "url_Acrobat^Pro^2024=https://drive.usercontent.google.com/download?id=17KLJmzC8YmURrTsVAzG-yrXsCQs65eop&export=download&authuser=0&confirm=t&uuid=9c608c38-24b0-4232-a8ca-3cd7c5bdb6f7&at=APZUnTVulymrZU4w1SeFXFUq_pjg%3A1711290233039"
+set "url_Cinema4D^2024.3.2=https://drive.usercontent.google.com/download?id=1tBXzspEchgdjvN7QDwlfG_Y7TIDMGAtE&export=download&authuser=0&confirm=t&uuid=5a7fbc33-90e2-4d6e-9074-b8aaa62f12e9&at=APZUnTV8GUqO72xEEAj2zRz3kWJQ%3A1711290530858"
+set "url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU"
+set "url_Blender^3.6.X^LTS-=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi"
 set "url_iTunes^=https://www.apple.com/itunes/download/win64"
-set "url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe"
+set "url_Resource^Hacker=https://www.dropbox.com/scl/fi/uyn38fair4c7qu331hd6c/reshacker_setup.exe?rlkey=lnyabn8wqba1o9i25viklm9h5&dl=1"
 set "url_Telegram^Portable=https://telegram.org/dl/desktop/win64_portable"
 set "url_.NET^Framework^3.5=https://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe" 
 set "url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe" 
@@ -104,7 +138,7 @@ set "url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe"
 set "url_Slack=https://downloads.slack-edge.com/desktop-releases/windows/x64/4.37.98/SlackSetup.exe"
 set "url_VSCode=https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user"
 set "url_Sublime^Text=https://download.sublimetext.com/sublime_text_build_4169_x64_setup.exe"
-set "url_IntelliJ^IDEA=https://download.jetbrains.com/idea/ideaIU-2023.3.4.exe"
+set "url_IntelliJ^IDEA=https://download-cdn.jetbrains.com/idea/ideaIU-2023.3.6.exe"
 set "url_VS^2022^Installer=https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=enterprise&channel=Release&version=VS2022&source=VSLandingPage&cid=2030"
 set "url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US"
 set "url_Librewolf=https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/123.0-1/librewolf-123.0-1-windows-x86_64-setup.exe"
@@ -125,7 +159,6 @@ set "url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe"
 set "url_3uTools=https://url.3u.com/zmAJjyaa"
 set "url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe"
 set "url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe"
-set "url_Futurestore=https://github.com/futurerestore/futurerestore/releases/download/194/futurerestore-v194-windows.zip"
 set "url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/TranslucentTB-portable-x64.zip"
 set "url_qBitTorrent=https://kumisystems.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.6.3/qbittorrent_4.6.3_x64_setup.exe"
 set "url_uTorrentPro=https://www.dropbox.com/scl/fi/dbjisibimw93x09j5eese/uTorrentPro_v3.6.0.47028.exe?rlkey=jhtw5764fmyu6za6qm969tazz&dl=1"
@@ -141,7 +174,7 @@ set "url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-
 set "url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.4/rufus-4.4.exe"
 set "url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe"
 set "url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe"
-set "url_7-Zip=https://www.dropbox.com/scl/fi/8o8e23yzonv1ftpcp8lwz/7z2301-x64.exe?rlkey=1vibl6fb9pr051hwyfiptv8km&dl=1"
+set "url_7-Zip=https://www.dropbox.com/scl/fi/c21w876f78bdu3gzc9lwe/7z2403-x64.exe?rlkey=fgdvwvh7xg7zxhb7y5uj22mru&dl=1"
 set "url_Throttlestop=https://www.dropbox.com/scl/fi/duhzn19ul2fud54hbsbv3/ThrottleStop_9.6.zip?rlkey=cf4g1n4bf1cx8z1yezaaso6rw&dl=1"
 set "url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip"
 set "url_4KVideoDownloaderPlus=https://www.dropbox.com/scl/fi/gsla8awfyjqc1zy4yx5id/4K_Video_Downloader_Plus_v1.5.1.76.x64.exe?rlkey=v5c1g5ltya64uynofwrn1wil3&dl=1"
@@ -149,20 +182,17 @@ set "url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetu
 set "url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi"
 set "url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe?ref=mcnet"
 set "url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi?ref=mcnet"
-set "url_MS^Store=Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}"
 set "url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe"
 set "url_winRaR=https://www.dropbox.com/scl/fi/twsf2txkpeafgtbn2hhvj/WinRAR_v7.0.exe?rlkey=tgk6qzqkd1kin7pvhh7r1zj0b&dl=1"
-for %%C in (%Categories%) do (
-    set "programs=!%%C!"
-    for %%P in (!programs!) do (
-        set "prog=%%P"
-        ::set "prog=!prog:^= !"
-        set "selected_!prog!=0"
-    )
+:LastCheck
+if !exitdumb!==0 (
+    goto :MAIN_MENU
+) else if !exitdumb!==2 (
+    goto :eof
 )
-set "cat=1"
-goto :MAIN_MENU
+goto :eof
 :MAIN_MENU
+
 ::cls
 echo Select category:
 echo [1] General Dependencies
@@ -171,20 +201,22 @@ echo [3] Coding
 echo [4] Browsers
 echo [5] iPhone Conn.
 echo [6] Misc
-echo [7] Games
-echo [8] Download Selected
+echo [7] Cracked
+echo [8] Games
+echo [9] Download Selected
 echo.
 echo Suggest program - @kufla in Telegram
-choice /C 12345678 /N /M "Enter your choice: "
+choice /C 123456789 /N /M "Enter your choice: "
 set choice=%ERRORLEVEL%
-if %choice%==1 call :MANAGE_CATEGORY GeneralDeps "%GeneralDeps%"
+if %choice%==1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps%"
 if %choice%==2 call :MANAGE_CATEGORY Messengers "%Messengers%"
 if %choice%==3 call :MANAGE_CATEGORY Coding "%Coding%"
 if %choice%==4 call :MANAGE_CATEGORY Browsers "%Browsers%"
-if %choice%==5 call :MANAGE_CATEGORY iPhonething "%iPhonething%"
+if %choice%==5 call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
 if %choice%==6 call :MANAGE_CATEGORY Misc "%Misc%"
-if %choice%==7 call :MANAGE_CATEGORY Games "%Games%"
-if %choice%==8 call :Internet
+if %choice%==7 call :MANAGE_CATEGORY Cracked "%Cracked%"
+if %choice%==8 call :MANAGE_CATEGORY Games "%Games%"
+if %choice%==9 call :Internet
 goto :eof
 :MANAGE_CATEGORY
 set "category=%~1"
@@ -202,11 +234,11 @@ for %%a in (%programs:;= %) do (
     set "isSelected=!selected_%%a!"
     set "skipEcho=0"
     set "text=(Activated)"
-    if "!program:~0,4!"=="Revo" (
+    if "!program:~0,3!"=="Rev" (
         call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
         set "skipEcho=1"
     )
-    if "!program:~0,2!"=="4K" (
+    if "!program:~0,1!"=="4" (
         call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
         set "skipEcho=1"
     )
@@ -216,19 +248,9 @@ for %%a in (%programs:;= %) do (
     )
     if "!program:~0,7!"=="iTunes " (
         set "skipEcho=1"
-        set "programimp=!prog:^=!"
+        set "program=!prog:^=!"
         set "text=(Install Apple Mobile Device Support only if you don't want iTunes and other shit)"
-        call :SCOPED_ECHO "!programimp!" "!isSelected!" "!text!"
-    )
-    if "!program:~0,4!"=="WinR" (
-        set "text=(Activated) (Not Recommended, pure peace of shit, select if you're a soy cuck)"
         call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
-        set "skipEcho=1"
-    )
-    if "!program:~0,4!"=="7-Zi" (
-        set "text=(For true men only)"
-        call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
-        set "skipEcho=1"
     )
     if "!skipEcho!"=="0" (
         if "!isSelected!"=="1" (
@@ -285,9 +307,7 @@ goto DISPLAY_LIST
 set "progName=%~1"
 set "isSelected=%~2"
 set "text=%~3"
-:: set "activated=(Activated)"
-REM set "text=%~3"
-::echo !isSelected!
+
 if "!isSelected!"=="1" (
     echo [!index!] [*] !progName! !text!
 ) else if "!isSelected!"=="0" (
@@ -318,15 +338,15 @@ for /f "usebackq delims=" %%a in ("%downloadPath%urls.txt") do (
 for /f "tokens=2 delims==" %%v in ("!firstLine!") do set "fileVersion=%%v"
 
 :: Check if the version matches
-set "scriptVersion=1.1"
+set "scriptVersion=1.11"
 if "!fileVersion!"=="!scriptVersion!" (
     set "versionMatch=1"
-    echo Download URLs list version matches, no update needed... ^(!fileVersion!^)
-    echo.
+    REM echo Download URLs list version matches, no update needed... ^(!fileVersion!^)
+    REM echo.
     goto :eof
 ) else (
-    echo Setting new urls from updated list... ^(New ver: !fileVersion!^)
-    echo.
+    REM echo Setting new urls from updated list... ^(New ver: !fileVersion!^)
+    REM echo.
     :: Define all variables from 'urls.txt' starting from the second line
     for /f "usebackq skip=1 tokens=1* delims==" %%a in ("%downloadPath%urls.txt") do (
         :: No need to replace ^, just directly assign the value
@@ -379,11 +399,12 @@ if %errorlevel%==1 (
 )
 goto :eof
 :download
-set "msi=Blender;Blender^3.3.X^LTS;jdk^Latest;Minecraft^Legacy^Launcher;Epic^Games;Node.js"
-set "zip=Chromium;Telegram^Portable;VCRedistributables^2005-2022;Gradle;AltStore;Futurestore;TranslucentTB;ThrottleStop;Autoruns;TradingView"
-set "Extensions=msi;zip"
-if not exist "%origin%Programs" mkdir "%origin%Programs"
-call :validatingurls
+if exist "!origin!Programs" (
+    set "Do=1"
+) else (
+    mkdir "!origin!Programs"
+)
+
 if !exitdumb!==0 (
     for %%C in (%Categories%) do (
         set "programs=!%%C!"
@@ -404,7 +425,6 @@ if !exitdumb!==0 (
                     
                     :: Default to .exe if no specific extension is found
                     if "!fileExt!"=="" set "fileExt=exe"
-                    ::echo.
                     echo Downloading !prog! from !downloadUrl!
                     echo.
                     :: Update the output file extension based on the determined file extension
@@ -417,25 +437,14 @@ if !exitdumb!==0 (
         )
     )
 ) else (
-    pause
     exit
 )
 if !exitdumb!==0 (
     goto :afterdownload
 ) else (
-    pause
     exit
 )
-::echo !origin!
-::echo.
-goto :eof
 
-:dumb
-if !exitdumb!==1 (
-    goto :End
-) else (
-    goto :eof
-)
 goto :eof
 
 :afterdownload
@@ -457,12 +466,16 @@ dir "!origin!Programs\*.msi" /b /a-d >nul 2>&1
 set "err2=%ERRORLEVEL%"
 dir "!origin!Programs\*.zip" /b /a-d >nul 2>&1
 set "err1=%ERRORLEVEL%"
-
 if "%err1%"=="0" (
     goto :pain
-) else if "%err2%"=="0" (
+)
+if "%err2%"=="0" (
+    set "donez=1"
     goto :pain
-) else if "%err3%"=="0" (
+)
+if "%err3%"=="0" (
+    set "donez=1"
+    set "donem=1"
     goto :pain
 ) else (
     echo You have no programs dumb ass
@@ -477,14 +490,13 @@ goto :eof
 if %done% == 1 (
     cd "%origin%"
     cls
-    call :dumb
     if "%Do%"=="0" (
         echo [1] Go back + clean Program installers folder
         echo [2] Go back
         echo [3] Exit
         choice /C 123 /N /M "Choose an option:"
         if errorlevel 1 (
-            rd /s /q "%CD%\Programs"
+            rd /s /q "%origin%Programs"
             goto :start
         ) else if errorlevel 2 (
             goto :start
@@ -504,26 +516,26 @@ if %done% == 1 (
     if errorlevel 4 (
         exit /b
     ) else if errorlevel 3 (
-        :: cls
-        set ""
+        set "skipURL=1"
         goto :start
     ) else if errorlevel 2 (
+        set "skipURL=1"
         :: Execute the PowerShell command and capture the output
         for /f "usebackq delims=" %%I in (`!psCommand!`) do set "folder=%%I"
         if "!folder!" NEQ "!origin!Programs" (
             robocopy "!origin!Programs" "!folder!\Programs" /E /cOPY:DATSO /MOVE
 	    if %ERRORLEVEL% EQU 16 (
     		echo A serious error occurred. Possible "Access Denied."
-	        timeout /t 6 >nul
+	        timeout /t 2 >nul
 	    ) else if %ERRORLEVEL% EQU 8 (
     		echo Some files or directories could not be copied.
-	        timeout /t 6 >nul
+	        timeout /t 2 >nul
 	    ) else if %ERRORLEVEL% EQU 0 (
     		echo No errors occurred
-	        timeout /t 4 >nul
+	        timeout /t 2 >nul
 	    ) else (
     		echo Operation completed with some other status.
-	        timeout /t 8 >nul
+	        timeout /t 2 >nul
 	    )
 	    goto :start
         ) else (
@@ -535,14 +547,14 @@ if %done% == 1 (
             exit /b
         )
     ) else if errorlevel 1 (
-        rd /s /q "%CD%\Programs"
+        rd /s /q "!origin!Programs"
+        set "skipURL=1"
+        cls
         goto :start
-
 )
 
 
 ) else if %donem%==1 (
-    call :dumb
     if !err3!==0 (
         cls
         echo Found exe programs
@@ -557,27 +569,26 @@ if %done% == 1 (
         if errorlevel 3 (
             :: cls
             set "done=1"
-            goto :Yes
+            goto :pain
         ) else if errorlevel 2 (
             set "d=1"
             call :exe
             if exist "C:\Users\%username%\Desktop" (
                 del "C:\Users\%username%\Desktop\*.lnk"
             )
-            goto :Yes
+            goto :pain
         ) else if errorlevel 1 (
             set "d=0"
             call :exe
             
-            goto :Yes
+            goto :pain
         )
     ) else (
         set "done=1"
-        goto :Yes
+        goto :pain
     )
 
 ) else if %donez%==1 (
-    call :dumb
     if !err2!==0 (
         cls
         echo Found MSI programs
@@ -592,7 +603,7 @@ if %done% == 1 (
             set "d=0"
             call :msi
             
-            goto :Yes
+            goto :pain
         ) else if errorlevel 2 (
             set "d=1"
             call :msi
@@ -600,18 +611,17 @@ if %done% == 1 (
                 del "C:\Users\%username%\Desktop\*.lnk"
             )
             
-            goto :Yes
+            goto :pain
         ) else if errorlevel 3 (
             set "donem=1"
-            goto :Yes
+            goto :pain
         )
     ) else (
         set "donem=1"
-        goto :Yes
+        goto :pain
     )
     
 ) else if %donez%==0 (
-    call :dumb
     if !err1!==0 (
         cls
         echo Found ZIP programs
@@ -625,7 +635,7 @@ if %done% == 1 (
         if errorlevel 3 (
             set "donez=1"
             :: cls
-            goto :Yes
+            goto :pain
         ) else if errorlevel 2 (
             set "d=1"
             call :zip
@@ -633,54 +643,18 @@ if %done% == 1 (
                 del "C:\Users\%username%\Desktop\*.lnk"
             )
             
-            goto :Yes
+            goto :pain
         ) else if errorlevel 1 (
             set "d=0"
             call :zip
             
-            goto :Yes
+            goto :pain
         )
     ) else (
         set "donez=1"
-        goto :Yes
+        goto :pain
     )
 )
-goto :eof
-:Standalone
-:: Set your paths here
-set "path=%~1"
-set "from=%~2"
-
-:: 1. Check if %path% has any .exe files
-dir "%path%\*.exe" /b /s >nul 2>&1
-if errorlevel 1 (
-    echo No exe file found, proceeding...
-) else (
-    echo Executable(s) found, attempting to terminate...
-    :: 2. Taskkill the program(s) if running
-    for /f "delims=" %%a in ('dir "%path%\*.exe" /b /s') do (
-        for /f "tokens=1" %%i in ('tasklist /nh /fi "imagename eq %%~nxa"') do (
-            if "%%i" neq "INFO:" taskkill /f /im "%%~nxa"
-        )
-    )
-)
-
-:: Wait a bit for processes to terminate
-timeout /t 2 >nul
-
-:: 3. Forcefully delete all files and folders except .ini files
-for /d %%D in ("%path%\*") do (
-    rd /s /q "%%D"
-)
-for %%F in ("%path%\*") do (
-    if /i not "%%~xF"==".ini" (
-        del /f /q "%%F"
-    )
-)
-
-:: 4. Move %from% path to %path%
-xcopy "%from%\*" "%path%\" /s /i /q /y
-rd /s /q "%from%"
 goto :eof
 :createShortcut
 set "exePath=%~1"
@@ -701,64 +675,84 @@ net session >nul 2>&1
 
 if %errorlevel% == 0 (
     cd "!origin!Programs"
-    echo Installing...
-    echo.
 ) else (
     echo Requesting administrative privileges...
     echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
     echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" zip", "", "runas", 1 >> "%temp%\getadmin.vbs"
     "%temp%\getadmin.vbs"
     del "%temp%\getadmin.vbs"
-    set "exitdumb=1"
+    exit
 )
 
-set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop;Autoruns;Futurestore"
+set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 if exist "VCRedistributables 2005-2022.zip" (
-    mkdir "VCRedistributables 2005-2022"
+    echo Installing VCRedistributables
+    mkdir "VCRedistributables 2005-2022" 2>nul
     tar -xf "VCRedistributables 2005-2022.zip" -C "VCRedistributables 2005-2022"
     "%CD%\VCRedistributables 2005-2022\install_all.bat"
+    del "VCRedistributables 2005-2022.zip"
 )
 if exist "AltStore.zip" (
-    mkdir AltStore
+    echo Installing AltStore
+    mkdir AltStore 2>nul
     tar -xf "AltStore.zip" -C "AltStore"
     "%CD%\AltStore\setup.exe" /quiet
 )
 if exist "Autoruns.zip" (
+    echo Installing Autoruns
     if exist "Autoruns" rd /s /q "Autoruns"
-    mkdir Autoruns
+    mkdir Autoruns 2>nul
     tar -xf "!origin!Programs\Autoruns.zip" -C "Autoruns"
-    echo after dearch
-    if exist "C:\Program Files\Autoruns" (
-        call :Standalone "C:\Program Files" "!origin!Programs\Autoruns\Autoruns64.exe"
-    ) else (
-        mkdir "C:\Program Files\Autoruns"
-        xcopy "%CD%\Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
-        rd /s /q "Autoruns"
-    )
+    mkdir "C:\Program Files\Autoruns" 2>nul
+    xcopy "%CD%\Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
+    rd /s /q "Autoruns"
     call :createShortcut "C:\Program Files\Autoruns\Autoruns64.exe" "Autoruns"
 )
 if exist "Telegram Portable.zip" (
+    echo Installing Telegram Portable
     if exist "Telegram Portable" rd /s /q "Telegram Portable"
-    mkdir "Telegram Portable"
+    mkdir "Telegram Portable" 2>nul
     tar -xf "Telegram Portable.zip" -C "Telegram Portable"
-    mkdir "C:\Program Files\Telegram"
+    mkdir "C:\Program Files\Telegram" 2>nul
     xcopy "%CD%\Telegram Portable\Telegram\*" "C:\Program Files\Telegram" /s /i /q /y
     rd /s /q "Telegram Portable"
     call :createShortcut "C:\Program Files\Telegram\Telegram.exe" "Telegram"
 )
+if exist "DirectX Runtimes Offline.zip" (
+    echo Installing DX Runtimes
+    if exist "DXO" rd /s /q "DXO"
+    mkdir "DXO" 2>nul
+    tar -xf "DirectX Runtimes Offline.zip" -C "DXO"
+    cd DXO
+    start /wait dxsetup /silent
+    cd %origin%Programs
+    del "DirectX Runtimes Offline.zip"
+)
+if exist "Cinema4D 2024.3.2.zip" (
+    echo Installing Cinema4D
+    if exist "Cinema4D" rd /s /q "Cinema4D"
+    mkdir "Cinema4D" 2>nul
+    tar -xf "Cinema4D 2024.3.2.zip" -C "Cinema4D"
+    cd Cinema4D
+    echo Proceed with installation Instructions for Cinema4D and activation
+    start /wait "Cinema4D_2024_2024.3.2_Win.exe"
+
+)
+cd "%origin%Programs"
 for %%A in (%zipf:;= %) do (
     :: Replace '^' with a space for each program name
     set "progName=%%A"
     set "progName=!progName:^= !"
     :: Check if the .zip file exists for the program
     if exist "!progName!.zip" (
-        echo Found: "!progName!.zip"
-        mkdir !progName!
+        echo Installing !progName!
+        mkdir "!progName!" 2>nul
         tar -xf "!progName!.zip" -C "!progName!"
         if "!progName!"=="Gradle" (
+            echo Installing Gradle
             for /d %%F in ("%origin%Programs\Gradle\*") do (
                 :: Move the directory
-                mkdir C:\Gradle
+                mkdir C:\Gradle 2>nul
                 if exist "C:\Gradle\%%F" (
                     echo Gradle Target directory "!targetPath!" already exists. Skipping...
                 ) else (
@@ -766,13 +760,15 @@ for %%A in (%zipf:;= %) do (
                 )
                 
             )
-        ) 
-        xcopy !progName! "C:\Program Files" /s /i /q /y
+        )
+        mkdir "C:\Program Files\!progName!\" 2>nul
+        xcopy /s /e /y /i /q "!progName!" "C:\Program Files\!progName!"
+        if "!progName!" NEQ "Gradle" (
+            call :CreateShortcut "C:\Program Files\!progName!\!progName!.exe" "!progName!"
+        )
     )
 )
 set "donez=1"
-pause
-cls
 goto :eof
 
 :msi
@@ -782,7 +778,6 @@ for %%B in (!msi!) do (
     set "progName=!progName:^= !"
     if exist "!progName!.msi" (
         echo Installing !progName!
-        echo.
         "!progName!.msi" /quiet
     )
 )
@@ -795,87 +790,81 @@ cd "!origin!Programs"
 net session >nul 2>&1
 set "errorlvl=%errorlevel%"
 if %errorlvl% == 0 (
-    cd !origin!Programs
+    cd "!origin!Programs"
 ) else (
     echo Requesting administrative privileges...
     echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin2.vbs"
     echo UAC.ShellExecute "cmd.exe", "/c ""%~s0"" exe", "", "runas", 1 >> "%temp%\getadmin2.vbs"
     "%temp%\getadmin2.vbs"
     del "%temp%\getadmin2.vbs"
-    set "exitdumb=1"
-    goto :End
+    exit
 )
+
+if exist "3uTools.exe" (
+    echo Custom Install 3uTools ^(dumb shit has no slent install^)
+    ren "3uTools.exe" "3uTools_Setup.exe"
+    start /wait 3uTools_Setup
+)
+
 if exist "avidemux.exe" (
-    AviDemux.exe
+    echo Installing AviDemux
+    start /wait "AviDemux.exe"
 )
+
 if exist "!cont!.exe" (
-    if exist "C:\Program Files\!cont!" (
-        set "path=C:\Program Files\!cont!"
-        set "from=!cont!.exe"
-        call :Standalone "!path!" "!from!"
-    ) else (
-        mkdir "C:\Program Files\!cont!"
-        xcopy "!cont!.exe" "C:\Program Files\!cont!" /s /i /q /y
-    )
+    echo Installing ContextMenuManager
+    mkdir "C:\Program Files\!cont!" 2>nul
+    xcopy "!cont!.exe" "C:\Program Files\!cont!" /s /i /q /y
     call :createShortcut "C:\Program Files\!cont!\!cont!.exe" "!cont!"
     
 )
+
 if exist "!nv!.exe" (
-    if exist "C:\Program Files\!nv!" (
-        set "path=C:\Program Files\!nv!"
-        set "from=!nv!.exe"
-        call :Standalone "!path!" "!from!"
-    ) else (
-        mkdir "C:\Program Files\!nv!"
-        xcopy "!nv!.exe" "C:\Program Files\!nv!" /s /i /q /y
-    )
+    echo Installing NVCleanstall
+    mkdir "C:\Program Files\!nv!" 2>nul
+    xcopy "!nv!.exe" "C:\Program Files\!nv!" /s /i /q /y
     call :createShortcut "C:\Program Files\!nv!\!nv!.exe" "!nv!"
 )
+
 if exist "Rufus.exe" (
-    if exist "C:\Program Files\Rufus" (
-        set "path=C:\Program Files\Rufus"
-        set "from=Rufus.exe"
-        call :Standalone "!path!" "!from!"
-    ) else (
-        mkdir "C:\Program Files\Rufus"
-        xcopy "Rufus.exe" "C:\Program Files\Rufus" /s /i /q /y
-    )
+    echo Installing Rufus
+    mkdir "C:\Program Files\Rufus" 2>nul
+    xcopy "Rufus.exe" "C:\Program Files\Rufus" /s /i /q /y
     call :createShortcut "C:\Program Files\Rufus\Rufus.exe" "Rufus"
 )
+
 if exist "iTunes .exe" (
+    echo Installing iTunes ^(AppleMobileDeviceSupport64^)
     if exist "iTunes" (
         rd /s /q "iTunes"
     )
-    mkdir "iTunes"
+    mkdir "iTunes" 2>nul
     tar -xf "iTunes .exe" -C "iTunes"
     cd iTunes
     start /wait AppleMobileDeviceSupport64.msi /quiet
+    del AppleSoftwareUpdate.msi
+    del Bonjour64.msi
+    del iTunes64.msi
+    del SetupAdmin.exe
     cd "!origin!Programs"
+    del "iTunes .exe"
+)
+
+if exist "Google Earth Pro.exe" (
+    call :RunInstaller "Google Earth Pro" "OMAHA=1"
 )
 :: Iterate through categories and programs
-
 for %%G in (S quiet VerySilent Q SilentNoRestart Vivaldi VS2022 WaterFox) do (
-    ::echo %%G
     for %%I in (!Programs_%%G!) do (
         set "ProgramName=%%I"
         set "ProgramName=!ProgramName:^= !"
         if exist "%CD%\!ProgramName!.exe" (
-            echo Installing !ProgramName! !Flags_%%G!
+            echo Installing !ProgramName!
             echo.
             call :RunInstaller "!ProgramName!" "!Flags_%%G!"
         )
     )
 )
-pause
-set "FOLDER=!origin!Programs\iTunes"
-set "EXCLUDE_FILE=AppleMobileDeviceSupport64.msi"
-
-for %%i in ("%FOLDER%\*") do (
-    if /i not "%%~nxi"=="%EXCLUDE_FILE%" (
-        del "%%i"
-    )
-)
-::cls
 set "done=1"
 goto :eof
 
@@ -884,10 +873,9 @@ set "InstallerName1=%~1"
 set "Flags=%~2"
 set "InstallerName=!InstallerName1:^= !"
 :: Simulate installer command (replace with actual command to run the installer)
-if exist "!InstallerName!.exe" start /wait "" "!InstallerName!.exe" !Flags!
+start /wait "" "!InstallerName!.exe" !Flags!
 goto :eof
 
 :End
-exit /b
 exit
 endlocal
