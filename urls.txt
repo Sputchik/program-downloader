@@ -1,5 +1,15 @@
 version=1.11
 
+GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth
+Messengers=Telegram;Telegram^Portable;Discord;Slack;Viber
+Coding=PyCharm;Blender;Blender^3.3.X^LTS;Blender^3.3.X^LTS;Resource^Hacker;VSCode;Sublime^Text;IntelliJ^IDEA;VS^2022^Installer;Adobe^Creative^Cloud
+Browsers=Firefox;Librewolf;QuteBrowser;Chrome;Chromium;Ungoogled^Chromium;Vivaldi;WaterFox;Microsoft^Edge;Brave;Opera;Opera^GX
+iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver
+Misc=TranslucentTB;qBitTorrent;uTorrentPro;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;Revo^Uninstaller^Pro;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns;4KVideoDownloaderPlus
+Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
+Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
+Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
+Programs_S=IntelliJ^IDEA;PyCharm;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;Slack
 url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
 url_Blender^3.6.X^LTS-=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi
 url_Resource^Hacker=https://www.dropbox.com/scl/fi/uyn38fair4c7qu331hd6c/reshacker_setup.exe?rlkey=lnyabn8wqba1o9i25viklm9h5&dl=1
