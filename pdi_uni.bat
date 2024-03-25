@@ -870,7 +870,7 @@ if exist "Google Earth Pro.exe" (
     call :RunInstaller "Google Earth Pro" "OMAHA=1"
 )
 if exist "WinRaR.exe" (
-    call :RunInstaller "WinRaR.exe" "/V"
+    call :RunInstaller "WinRaR" "/V"
 )
 :: Iterate through categories and programs
 for %%G in (S quiet VerySilent Q SilentNoRestart Vivaldi VS2022 WaterFox) do (
