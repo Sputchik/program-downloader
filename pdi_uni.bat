@@ -91,7 +91,7 @@ set "Misc=TranslucentTB;qBitTorrent;Everything;Google^Earth^Pro;Process^Hacker;A
 set "Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;uTorrentPro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2"
 set "Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher"
 
-cls
+::cls
 set "url_nomacs=https://github.com/nomacs/nomacs/releases/download/3.17.2295/nomacs-setup-x64.msi"
 set "url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512"
 set "url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652"
@@ -175,6 +175,9 @@ set "url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/Minecraf
 set "url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe"
 set "url_winRaR=https://www.dropbox.com/scl/fi/twsf2txkpeafgtbn2hhvj/WinRAR_v7.0.exe?rlkey=tgk6qzqkd1kin7pvhh7r1zj0b&dl=1"
 :LastCheck
+set "selected_Revo^Uninstaller^Pro=0"
+set "selected_4KVideoDownloaderPlus=0"
+set "selected_iTunes^=0"
 set "Extensions=msi;zip;iso"
 if !exitdumb!==0 (
     goto :MAIN_MENU
@@ -230,10 +233,6 @@ for %%a in (%programs:;= %) do (
         set "skipEcho=1"
     )
     if "!program:~0,1!"=="4" (
-        call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
-        set "skipEcho=1"
-    )
-    if "!program:~0,3!"=="VS " (
         call :SCOPED_ECHO "!program!" "!isSelected!" "!text!"
         set "skipEcho=1"
     )
