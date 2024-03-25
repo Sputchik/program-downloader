@@ -1,4 +1,4 @@
-version=1.12
+version=1.13
 
 msi=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;jdk^Latest;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
 zip=Chromium;Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;AltStore;Futurestore;TranslucentTB;ThrottleStop;Autoruns;TradingView
@@ -8,12 +8,12 @@ Messengers=Telegram;Telegram^Portable;Discord;Slack;Viber
 Coding=PyCharm;Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;Resource^Hacker;VSCode;Sublime^Text;IntelliJ^IDEA;VS^2022^Installer;Adobe^Creative^Cloud
 Browsers=Firefox;Librewolf;QuteBrowser;Chrome;Chromium;Ungoogled^Chromium;Vivaldi;WaterFox;Microsoft^Edge;Brave;Opera;Opera^GX
 iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver
-Misc=TranslucentTB;qBitTorrent;nomacs;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns
+Misc=TranslucentTB;qBitTorrent;nomacs;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;X-Mouse^Button;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns
 Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2
 Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
-Programs_S=IntelliJ^IDEA;PyCharm;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;Slack
+Programs_S=IntelliJ^IDEA;X-Mouse^Button;PyCharm;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;Slack
 url_nomacs=https://github.com/nomacs/nomacs/releases/download/3.17.2295/nomacs-setup-x64.msi
 url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512
 url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652
@@ -23,6 +23,7 @@ url_Illustrator^2024=https://drive.usercontent.google.com/download?id=18GjCaeww8
 url_Premier^Pro^2024=https://drive.usercontent.google.com/download?id=1H01w14B7YRACXhJRXj_NFyp7sXyaXJmy&export=download&authuser=0&confirm=t&uuid=c8cf53d5-c34e-4b6a-a8a1-3b3bb681e620&at=APZUnTWuwR9XHtRLJ__kbfWrWM0S%3A1711290187752
 url_Acrobat^Pro^2024=https://drive.usercontent.google.com/download?id=17KLJmzC8YmURrTsVAzG-yrXsCQs65eop&export=download&authuser=0&confirm=t&uuid=9c608c38-24b0-4232-a8ca-3cd7c5bdb6f7&at=APZUnTVulymrZU4w1SeFXFUq_pjg%3A1711290233039
 url_Cinema4D^2024.3.2=https://drive.usercontent.google.com/download?id=1tBXzspEchgdjvN7QDwlfG_Y7TIDMGAtE&export=download&authuser=0&confirm=t&uuid=5a7fbc33-90e2-4d6e-9074-b8aaa62f12e9&at=APZUnTV8GUqO72xEEAj2zRz3kWJQ%3A1711290530858
+url_X-Mouse^Button=https://dvps.highrez.co.uk/downloads/XMouseButtonControlSetup.2.20.5.exe
 url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
 url_VCLibs_14.00=https://download.microsoft.com/download/4/7/c/47c6134b-d61f-4024-83bd-b9c9ea951c25/Microsoft.VCLibs.x64.14.00.Desktop.appx
 url_Blender^3.6.X^LTS=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi
