@@ -427,17 +427,11 @@ if !exitdumb!==0 (
             )
         )
     )
+goto :afterdownload
 ) else (
     exit
 )
-if !exitdumb!==0 (
-    goto :afterdownload
-) else (
-    exit
-)
-
 goto :eof
-
 :afterdownload
 choice /C yn /N /M "Programs downloaded (!origin!Programs), Try installing them silently? (y/n) "
 set "downch=%ERRORLEVEL%"
@@ -482,32 +476,36 @@ if %done% == 1 (
     cd "%origin%"
     cls
     if "%Do%"=="0" (
-        echo [1] Go back + clean Program installers folder
-        echo [2] Go back
+        echo [1] Go Back + Clean Program installers folder
+        echo [2] Go Back
         echo [3] Exit
         choice /C 123 /N /M "Choose an option:"
         if errorlevel 1 (
             rd /s /q "%origin%Programs"
             goto :start
         ) else if errorlevel 2 (
+            cls
             goto :start
         ) else (
-            goto :End
+            rd /s /q "!origin!Programs"
+            exit
         )
     )
     echo All Programs installed!
     echo.
-    echo [1] Go back + clean Program installers folder
-    echo [2] Go back + move programs to your desired folder
-    echo [3] Go back
-    echo [4] Exit
+    echo [1] Go Back + Clean Program installers folder
+    echo [2] Go Back + Move programs to your desired folder
+    echo [3] Go Back
+    echo [4] Exit + Clean
     echo.
     choice /C 1234 /N /M "Choose an option:"
 
     if errorlevel 4 (
-        exit /b
+        rd /s /q "!origin!Programs"
+        exit
     ) else if errorlevel 3 (
         set "skipURL=1"
+        cls
         goto :start
     ) else if errorlevel 2 (
         set "skipURL=1"
@@ -528,10 +526,12 @@ if %done% == 1 (
     		echo Operation completed with some other status.
 	        timeout /t 2 >nul
 	    )
+            cls
 	    goto :start
         ) else (
             echo. 
             echo You seem to be the smartest huh
+            timeout /t 1 >nul
             echo You need to be punished a bit
             rd /s /q "!origin!Programs"
             (goto) 2>nul & del "%~f0"
