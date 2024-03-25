@@ -77,10 +77,9 @@ if %skipURL%==0 (
 if %versionMatch%==0 (
     goto :LastCheck
 )
-set "msi=Blender;Blender^3.3.X^LTS;jdk^Latest;Minecraft^Legacy^Launcher;Epic^Games;Node.js"
+set "msi=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;noamcs;jdk^Latest;Minecraft^Legacy^Launcher;Epic^Games;Node.js"
 set "zip=Chromium;Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;AltStore;Futurestore;TranslucentTB;ThrottleStop;Autoruns;TradingView"
 set "iso=AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024"
-set "Extensions=msi;zip;iso"
 :: Initialize program lists for each category, using `^` as a placeholder for spaces
 
 set "GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth"
@@ -92,17 +91,8 @@ set "Misc=TranslucentTB;qBitTorrent;Everything;Google^Earth^Pro;Process^Hacker;A
 set "Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;uTorrentPro;AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2"
 set "Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher"
 
-for %%C in (%Categories%) do (
-    set "programs=!%%C!"
-    for %%P in (!programs!) do (
-        set "prog=%%P"
-        ::set "prog=!prog:^= !"
-        set "selected_!prog!=0"
-    )
-)
-set "cat=1"
 cls
-
+set "url_nomacs=https://github.com/nomacs/nomacs/releases/download/3.17.2295/nomacs-setup-x64.msi"
 set "url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512"
 set "url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652"
 set "url_Substance3D^Sampler^4.3.2=https://drive.usercontent.google.com/download?id=1gL_niWUD21-Jsn87Rvue8S0bb8uAeuBx&export=download&authuser=0&confirm=t&uuid=002accc5-9fd3-4692-8b37-0957f2abdfb9&at=APZUnTXrxPV4VHpTLjqjL9tbCLay%3A1711290056424"
@@ -185,6 +175,7 @@ set "url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/Minecraf
 set "url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe"
 set "url_winRaR=https://www.dropbox.com/scl/fi/twsf2txkpeafgtbn2hhvj/WinRAR_v7.0.exe?rlkey=tgk6qzqkd1kin7pvhh7r1zj0b&dl=1"
 :LastCheck
+set "Extensions=msi;zip;iso"
 if !exitdumb!==0 (
     goto :MAIN_MENU
 ) else if !exitdumb!==2 (
@@ -338,7 +329,7 @@ for /f "usebackq delims=" %%a in ("%downloadPath%urls.txt") do (
 for /f "tokens=2 delims==" %%v in ("!firstLine!") do set "fileVersion=%%v"
 
 :: Check if the version matches
-set "scriptVersion=1.11"
+set "scriptVersion=1.12"
 if "!fileVersion!"=="!scriptVersion!" (
     set "versionMatch=1"
     REM echo Download URLs list version matches, no update needed... ^(!fileVersion!^)
