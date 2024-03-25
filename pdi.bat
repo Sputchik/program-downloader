@@ -102,7 +102,7 @@ set "url_Premier^Pro^2024=https://drive.usercontent.google.com/download?id=1H01w
 set "url_Acrobat^Pro^2024=https://drive.usercontent.google.com/download?id=17KLJmzC8YmURrTsVAzG-yrXsCQs65eop&export=download&authuser=0&confirm=t&uuid=9c608c38-24b0-4232-a8ca-3cd7c5bdb6f7&at=APZUnTVulymrZU4w1SeFXFUq_pjg%3A1711290233039"
 set "url_Cinema4D^2024.3.2=https://drive.usercontent.google.com/download?id=1tBXzspEchgdjvN7QDwlfG_Y7TIDMGAtE&export=download&authuser=0&confirm=t&uuid=5a7fbc33-90e2-4d6e-9074-b8aaa62f12e9&at=APZUnTV8GUqO72xEEAj2zRz3kWJQ%3A1711290530858"
 set "url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU"
-set "url_Blender^3.6.X^LTS-=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi"
+set "url_Blender^3.6.X^LTS=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.6/blender-3.6.10-windows-x64.msi"
 set "url_iTunes^=https://www.apple.com/itunes/download/win64"
 set "url_Resource^Hacker=https://www.dropbox.com/scl/fi/uyn38fair4c7qu331hd6c/reshacker_setup.exe?rlkey=lnyabn8wqba1o9i25viklm9h5&dl=1"
 set "url_Telegram^Portable=https://telegram.org/dl/desktop/win64_portable"
