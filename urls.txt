@@ -1,6 +1,6 @@
 version=1.12
 
-msi=Blender;Blender^3.3.X^LTS;jdk^Latest;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
+msi=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;jdk^Latest;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
 zip=Chromium;Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;AltStore;Futurestore;TranslucentTB;ThrottleStop;Autoruns;TradingView
 iso=AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024
 GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth
