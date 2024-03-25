@@ -58,7 +58,7 @@ set "Flags_Vivaldi=--vivaldi-silent --do-not-launch-chrome"
 set "Flags_VS2022=--quiet --norestart --wait"
 set "Flags_WaterFox=/silent"
 :: List of programs separated by semicolons, keep '^' for spaces
-set "Programs_S=IntelliJ^IDEA;PyCharm;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;Slack"
+set "Programs_S=IntelliJ^IDEA;PyCharm;SideloadlySetup;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;LibrewolfSetup;qBitTorrent;QuteBrowser;Slack"
 set "Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth"
 set "Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram"
 set "Programs_Q=DirectX^Runtimes"
@@ -790,7 +790,8 @@ if %errorlvl% == 0 (
     del "%temp%\getadmin2.vbs"
     exit
 )
-
+ren "Sideloadly.exe" "SideloadlySetup.exe" 2>nul
+ren "Librewolf.exe" "LibrewolfSetup.exe" 2>nul
 if exist "3uTools.exe" (
     echo Custom Install 3uTools ^(dumb shit has no slent install^)
     ren "3uTools.exe" "3uTools_Setup.exe"
@@ -845,7 +846,8 @@ if exist "Google Earth Pro.exe" (
     call :RunInstaller "Google Earth Pro" "OMAHA=1"
 )
 if exist "WinRaR.exe" (
-    call :RunInstaller "WinRaR" "/V"
+    ren "WinRaR.exe" "WinRaR_Setup.exe"
+    call :RunInstaller "WinRaR_Setup" "/V"
 )
 :: Iterate through categories and programs
 for %%G in (S quiet VerySilent Q SilentNoRestart Vivaldi VS2022 WaterFox) do (
