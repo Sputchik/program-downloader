@@ -34,7 +34,7 @@ url_VCRedistributables^2005-2022=https://www.dropbox.com/scl/fi/z5tnllhpevnqgkzz
 url_DirectX^Runtimes^Offline=https://www.dropbox.com/scl/fi/8lpgsxglkizlx5elckg0n/DirectX-Redist-Jun-2010.zip?rlkey=p5gi95ejq68jlimikohey6mfq&dl=1
 url_Wireless^Bluetooth=https://downloadmirror.intel.com/816424/BT-23.30.0-64UWD-Win10-Win11.exe
 url_Gradle=https://services.gradle.org/distributions/gradle-8.6-all.zip
-url_Blender=https://ftp.halifax.rwth-aachen.de/blender/release/Blender4.0/blender-4.0.2-windows-x64.msi
+url_Blender=https://mirrors.sahilister.in/blender/release/Blender4.1/blender-4.1.0-windows-x64.msi
 url_Blender^3.3.X^LTS=https://mirrors.sahilister.in/blender/release/Blender3.3/blender-3.3.17-windows-x64.msi
 url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe
@@ -74,7 +74,7 @@ url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing2forWindows.exe
 url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
 url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/TranslucentTB-portable-x64.zip
 url_qBitTorrent=https://kumisystems.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-4.6.3/qbittorrent_4.6.3_x64_setup.exe
-url_uTorrentPro=https://www.dropbox.com/scl/fi/dbjisibimw93x09j5eese/uTorrentPro_v3.6.0.47028.exe?rlkey=jhtw5764fmyu6za6qm969tazz&dl=1
+url_uTorrentPro=https://www.dropbox.com/scl/fi/523x1zssq50u4lbg3p06d/uTorrentPro_v3.6.0.47044.exe?rlkey=g1vw7q3rh188x8quhk6aohxwh&dl=1
 url_Everything=https://www.voidtools.com/Everything-1.4.1.1024.x64-Setup.exe
 url_Process^Hacker=https://deac-riga.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe
 url_Avidemux=https://www.dropbox.com/scl/fi/t2tjzv9sxnhzsm9gmmjlo/Avidemux_2.8.1VC-64bits.exe?rlkey=s7k2ggdawno0n9f71ir2sf9yo&dl=1
@@ -95,5 +95,4 @@ url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe
 url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
 url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe?ref=mcnet
 url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi?ref=mcnet
-url_MS^Store=Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe
