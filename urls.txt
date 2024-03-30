@@ -96,4 +96,4 @@ url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe
 url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
 url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe?ref=mcnet
 url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi?ref=mcnet
-url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe #
+url_PyCharm=https://download.jetbrains.com/python/pycharm-professional-2023.3.5.exe
