@@ -48,6 +48,7 @@ url_jdk^Latest=https://download.oracle.com/java/22/latest/jdk-22_windows-x64_bin
 url_jre^Latest=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249553_4d245f941845490c91360409ecffb3b4
 url_Node.js=https://nodejs.org/dist/v21.6.2/node-v21.6.2-x64.msi
 url_Telegram=https://telegram.org/dl/desktop/win64
+url_Telegram^Portable=https://telegram.org/dl/desktop/win64_portable
 url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86
 url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
 url_Slack=https://downloads.slack-edge.com/releases/windows/4.36.140/prod/x64/SlackSetup.exe
