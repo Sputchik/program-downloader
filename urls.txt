@@ -25,7 +25,7 @@ url_Acrobat^Pro^2024=https://drive.usercontent.google.com/download?id=17KLJmzC8Y
 url_Cinema4D^2024.3.2=https://drive.usercontent.google.com/download?id=1tBXzspEchgdjvN7QDwlfG_Y7TIDMGAtE&export=download&authuser=0&confirm=t&uuid=5a7fbc33-90e2-4d6e-9074-b8aaa62f12e9&at=APZUnTV8GUqO72xEEAj2zRz3kWJQ%3A1711290530858
 url_AdsPower=https://version.adspower.net/software/win64-global/AdsPower-Global-6.2.29-x64.exe
 url_GoLand=https://download.jetbrains.com/go/goland-2024.1.exe
-url_Go=https://go.dev/dl/go1.22.1.windows-amd64.msi
+url_Go=https://go.dev/dl/go1.22.2.windows-amd64.msi
 url_ZXP^Installer=https://github.com/elements-storage/ZXPInstaller/releases/download/v1.8.2/ZXPInstaller-Setup-1.8.2.exe
 url_X-Mouse^Button=https://dvps.highrez.co.uk/downloads/XMouseButtonControlSetup.2.20.5.exe
 url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
