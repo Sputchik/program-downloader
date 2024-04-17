@@ -50,7 +50,7 @@ url_jre^Latest=https://javadl.oracle.com/webapps/download/AutoDL?BundleId=249553
 url_Node.js=https://nodejs.org/dist/v21.7.2/node-v21.7.2-x64.msi
 url_Telegram=https://telegram.org/dl/desktop/win64
 url_Telegram^Portable=https://telegram.org/dl/desktop/win64_portable
-url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86
+url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x64
 url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
 url_Slack=https://downloads.slack-edge.com/releases/windows/4.36.140/prod/x64/SlackSetup.exe
 url_VSCode=https://code.visualstudio.com/sha/download?build=stable&os=win32-x64
