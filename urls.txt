@@ -8,12 +8,13 @@ Messengers=Telegram;Telegram^Portable;Discord;Viber
 Coding=PyCharm;IntelliJ^IDEA;Go;GoLand;Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;Resource^Hacker;VSCode;Sublime^Text;VS^2022^Installer;Adobe^Creative^Cloud
 Browsers=Firefox;Librewolf;AdsPower;QuteBrowser;Chrome;Chromium;Ungoogled^Chromium;Vivaldi;WaterFox;Microsoft^Edge;Brave;Opera;Opera^GX
 iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver
-Misc=TranslucentTB;qBitTorrent;nomacs;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;X-Mouse^Button;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns
+Misc=TranslucentTB;qBitTorrent;nomacs;RegistryFinder;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;X-Mouse^Button;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns
 Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;AfterEffects^24.2.1;ZXP^Installer;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2
 Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
-Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
+Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;RegistryFinder;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
 Programs_S=IntelliJ^IDEA;X-Mouse^Button;AdsPower;PyCharm;GoLand;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
+url_RegistryFinder=https://www.dropbox.com/scl/fi/fsyjxuxl661zawqdzkk9g/rg.exe?rlkey=nk5qdne3c3h3it56fvcmz1hsl&st=n7syzku3&dl=1
 url_nomacs=https://github.com/nomacs/nomacs/releases/download/3.17.2295/nomacs-setup-x64.msi
 url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512
 url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652
