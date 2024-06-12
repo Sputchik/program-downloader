@@ -43,7 +43,7 @@ url_Blender=https://mirrors.dotsrc.org/blender/release/Blender4.1/blender-4.1.1-
 url_Blender^3.3.X^LTS=https://mirrors.sahilister.in/blender/release/Blender3.3/blender-3.3.19-windows-x64.msi
 url_Adobe^Creative^Cloud=https://www.dropbox.com/scl/fi/wvvlk1452jo3af4z27rlc/Creative_Cloud_Set-Up.exe?rlkey=2lxz3ueox0u0uxc81nv5fhh38&dl=1
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.45.1.windows.1/Git-2.45.1-64-bit.exe
-url_Python=https://www.python.org/ftp/python/3.12.3/python-3.12.3-amd64.exe
+url_Python=https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe
 url_jre^8_202=https://www.dropbox.com/scl/fi/zfcu7p7gticjn38oiorkg/jre-8u202-windows-x64.exe?rlkey=c1bfqgt1b4b2kkydgmx937kae&dl=1
 url_jdk^8_202=https://www.dropbox.com/scl/fi/8u4i0d533i9bf9gflqsi9/jdk-8u202-windows-x64.exe?rlkey=7qsc2ke2z0hi6zbzxj6cvrkh2&dl=1
 url_jdk^Latest=https://download.oracle.com/java/22/latest/jdk-22_windows-x64_bin.msi
@@ -100,4 +100,4 @@ url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe
 url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
 url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe
 url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi
-url_PyCharm=https://download-cdn.jetbrains.com/python/pycharm-professional-2024.1.2.exe
+url_PyCharm=https://download-cdn.jetbrains.com/python/pycharm-professional-2024.1.3.exe
