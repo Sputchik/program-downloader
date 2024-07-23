@@ -14,7 +14,7 @@ Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;RegistryFinder;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
 Programs_S=IntelliJ^IDEA;X-Mouse^Button;AdsPower;PyCharm;GoLand;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
-url_RegistryFinder=https://www.dropbox.com/scl/fi/fsyjxuxl661zawqdzkk9g/rg.exe?rlkey=nk5qdne3c3h3it56fvcmz1hsl&st=n7syzku3&dl=1
+url_RegistryFinder=https://www.dropbox.com/scl/fi/fsyjxuxl661zawqdzkk9g/?rlkey=nk5qdne3c3h3it56fvcmz1hsl&st=n7syzku3&dl=1
 url_nomacs=https://github.com/nomacs/nomacs/releases/latest/download/nomacs-setup-x64.msi
 url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512
 url_Substance3D^Painter^9.1.2=https://drive.usercontent.google.com/download?id=1NeOlrIkQP92PUrbKFIT6ND50myYGgVO-&export=download&authuser=0&confirm=t&uuid=2fb4784b-6860-428d-b990-4e04b2fcf57a&at=APZUnTVR5zF3vpFsp4FbbAXwqvZZ%3A1711290004652
@@ -101,3 +101,4 @@ url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/
 url_Minecraft^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.exe
 url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInstaller.msi
 url_PyCharm=https://download-cdn.jetbrains.com/python/pycharm-professional-2024.1.4.exe
+url_WinRaR=https://www.dropbox.com/scl/fi/p5oudg1mg56aoom6qq5ie/WinRAR_v7.01.exe?rlkey=pxtjeirt3gbq463dnt370g7mo&st=6onuc1ws&dl=1
