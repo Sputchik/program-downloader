@@ -1,19 +1,19 @@
 version=1.13
 
 msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;jdk^Latest;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
-zip=Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;AltStore;TranslucentTB;ThrottleStop;Autoruns;TradingView
+zip=Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
 iso=AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024
 GeneralDeps=Git;Python;Gradle;NVCleanstall;DirectX^Runtimes;DirectX^Runtimes^Offline;.NET^Framework^3.5;VCRedistributables^2005-2022;Go;jre^8_202;jdk^8_202;jre^Latest;jdk^Latest;Node.js;Wireless^Bluetooth
 Messengers=Telegram;Telegram^Portable;Discord;Viber
 Coding=PyCharm;IntelliJ^IDEA;GoLand;Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;Resource^Hacker;VSCode;Sublime^Text;VS^2022^Installer
 Browsers=Firefox;Librewolf;AdsPower;QuteBrowser;Ungoogled^Chromium;WaterFox
-iPhonething=iTunes;iTunes^;iCloud;AltStore;Sideloadly;3uTools;iMazing;Blobsaver
+iPhonething=iTunes;iTunes^;iCloud;3uTools;iMazing;Blobsaver
 Misc=TranslucentTB;qBitTorrent;nomacs;RegistryFinder;Everything;Google^Earth^Pro;Process^Hacker;AviDemux;TradingView;OBS;K-Lite^Codec;TunnelBear;Rufus;ContextMenuManager;X-Mouse^Button;Windhawk;7-Zip;WinRaR;ThrottleStop;Autoruns
 Cracked=4KVideoDownloaderPlus;Revo^Uninstaller^Pro;AfterEffects^24.2.1;ZXP^Installer;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024;Cinema4D^2024.3.2
 Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;Blobsaver;RegistryFinder;4KVideoDownloaderPlus;uTorrentPro;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
-Programs_S=IntelliJ^IDEA;X-Mouse^Button;AdsPower;PyCharm;GoLand;Sideloadly;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
+Programs_S=IntelliJ^IDEA;X-Mouse^Button;AdsPower;PyCharm;GoLand;Viber;OBS;7-Zip;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
 url_RegistryFinder=https://www.dropbox.com/scl/fi/fsyjxuxl661zawqdzkk9g/?rlkey=nk5qdne3c3h3it56fvcmz1hsl&st=n7syzku3&dl=1
 url_nomacs=https://github.com/nomacs/nomacs/releases/latest/download/nomacs-setup-x64.msi
 url_AfterEffects^24.2.1=https://drive.usercontent.google.com/download?id=1HqwwrAn-tkkipxnbVYRQM01IsK7ksmt7&export=download&authuser=0&confirm=t&uuid=410ed723-0539-4878-bd58-8dce19bb95f1&at=APZUnTUqolC117WdzjpegJa5Z94_%3A1711289959512
@@ -65,8 +65,6 @@ url_Brave=https://referrals.brave.com/latest/BraveBrowserSetup-BRV029.exe
 url_iTunes=https://www.apple.com/itunes/download/win64
 url_iTunes^=https://www.apple.com/itunes/download/win64
 url_iCloud=https://secure-appldnld.apple.com/windows/061-91601-20200323-974a39d0-41fc-4761-b571-318b7d9205ed/iCloudSetup.exe
-url_AltStore=https://cdn.altstore.io/file/altstore/altinstaller.zip
-url_Sideloadly=https://sideloadly.io/SideloadlySetup64.exe
 url_3uTools=https://url.3u.com/zmAJjyaa
 url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing3forWindows.exe
 url_Blobsaver=https://github.com/airsquared/blobsaver/releases/download/v3.6.0/blobsaver-3.6.0.exe
@@ -79,7 +77,7 @@ url_Avidemux=https://www.dropbox.com/scl/fi/t2tjzv9sxnhzsm9gmmjlo/Avidemux_2.8.1
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/mtuhdy9wsxv3wavgiu47i/Revo_Uninstaller_Pro_v5.3.0.exe?rlkey=168kop0vcuf4vy4jk5vq9yz3z&dl=1
 url_NVCleanstall=https://nvcleanstall.net/file/NVCleanstall_1.16.0.exe
-url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.2.1-Windows-Installer.exe
+url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.2.2-Windows-Installer.exe
 url_K-Lite^Codec=https://files3.codecguide.com/K-Lite_Codec_Pack_1845_Standard.exe
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
 url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe
