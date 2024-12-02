@@ -182,6 +182,17 @@ if "!isSelected!"=="1" (
 )
 goto :eof
 
+:ClearSelected
+for %%C in (%Categories%) do (
+    set "programs=!%%C!"
+    
+    for %%P in (!programs!) do (
+        set "selected_%%P=0"
+    )
+)
+
+goto :eof
+
 :validatingurls
 
 set "listURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
@@ -301,6 +312,7 @@ if "%err_install%"=="1" (
     goto :DirCheck
 ) else (
     cls
+    call :ClearSelected
     goto :LastCheck
 )
 
