@@ -1,5 +1,6 @@
 version=1.13
 
+Categories=GeneralDeps;Messengers;Coding;Browsers;iPhonething;Misc;Cracked;Games
 msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;jdk^Latest;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
 zip=Cinema4D^2024.3.2;Telegram^Portable;DirectX^Runtimes^Offline;VCRedistributables^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
 iso=AfterEffects^24.2.1;Substance3D^Painter^9.1.2;Substance3D^Sampler^4.3.2;Photoshop^2024;Illustrator^2024;Premier^Pro^2024;Acrobat^Pro^2024
