@@ -43,17 +43,16 @@ echo.
 echo Suggest program - @kufla in Telegram
 
 choice /C 123456789 /N /M "Option: "
-set choice=%errorlevel%
 
-if %choice%==1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps%"
-if %choice%==2 call :MANAGE_CATEGORY Messengers "%Messengers%"
-if %choice%==3 call :MANAGE_CATEGORY Coding "%Coding%"
-if %choice%==4 call :MANAGE_CATEGORY Browsers "%Browsers%"
-if %choice%==5 call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
-if %choice%==6 call :MANAGE_CATEGORY Misc "%Misc%"
-if %choice%==7 call :MANAGE_CATEGORY Cracked "%Cracked%"
-if %choice%==8 call :MANAGE_CATEGORY Games "%Games%"
-if %choice%==9 call :Internet
+if !ErrorLevel! == 1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps%"
+if !ErrorLevel! == 2 call :MANAGE_CATEGORY Messengers "%Messengers%"
+if !ErrorLevel! == 3 call :MANAGE_CATEGORY Coding "%Coding%"
+if !ErrorLevel! == 4 call :MANAGE_CATEGORY Browsers "%Browsers%"
+if !ErrorLevel! == 5 echo hi && pause && call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
+if !ErrorLevel! == 6 call :MANAGE_CATEGORY Misc "%Misc%"
+if !ErrorLevel! == 7 call :MANAGE_CATEGORY Cracked "%Cracked%"
+if !ErrorLevel! == 8 call :MANAGE_CATEGORY Games "%Games%"
+if !ErrorLevel! == 9 goto :WarmupDownload
 
 goto :eof
 
@@ -173,12 +172,10 @@ set FetchedURLs=1
 
 goto :eof
 
-:Internet
+:WarmupDownload
 
 cls
-if "%Do%" == "0" (
-	goto :AfterDownload
-)
+
 echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
@@ -204,7 +201,6 @@ choice /C 12 /N /M " "
 echo.
 
 if !ErrorLevel! == 1 goto :WaitForConnection
-if !ErrorLevel! == 2 exit /b
 
 goto :eof
 
@@ -218,6 +214,7 @@ if !ErrorLevel! == 1 (
 	goto :WaitForConnection
 
 ) else (
+	pause
 	goto :DownloadAll
 )
 
@@ -247,12 +244,9 @@ if %ERRORLEVEL% neq 0 (
 	 goto loop
 ) else goto :eof
 
+goto :eof
+
 :DownloadAll
-
-if not exist "%origin%Programs" (
-	mkdir "%origin%Programs"
-)
-
 
 for %%C in (%Categories%) do (
 	set "programs=!%%C!"
