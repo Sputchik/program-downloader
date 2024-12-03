@@ -234,7 +234,7 @@ if exist "%OUTPUT%" del /Q "%OUTPUT%"
 
 :loop
 
-echo If download is very slow, try pressing Ctrl^+C and `N` ^(Don't terminate script^)
+echo If download is very slow, try pressing Ctrl^C and `N` ^(Don't terminate script^)
 echo.
 echo Downloading !NAME! from !URL!
 
@@ -248,6 +248,11 @@ if %ERRORLEVEL% neq 0 (
 ) else goto :eof
 
 :DownloadAll
+
+if not exist "%origin%Programs" (
+	mkdir "%origin%Programs"
+)
+
 
 for %%C in (%Categories%) do (
 	set "programs=!%%C!"
