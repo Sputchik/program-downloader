@@ -46,7 +46,7 @@ echo.
 echo Suggest program - @kufla in Telegram
 
 choice /C 123456789 /N /M "Option: "
-set choice=%ERRORLEVEL%
+set choice=%errorlevel%
 
 if %choice%==1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps%"
 if %choice%==2 call :MANAGE_CATEGORY Messengers "%Messengers%"
@@ -173,7 +173,7 @@ for /f "usebackq skip=2 tokens=1* delims==" %%a in ("%downloadPath%urls.txt") do
 goto :eof
 
 :Internet
-:: Initially check for internet connectivity
+
 cls
 if "%Do%" == "0" (
 	goto :afterdownload
@@ -182,7 +182,7 @@ echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
 
-if errorlevel 1 (
+if !errorlevel! == 1 (
 	echo Woopise, no internet...
 	echo.
 	timeout /t 2 >nul
@@ -191,23 +191,27 @@ if errorlevel 1 (
 	goto :download
 )
 
-:: Rest of code if found any adapter
 cls
+
 echo You are not connected to internet :^(
 echo As this is a light version of pdi, it doesn't come with WiFi Drivers in it
 echo.
 
 echo [1] Retry Connection
 echo [2] Quit
-choice /C 12 /N /M "Choice: "
+choice /C 12 /N /M " "
 echo.
-if %errorlevel%==1 goto :WaitForConnection
-if %errorlevel%==2 exit
+
+if !errorlevel! == 1 goto :WaitForConnection
+if !errorlevel! == 2 exit
+
 goto :eof
 
 :WaitForConnection
+
 ping -n 1 example.com >nul 2>&1
-if %errorlevel%==1 (
+
+if !errorlevel! == 1 (
 	echo Retrying in 2 seconds...
 	choice /C Q /T 2 /D Q /N >nul
 	goto :WaitForConnection
@@ -215,6 +219,7 @@ if %errorlevel%==1 (
 ) else (
 	goto :Download
 )
+
 goto :eof
 
 :download
@@ -264,7 +269,7 @@ goto :eof
 
 :afterdownload
 choice /C yn /N /M "Programs downloaded (!origin!Programs), Try installing them silently? (y/n) "
-set err_install=%ERRORLEVEL%
+set err_install=%errorlevel%
 
 if %err_install% == 1 (
 	set DoneAll=0
@@ -283,13 +288,13 @@ goto :eof
 
 ::EXE
 dir "!origin!Programs\*.exe" /b /a-d >nul 2>&1
-set err_exe=%ERRORLEVEL%
+set err_exe=%errorlevel%
 ::MSI
 dir "!origin!Programs\*.msi" /b /a-d >nul 2>&1
-set err_msi=%ERRORLEVEL%
+set err_msi=%errorlevel%
 ::ZIP
 dir "!origin!Programs\*.zip" /b /a-d >nul 2>&1
-set err_zip=%ERRORLEVEL%
+set err_zip=%errorlevel%
 
 if %err_zip% == 0 (
 	set DoneZip=0
@@ -321,63 +326,62 @@ if %DoneAll% == 1 (
 	echo [3] Go Back
 	echo [4] Exit + Clean
 	echo.
-	choice /C 1234 /N /M "Choose an option:"
+
+	choice /C 1234 /N /M " "
 
 	if errorlevel 4 (
 		rd /s /q "!origin!Programs"
 		exit
+
 	) else if errorlevel 3 (
+		call :ClearSelected
 		cls
+	   goto :start
+
 	) else if errorlevel 2 (
 		
 		for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "folder=%%I"
 		if "!folder!" NEQ "!origin!Programs" (
 			robocopy "!origin!Programs" "!folder!\Programs" /E /cOPY:DATSO /MOVE
 		)
-		if %ERRORLEVEL% EQU 16 (
+		if %errorlevel% EQU 16 (
 			echo A serious error occurred. Possible "Access Denied."
 			timeout /t 2 >nul
-		) else if %ERRORLEVEL% EQU 8 (
+		) else if %errorlevel% EQU 8 (
 			echo Some files or directories could not be copied.
 			timeout /t 2 >nul
-		) else if %ERRORLEVEL% EQU 0 (
+		) else if %errorlevel% EQU 0 (
 			echo No errors occurred
 			timeout /t 2 >nul
-		) else (
-			echo.
-			echo You seem to be the smartest huh
-			timeout /t 1 >nul
-			echo You need to be punished a bit
-			rd /s /q "!origin!Programs"
-			(goto) 2>nul & del "%~f0"
-			exit /b
 		)
+
 		cls
 
 	) else if errorlevel 1 (
 		rd /s /q "!origin!Programs"
 		cls
 	)
-	call :ClearSelected
-	goto :start
+	
+	goto :pain
 
 ) else if %DoneMSI% == 1 (
 	if %err_exe% == 0 (
 		cls
-		echo Found exe programs
+		echo EXE Programs
 		echo.
 		echo [1] Install with Shortcuts
 		echo [2] Opposite ^(For now code removes all shortcuts^)
 		echo [3] Proceed further
 		echo.
-		choice /C 123 /N /M ""
 
-		if errorlevel 2 (
+		choice /C 123 /N /M " "
+
+		if !errorlevel! == 2 (
 			call :exe
 			if exist "C:\Users\%username%\Desktop" (
 				del "C:\Users\%username%\Desktop\*.lnk"
 			)
-		) else if errorlevel 1 (
+		) else if !errorlevel! == 1 (
 			call :exe
 
 		)
@@ -389,18 +393,20 @@ if %DoneAll% == 1 (
 ) else if %DoneZip% == 1 (
 	if %err_msi% == 0 (
 		cls
-		echo Found MSI programs
+
+		echo MSI Programs
 		echo.
 		echo [1] Install with Shortcuts
 		echo [2] Opposite ^(For now code removes all shortcuts^)
 		echo [3] Proceed further
 		echo.
-		choice /C 123 /N /M ""
 
-		if errorlevel 1 (
+		choice /C 123 /N /M " "
+
+		if !errorlevel! == 1 (
 			call :msi
 
-		) else if errorlevel 2 (
+		) else if !errorlevel! == 2 (
 			call :msi
 			if exist "C:\Users\%username%\Desktop" (
 				del "C:\Users\%username%\Desktop\*.lnk"
@@ -415,13 +421,14 @@ if %DoneAll% == 1 (
 
 	if %err_zip% == 0 (
 		cls
-		echo ZIP programs
+
+		echo ZIP Programs
 		echo.
 		echo [1] Install with Shortcuts
 		echo [2] Opposite ^(For now code removes all shortcuts^)
 		echo [3] Proceed further
 		echo.
-		choice /C 123 /N /M ""
+		choice /C 123 /N /M " "
 
 		if errorlevel 2 (
 			call :zip
