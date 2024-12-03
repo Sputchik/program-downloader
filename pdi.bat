@@ -10,12 +10,14 @@ if %errorlevel% neq 0 (
 )
 
 set "origin=%~dp0"
+set "DLPath=%origin%pdi_downloads"
 set FetchedURLs=0
 set "Activated=(Activated)"
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
 set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 set "Extensions=msi;zip;iso"
+set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 
 :Start
 
@@ -169,13 +171,11 @@ for /f "usebackq skip=2 tokens=1* delims==" %%a in ("%downloadPath%") do (
 )
 
 set FetchedURLs=1
-
 goto :eof
 
 :WarmupDownload
 
 cls
-
 echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
@@ -190,11 +190,9 @@ if !ErrorLevel! == 1 (
 )
 
 cls
-
 echo You are not connected to internet :^(
 echo As this is a light version of pdi, it doesn't come with WiFi Drivers in it
 echo.
-
 echo [1] Retry Connection
 echo [2] Quit
 choice /C 12 /N /M " "
@@ -247,10 +245,10 @@ goto :eof
 
 :DownloadAll
 
-for %%C in (%Categories%) do (
-	set "programs=!%%C!"
+mkdir "%DLPath%" 2>nul
 
-	for %%P in (!programs!) do (
+for %%C in (%Categories%) do (
+	for %%P in (!%%C!) do (
 		set "program=%%P"
 		set "prog=!program:^= !"
 
@@ -268,7 +266,7 @@ for %%C in (%Categories%) do (
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
 
-				call :DownloadFile "!prog!" "!downloadUrl!" "%CD%\Programs\!prog!.!FileExt!"
+				call :DownloadFile "!prog!" "!downloadUrl!" "%DLPath%\!prog!.!FileExt!"
 				cls
 
 			) else (
@@ -279,7 +277,7 @@ for %%C in (%Categories%) do (
 )
 
 :AfterDownload
-echo Programs downloaded (%origin%Programs)
+echo Programs downloaded (%DLPath%)
 echo.
 choice /N /M "Try installing them silently? [Y/N] "
 
@@ -299,13 +297,13 @@ goto :eof
 :DirCheck
 
 ::EXE
-dir "%origin%Programs\*.exe" /b /a-d >nul 2>&1
+dir "%DLPath%\*.exe" /b /a-d >nul 2>&1
 set err_exe=%errorlevel%
 ::MSI
-dir "%origin%Programs\*.msi" /b /a-d >nul 2>&1
+dir "%DLPath%\*.msi" /b /a-d >nul 2>&1
 set err_msi=%errorlevel%
 ::ZIP
-dir "%origin%Programs\*.zip" /b /a-d >nul 2>&1
+dir "%DLPath%\*.zip" /b /a-d >nul 2>&1
 set err_zip=%errorlevel%
 
 if %err_zip% == 0 (
@@ -338,7 +336,7 @@ if %DoneAll% == 1 (
 
 	if !ErrorLevel! == 1 ( exit /b
 	) else if !ErrorLevel! == 2 ( goto :Start
-	) else if !ErrorLevel! == 3 ( rd /s /q "%origin%Programs" 2>nul
+	) else if !ErrorLevel! == 3 ( rd /s /q "%DLPath%" 2>nul
 	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
 	goto :Pain
@@ -377,7 +375,7 @@ if %~2 == 0 (
 	) else if !ErrorLevel! == 2 (
 		call :%~1
 		if exist "C:\Users\%username%\Desktop" (
-			del "C:\Users\%username%\Desktop\*.lnk"
+			del "C:\Users\%username%\Desktop\*.lnk" 2>nul
 		 )
 	)
 )
@@ -385,8 +383,8 @@ goto :eof
 
 :MovePrograms
 for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "folder=%%I"
-if "!folder!" NEQ "%origin%Programs" (
-	 robocopy "%origin%Programs" "!folder!\Programs" /E /cOPY:DATSO /MOVE
+if "!folder!" NEQ "%DLPath%" (
+	 robocopy "%DLPath%" "!folder!" /E /cOPY:DATSO /MOVE
 )
 if %errorlevel% EQU 16 (
 	 echo A serious error occurred. Possible "Access Denied."
@@ -411,16 +409,14 @@ echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
 echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
 echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
 echo objShortcut.Save >> "%vbsFilePath%"
-"%vbsFilePath%"
 
+"%vbsFilePath%"
 del "%vbsFilePath%"
 goto :eof
 
 :ZIP
 
 echo.
-
-set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 
 if exist "VCRedistributables 2005-2022.zip" (
 	echo Installing VCRedistributables...
@@ -439,7 +435,7 @@ if exist "Autoruns.zip" (
 	echo Installing Autoruns...
 	if exist "Autoruns" rd /s /q "Autoruns"
 	mkdir Autoruns 2>nul
-	tar -xf "%origin%Programs\Autoruns.zip" -C "Autoruns"
+	tar -xf "%DLPath%\Autoruns.zip" -C "Autoruns"
 	mkdir "C:\Program Files\Autoruns" 2>nul
 	xcopy "%CD%\Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
 	rd /s /q "Autoruns"
@@ -476,7 +472,7 @@ if exist "Cinema4D 2024.3.2.zip" (
 
 )
 
-cd "%origin%Programs"
+cd "%DLPath%"
 
 for %%A in (%zipf:;= %) do (
 	set "progName=%%A"
@@ -490,7 +486,7 @@ for %%A in (%zipf:;= %) do (
 		if "!progName!" == "Gradle" (
 			echo Installing Gradle...
 
-			for /d %%F in ("%origin%Programs\Gradle\*") do (
+			for /d %%F in ("%DLPath%\Gradle\*") do (
 				mkdir C:\Gradle 2>nul
 				if exist "C:\Gradle\%%F" (
 					echo Gradle Target directory "!targetPath!" already exists. Skipping...
@@ -512,7 +508,7 @@ goto :eof
 
 :MSI
 
-cd "%origin%Programs"
+cd "%DLPath%"
 echo.
 
 for %%B in (!msi!) do (
@@ -528,7 +524,7 @@ goto :eof
 
 :EXE
 
-cd "%origin%Programs"
+cd "%DLPath%"
 
 ren "Sideloadly.exe" "SideloadlySetup.exe" 2>nul
 ren "Librewolf.exe" "LibrewolfSetup.exe" 2>nul
