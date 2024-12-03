@@ -48,7 +48,7 @@ if !ErrorLevel! == 1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps
 if !ErrorLevel! == 2 call :MANAGE_CATEGORY Messengers "%Messengers%"
 if !ErrorLevel! == 3 call :MANAGE_CATEGORY Coding "%Coding%"
 if !ErrorLevel! == 4 call :MANAGE_CATEGORY Browsers "%Browsers%"
-if !ErrorLevel! == 5 echo hi && pause && call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
+if !ErrorLevel! == 5 call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
 if !ErrorLevel! == 6 call :MANAGE_CATEGORY Misc "%Misc%"
 if !ErrorLevel! == 7 call :MANAGE_CATEGORY Cracked "%Cracked%"
 if !ErrorLevel! == 8 call :MANAGE_CATEGORY Games "%Games%"
@@ -214,7 +214,6 @@ if !ErrorLevel! == 1 (
 	goto :WaitForConnection
 
 ) else (
-	pause
 	goto :DownloadAll
 )
 
@@ -231,7 +230,7 @@ if exist "%OUTPUT%" del /Q "%OUTPUT%"
 
 :loop
 
-echo If download is very slow, try pressing Ctrl^C and `N` ^(Don't terminate script^)
+echo If download is very slow, try pressing Ctrl+C and `N` ^(Don't terminate script^)
 echo.
 echo Downloading !NAME! from !URL!
 
@@ -242,7 +241,7 @@ if %ERRORLEVEL% neq 0 (
 	 timeout /T %RETRY_WAIT% /NOBREAK
 	 cls
 	 goto loop
-) else goto :eof
+)
 
 goto :eof
 
