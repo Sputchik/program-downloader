@@ -3,9 +3,9 @@ setlocal EnableDelayedExpansion
 
 net session >nul 2>&1
 if %errorlevel% neq 0 (
-    echo Please run this script as an administrator
-    pause
-    exit /b
+	 echo Please run this script as an administrator
+	 pause
+	 exit /b
 )
 
 set "origin=%~dp0"
@@ -22,6 +22,7 @@ if %FetchedURLs%==0 (
 	call :FetchURLs
 ) else (
 	call :ClearSelected
+	cls
 	goto :MAIN_MENU
 )
 
@@ -181,13 +182,13 @@ echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
 
-if !errorlevel! == 1 (
+if !ErrorLevel! == 1 (
 	echo Woopise, no internet...
 	echo.
 	timeout /t 2 >nul
 ) else (
 	cls
-	goto :Download
+	goto :DownloadAll
 )
 
 cls
@@ -201,8 +202,8 @@ echo [2] Quit
 choice /C 12 /N /M " "
 echo.
 
-if !errorlevel! == 1 goto :WaitForConnection
-if !errorlevel! == 2 exit
+if !ErrorLevel! == 1 goto :WaitForConnection
+if !ErrorLevel! == 2 exit /b
 
 goto :eof
 
@@ -210,18 +211,42 @@ goto :eof
 
 ping -n 1 example.com >nul 2>&1
 
-if !errorlevel! == 1 (
+if !ErrorLevel! == 1 (
 	echo Retrying in 2 seconds...
 	choice /C Q /T 2 /D Q /N >nul
 	goto :WaitForConnection
 
 ) else (
-	goto :Download
+	goto :DownloadAll
 )
 
 goto :eof
 
-:Download
+:DownloadFile
+
+set "NAME=%~1%"
+set "URL=%~2%"
+set "OUTPUT=%~3%"
+set RETRIES=1
+
+if exist "%OUTPUT%" del /Q "%OUTPUT%"
+
+:loop
+
+echo If download is very slow, try pressing Ctrl^C and `N` ^(Don't terminate script^)
+echo.
+echo Downloading !NAME! from !URL!
+
+curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
+
+if %ERRORLEVEL% neq 0 (
+	 echo Download interrupted... Retrying in %RETRY_WAIT% seconds... ^(Attempt !RETRIES!^)
+	 timeout /T %RETRY_WAIT% /NOBREAK
+	 cls
+	 goto loop
+) else goto :eof
+
+:DownloadAll
 
 if not exist "%origin%Programs" (
 	mkdir "%origin%Programs"
@@ -249,10 +274,9 @@ for %%C in (%Categories%) do (
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
 
-				echo Downloading !prog! from !downloadUrl!
-				curl --progress-bar --retry 3 -A "%UserAgent%" -L "!downloadUrl!" -o "!CD!\Programs\!prog!.!FileExt!"
-				
-				echo.
+				call :DownloadFile "!prog!" "!downloadUrl!" "%CD%\Programs\!prog!.!FileExt!"
+				cls
+
 			) else (
 				echo Error: Download URL for !prog! is missing..?
 			)
@@ -261,18 +285,19 @@ for %%C in (%Categories%) do (
 )
 
 :AfterDownload
-choice /C yn /N /M "Programs downloaded (%origin%Programs), Try installing them silently? (y/n) "
+echo Programs downloaded (%origin%Programs)
+echo.
+choice /N /M "Try installing them silently? [Y/N] "
 
-set DoneExe=0
 set DoneMSI=0
+set DoneZip=0
 
 if !ErrorLevel! == 1 (
 	set DoneAll=0
 	goto :DirCheck
 ) else (
 	set DoneAll=1
-
-	goto :DirCheck
+	goto :Pain
 )
 
 goto :eof
@@ -300,142 +325,85 @@ if %err_zip% == 0 (
 	echo.
 	echo You have no programs dumb ass
 	timeout /t 1 >nul
-	cls
-	goto :MAIN_MENU
+	goto :Start
 )
 
 :Pain
-
 if %DoneAll% == 1 (
 	cd "%origin%"
 	cls
-
-	echo All Programs installed!
+	echo Everything's Set Up^!
 	echo.
-	echo [1] Go Back + Clean Program installers folder
-	echo [2] Go Back + Move programs to your desired folder
-	echo [3] Go Back
-	echo [4] Exit + Clean
+	echo [1] Exit
+	echo [2] Go Back
+	echo [3] Clean
+	echo [4] Move programs folder
 	echo.
 
 	choice /C 1234 /N /M " "
 
-	if errorlevel 4 (
-		rd /s /q "%origin%Programs"
-		exit
+	if !ErrorLevel! == 1 ( exit /b
+	) else if !ErrorLevel! == 2 ( goto :Start
+	) else if !ErrorLevel! == 3 ( rd /s /q "%origin%Programs" 2>nul
+	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
-	) else if errorlevel 3 (
-		cls
-	   goto :Start
-
-	) else if errorlevel 2 (
-		
-		for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "folder=%%I"
-		if "!folder!" NEQ "%origin%Programs" (
-			robocopy "%origin%Programs" "!folder!\Programs" /E /cOPY:DATSO /MOVE
-		)
-		if %errorlevel% EQU 16 (
-			echo A serious error occurred. Possible "Access Denied."
-			timeout /t 2 >nul
-		) else if %errorlevel% EQU 8 (
-			echo Some files or directories could not be copied.
-			timeout /t 2 >nul
-		) else if %errorlevel% EQU 0 (
-			echo No errors occurred
-			timeout /t 2 >nul
-		)
-
-		cls
-
-	) else if errorlevel 1 (
-		rd /s /q "%origin%Programs"
-		cls
-		goto :Start
-	)
-	
-	goto :Pain
-
-) else if %DoneMSI% == 1 (
-	if %err_exe% == 0 (
-		cls
-		echo EXE Programs
-		echo.
-		echo [1] Install with Shortcuts
-		echo [2] Opposite ^(For now code removes all shortcuts^)
-		echo [3] Proceed further
-		echo.
-
-		choice /C 123 /N /M " "
-
-		if !errorlevel! == 2 (
-			call :EXE
-			if exist "C:\Users\%username%\Desktop" (
-				del "C:\Users\%username%\Desktop\*.lnk"
-			)
-		) else if !errorlevel! == 1 (
-			call :EXE
-
-		)
-	)
-
-	set DoneAll=1
-	goto :Pain
-
-) else if %DoneZip% == 1 (
-	if %err_msi% == 0 (
-		cls
-
-		echo MSI Programs
-		echo.
-		echo [1] Install with Shortcuts
-		echo [2] Opposite ^(For now code removes all shortcuts^)
-		echo [3] Proceed further
-		echo.
-
-		choice /C 123 /N /M " "
-
-		if !errorlevel! == 1 (
-			call :MSI
-
-		) else if !errorlevel! == 2 (
-			call :MSI
-			if exist "C:\Users\%username%\Desktop" (
-				del "C:\Users\%username%\Desktop\*.lnk"
-			)
-		)
-	)
-
-	set DoneMSI=1
-	goto :Pain
-
-) else if %DoneZip% == 0 (
-
-	if %err_zip% == 0 (
-		cls
-
-		echo ZIP Programs
-		echo.
-		echo [1] Install with Shortcuts
-		echo [2] Opposite ^(For now code removes all shortcuts^)
-		echo [3] Proceed further
-		echo.
-		choice /C 123 /N /M " "
-
-		if errorlevel 2 (
-			call :ZIP
-			if exist "C:\Users\%username%\Desktop" (
-				del "C:\Users\%username%\Desktop\*.lnk"
-			)
-		
-		) else if errorlevel 1 (
-			call :ZIP
-		)
-	)
-
-	set DoneZip=1
 	goto :Pain
 )
 
+call :ProcessInstallation
+goto :eof
+
+:ProcessInstallation
+if %DoneMSI% == 1 (
+	call :HandleInstall "EXE" %err_exe%
+	set DoneAll=1
+) else if %DoneZip% == 1 (
+	call :HandleInstall "MSI" %err_msi%
+	set DoneMSI=1
+) else if %DoneZip% == 0 (
+	call :HandleInstall "ZIP" %err_zip%
+	set DoneZip=1
+)
+goto :Pain
+
+:HandleInstall
+if %~2 == 0 (
+	cls
+	echo %~1 Programs
+	echo.
+	echo [1] Install with Shortcuts
+	echo [2] Opposite ^(Removes all shortcuts^)
+	echo [3] Proceed further
+	echo.
+
+	choice /C 123 /N /M " "
+
+	if !ErrorLevel! == 1 (
+		call :%~1
+	) else if !ErrorLevel! == 2 (
+		call :%~1
+		if exist "C:\Users\%username%\Desktop" (
+			del "C:\Users\%username%\Desktop\*.lnk"
+		 )
+	)
+)
+goto :eof
+
+:MovePrograms
+for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "folder=%%I"
+if "!folder!" NEQ "%origin%Programs" (
+	 robocopy "%origin%Programs" "!folder!\Programs" /E /cOPY:DATSO /MOVE
+)
+if %errorlevel% EQU 16 (
+	 echo A serious error occurred. Possible "Access Denied."
+) else if %errorlevel% EQU 8 (
+	 echo Some files or directories could not be copied.
+) else if %errorlevel% EQU 0 (
+	 echo No errors occurred
+)
+
+timeout /t 2 >nul
+cls
 goto :eof
 
 :CreateShortcut
