@@ -1,5 +1,5 @@
-<div class="image-row">
-  <img src="images\pdi.png"  style="width: 40%; height: 40%">
+<div class="preview">
+  <img src="images\pdi2.png"  style="width: 40%; height: 40%">
 </div>
 
 ## Install
@@ -29,5 +29,8 @@ curl -sL https://bit.ly/pDi -o pdi.bat && pdi
   .image-row img {
     width: 48%; /* Slightly less than 50% to allow for spacing */
     height: auto; /* Maintain aspect ratio */
+  }
+  .preview {
+    text-align: center;
   }
 </style>
