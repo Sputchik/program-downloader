@@ -254,8 +254,8 @@ async def update_progs(progmap, session = None):
 	return progmap
 
 def push(repo: Repo, file):
-	repo.git.add(A = True)
-	
+	repo.git.add([file])
+
 	repo.index.commit('Update urls.txt')
 
 	remote_url = f"https://{access_token}@github.com/Sputchik/program-downloader.git"
@@ -267,7 +267,7 @@ async def main(repo: Repo):
 	progmap = await parse_github_urls()
 	# print(json.dumps(progmap, indent = 2))
 
-	# async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
+	async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
 	# print(json.dumps(newmap, indent = 2))
 
 	txt = progmap_to_txt(progmap)
