@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 cls
 net session >nul 2>&1
-if %errorlevel% neq 0 (
+if %ErrorLevel% neq 0 (
 	 echo Please run this script as an administrator
 	 pause
 	 exit /b
@@ -12,7 +12,6 @@ if %errorlevel% neq 0 (
 set "origin=%~dp0"
 set "DLPath=%origin%pdi_downloads"
 set FetchedURLs=0
-set "Activated=(Activated)"
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
 set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
@@ -56,7 +55,7 @@ if !ErrorLevel! == 1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps
 if !ErrorLevel! == 2 call :MANAGE_CATEGORY Messengers "%Messengers%"
 if !ErrorLevel! == 3 call :MANAGE_CATEGORY Coding "%Coding%"
 if !ErrorLevel! == 4 call :MANAGE_CATEGORY Browsers "%Browsers%"
-if !ErrorLevel! == 5 call :MANAGE_CATEGORY "iPhone Conn." "%iPhonething%"
+if !ErrorLevel! == 5 call :MANAGE_CATEGORY Apple "%Apple%"
 if !ErrorLevel! == 6 call :MANAGE_CATEGORY Misc "%Misc%"
 if !ErrorLevel! == 7 call :MANAGE_CATEGORY Cracked "%Cracked%"
 if !ErrorLevel! == 8 call :MANAGE_CATEGORY Games "%Games%"
@@ -80,16 +79,10 @@ for %%a in (%programs:;= %) do (
 	set "ProgName=!RawProgName:^= !"
 	set "IsSelected=!selected_%%a!"
 
-	if "!ProgName:~0,3!" == "Rev" (
-		call :SCOPED_ECHO "!ProgName!" "!IsSelected!" "!text!"
-	) else if "!program:~0,1!" == "4" (
-		call :SCOPED_ECHO "!ProgName!" "!IsSelected!" "!text!"
+	if !IsSelected! == 1 (
+		echo [!index!] [*] !ProgName!
 	) else (
-		if !IsSelected! == 1 (
-			echo [!index!] [*] !ProgName!
-		) else (
-			echo [!index!] [ ] !ProgName!
-		)
+		echo [!index!] [ ] !ProgName!
 	)
 
 	set /a index+=1
@@ -135,20 +128,6 @@ for %%a in (%programs%) do (
 )
 
 goto DISPLAY_LIST
-
-:SCOPED_ECHO
-
-set "progName=%~1"
-set "isSelected=%~2"
-set "text=%~3"
-
-if !isSelected! == 1 (
-	echo [!index!] [*] !progName! !text!
-) else (
-	echo [!index!] [ ] !progName! !text!
-)
-
-goto :eof
 
 :ClearSelected
 
@@ -252,13 +231,14 @@ mkdir "%DLPath%" 2>nul
 
 for %%C in (%Categories%) do (
 	for %%P in (!%%C!) do (
-		set "program=%%P"
-		set "prog=!program:^= !"
+		set "ProgramRaw=%%P"
+		set "ProgramSpaced=!program:^= !"
+		set "ProgramUndered=!program:^=_!"
 
 		if "!selected_%%P!" == "1" (
-			set "downloadUrl=!url_%%P!"
+			set "DownloadURL=!url_%%P!"
 
-			if downloadUrl neq "" (
+			if DownloadURL neq "" (
 				set FileExt=0
 				for %%E in (!Extensions!) do (
 					for %%I in (!%%E!) do (
@@ -269,7 +249,7 @@ for %%C in (%Categories%) do (
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
 
-				call :DownloadFile "!prog!" "!downloadUrl!" "%DLPath%\!prog!.!FileExt!"
+				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
 				cls
 
 			) else (
@@ -392,21 +372,15 @@ cls
 
 goto :eof
 
-:CreateShortcutScript
-
-echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
-echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
-echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
-echo objShortcut.Save >> "%vbsFilePath%"
-goto :eof
-
 :CreateShortcut
 
 set "exePath=%~1"
 set "shortcutName=%~2"
 
-if not exist "%vbsFilePath%" call :CreateShortcutScript
-
+echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
+echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
+echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
+echo objShortcut.Save >> "%vbsFilePath%"
 "%vbsFilePath%"
 goto :eof
 
@@ -414,13 +388,6 @@ goto :eof
 
 echo.
 
-if exist "VCRedistributables 2005-2022.zip" (
-	echo Installing VCRedistributables...
-	mkdir "VCRedistributables 2005-2022" 2>nul
-	tar -xf "VCRedistributables 2005-2022.zip" -C "VCRedistributables 2005-2022"
-	"%CD%\VCRedistributables 2005-2022\install_all.bat"
-	del "VCRedistributables 2005-2022.zip"
-)
 if exist "AltStore.zip" (
 	echo Installing AltStore...
 	mkdir AltStore 2>nul
@@ -528,6 +495,10 @@ ren "Librewolf.exe" "LibrewolfSetup.exe" 2>nul
 
 echo.
 
+if exist "VCRedist_2005-2022.exe" (
+	echo Installng VC Redistributables...
+	start /wait "VCRedist_2005-2022.exe" /y
+)
 if exist "3uTools.exe" (
 	echo Custom Install 3uTools ^(dumb shit has no slent install^)
 	ren "3uTools.exe" "3uTools_Setup.exe"
