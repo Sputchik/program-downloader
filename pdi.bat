@@ -16,7 +16,6 @@ set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/
 set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 set "Extensions=msi;zip"
-set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 
 if exist "%TEMP%" ( set "TempPath=%TEMP%"
 ) else set "TempPath=%~dp0"
@@ -35,46 +34,38 @@ if %FetchedURLs%==0 (
 )
 
 :MAIN_MENU
+set index=1
 
 echo Select category:
-echo [1] General Dependencies
-echo [2] Messengers
-echo [3] Coding
-echo [4] Browsers
-echo [5] iPhone Conn.
-echo [6] Misc
-echo [7] Cracked
-echo [8] Games
+for %%G in (!Categories!) do (
+	set "cat=%%G"
+	set "cat=!cat:^= !"
+	echo [!index!] !cat! 
+	set /a index+=1
+)
 echo [9] Download Selected
 echo.
 echo Suggest program - @kufla in Telegram
 
 choice /C 123456789 /N /M "Option: "
 
-if !ErrorLevel! == 1 call :MANAGE_CATEGORY "Genereal Dependencies" "%GeneralDeps%"
-if !ErrorLevel! == 2 call :MANAGE_CATEGORY Messengers "%Messengers%"
-if !ErrorLevel! == 3 call :MANAGE_CATEGORY Coding "%Coding%"
-if !ErrorLevel! == 4 call :MANAGE_CATEGORY Browsers "%Browsers%"
-if !ErrorLevel! == 5 call :MANAGE_CATEGORY Apple "%Apple%"
-if !ErrorLevel! == 6 call :MANAGE_CATEGORY Misc "%Misc%"
-if !ErrorLevel! == 7 call :MANAGE_CATEGORY Cracked "%Cracked%"
-if !ErrorLevel! == 8 call :MANAGE_CATEGORY Games "%Games%"
-if !ErrorLevel! == 9 goto :WarmupDownload
+if %ErrorLevel% == 9 goto :WarmupDownload
+call :MANAGE_CATEGORY !cat_%ErrorLevel%!
 
 goto :eof
 
 :MANAGE_CATEGORY
 set "category=%~1"
-set "programs=%~2"
+set "programs=!%category%!"
 
 :DISPLAY_LIST
 
 cls
-echo Category: !Category!
+echo Category: %category:^= %
 
 set index=1
 
-for %%a in (%programs:;= %) do (
+for %%a in (!programs!) do (
 	set "RawProgName=%%a"
 	set "ProgName=!RawProgName:^= !"
 	set "IsSelected=!selected_%%a!"
@@ -99,7 +90,7 @@ if /I "%selection%" == "Q" goto MAIN_MENU
 if /I "%selection%" == "A" goto TOGGLE_ALL
 
 set /a index=1
-for %%a in (%programs:;= %) do (
+for %%a in (!programs!) do (
 	if "%selection%" == "!index!" (
 		set SelectValue=!selected_%%a!
 
@@ -111,13 +102,12 @@ for %%a in (%programs:;= %) do (
 	)
 	set /a index+=1
 )
-set "Do=1"
+
 goto DISPLAY_LIST
 
 :TOGGLE_ALL
-set "programs=%~2"
 
-for %%a in (%programs%) do (
+for %%a in (!programs!) do (
 	set "isSelected=!selected_%%a!"
 
 	if !isSelected! == 1 (
@@ -131,7 +121,7 @@ goto DISPLAY_LIST
 
 :ClearSelected
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	set "programs=!%%C!"
 
 	for %%P in (!programs!) do (
@@ -150,6 +140,13 @@ for /f "usebackq tokens=1* delims==" %%a in ("%downloadPath%") do (
 	set "%%a=%%b"
 )
 
+set index=1
+for %%G in (!Categories!) do (
+	set "cat=%%G"
+	set "cat_!index!=!cat!"
+	set /a index+=1
+)
+
 set FetchedURLs=1
 goto :eof
 
@@ -160,7 +157,7 @@ echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
 
-if !ErrorLevel! == 1 (
+if %ErrorLevel% == 1 (
 	echo Woopise, no internet...
 	echo.
 	timeout /t 2 >nul
@@ -178,7 +175,7 @@ echo [2] Quit
 choice /C 12 /N /M " "
 echo.
 
-if !ErrorLevel! == 1 goto :WaitForConnection
+if %ErrorLevel% == 1 goto :WaitForConnection
 
 goto :eof
 
@@ -186,7 +183,7 @@ goto :eof
 
 ping -n 1 example.com >nul 2>&1
 
-if !ErrorLevel! == 1 (
+if %ErrorLevel% == 1 (
 	echo Retrying in 2 seconds...
 	choice /C Q /T 2 /D Q /N >nul
 	goto :WaitForConnection
@@ -228,7 +225,7 @@ goto :eof
 
 mkdir "%DLPath%" 2>nul
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	for %%P in (!%%C!) do (
 		set "ProgramRaw=%%P"
 		set "ProgramSpaced=!ProgramRaw:^= !"
@@ -248,7 +245,8 @@ for %%C in (%Categories%) do (
 
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
-
+				if "!FileExt!" NEQ "zip" set "ProgramUndered=!ProgramUndered!_Setup"
+				
 				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
 				cls
 
@@ -267,7 +265,7 @@ choice /N /M "Try installing them silently? [Y/N] "
 set DoneMSI=0
 set DoneZip=0
 
-if !ErrorLevel! == 1 (
+if %ErrorLevel% == 1 (
 	set DoneAll=0
 	goto :DirCheck
 ) else (
@@ -317,10 +315,10 @@ if %DoneAll% == 1 (
 
 	choice /C 1234 /N /M " "
 
-	if !ErrorLevel! == 1 ( exit /b
-	) else if !ErrorLevel! == 2 ( goto :Start
-	) else if !ErrorLevel! == 3 ( rd /s /q "%DLPath%" 2>nul
-	) else if !ErrorLevel! == 4 ( call :MovePrograms )
+	if %ErrorLevel% == 1 ( exit /b
+	) else if %ErrorLevel% == 2 ( goto :Start
+	) else if %ErrorLevel% == 3 ( rd /s /q "%DLPath%" 2>nul
+	) else if %ErrorLevel% == 4 ( call :MovePrograms )
 
 	goto :Pain
 )
@@ -354,13 +352,13 @@ if %~2 == 0 (
 	choice /C 123 /N /M " "
 	echo.
 
-	if !ErrorLevel! == 3 goto :eof
+	if %ErrorLevel% == 3 goto :eof
 
 	cd "%DLPath%"
 	call :%~1
 	cd "%origin%"
 	
-	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
+	if %ErrorLevel% == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
 
 )
 goto :eof
@@ -515,7 +513,7 @@ if exist "WinRaR.exe" (
 	call :RunInstaller "WinRaR_Setup" "/V"
 )
 
-for %%G in (S quiet VerySilent Q SilentNoRestart Vivaldi VS2022 WaterFox) do (
+for %%G in (S quiet VerySilent) do (
 	for %%I in (!Programs_%%G!) do (
 		set "progName=%%I"
 		set "progName=!progName:^= !"
