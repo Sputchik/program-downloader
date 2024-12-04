@@ -11,7 +11,7 @@ Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
 msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
 zip=Telegram^Portable;VCRedist^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
-zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop
+zipf=TradingView;Telegram^Portable;TranslucentTB;Gradle;Chromium;ThrottleStop
 
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;RegistryFinder;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
