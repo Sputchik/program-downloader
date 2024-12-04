@@ -1,5 +1,8 @@
 Categories=GeneralDeps;Messengers;Coding;Browsers;Apple;Misc;Cracked;Games
 
+msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
+zip=Telegram^Portable;VCRedist^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
+
 GeneralDeps=.NET^Framework^3.5;DirectX^Runtimes;Git;Go;Gradle;NVCleanstall;Node.js;Python;VCRedist^2005-2022;Wireless^Bluetooth
 Messengers=Discord;Telegram;Telegram^Portable;Viber
 Coding=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;IntelliJ^IDEA;PyCharm;Resource^Hacker;Sublime^Text;VSCode;VS^2022^Installer
@@ -8,6 +11,10 @@ Apple=3uTools;iCloud;iMazing;iTunes
 Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;OBS;Process^Hacker;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button;nomacs;qBitTorrent
 Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
+
+Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;RegistryFinder;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
+Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
+Programs_S=IntelliJ^IDEA;X-Mouse^Button;PyCharm;GoLand;Viber;OBS;7-Zip;WinDirStat;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
 
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_3uTools=https://url.3u.com/zmAJjyaa
