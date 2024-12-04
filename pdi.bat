@@ -143,11 +143,10 @@ goto :eof
 
 :FetchURLs
 
-
 curl -A "%UserAgent%" -s %URLsURL% -o "%downloadPath%"
 
 :: Define all variables from 'urls.txt' starting from the third line
-for /f "usebackq skip=2 tokens=1* delims==" %%a in ("%downloadPath%") do (
+for /f "usebackq tokens=1* delims==" %%a in ("%downloadPath%") do (
 	set "%%a=%%b"
 )
 
@@ -232,17 +231,18 @@ mkdir "%DLPath%" 2>nul
 for %%C in (%Categories%) do (
 	for %%P in (!%%C!) do (
 		set "ProgramRaw=%%P"
-		set "ProgramSpaced=!program:^= !"
-		set "ProgramUndered=!program:^=_!"
+		set "ProgramSpaced=!ProgramRaw:^= !"
+		set "ProgramUndered=!ProgramRaw:^=_!"
 
 		if "!selected_%%P!" == "1" (
 			set "DownloadURL=!url_%%P!"
 
 			if DownloadURL neq "" (
 				set FileExt=0
+
 				for %%E in (!Extensions!) do (
 					for %%I in (!%%E!) do (
-						if "!program!" == "%%I" set FileExt=%%E
+						if "!ProgramRaw!" == "%%I" set FileExt=%%E
 					)
 				)
 
