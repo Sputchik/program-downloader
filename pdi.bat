@@ -392,20 +392,15 @@ cls
 
 goto :eof
 
-:CreateShortcutScript
-
-echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
-echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
-echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
-echo objShortcut.Save >> "%vbsFilePath%"
-goto :eof
-
 :CreateShortcut
 
 set "exePath=%~1"
 set "shortcutName=%~2"
 
-if not exist "%vbsFilePath%" call :CreateShortcutScript
+echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
+echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
+echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
+echo objShortcut.Save >> "%vbsFilePath%"
 
 "%vbsFilePath%"
 goto :eof
