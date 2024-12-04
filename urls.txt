@@ -9,20 +9,16 @@ Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Li
 Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
-msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
-zip=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView;Gradle
-zipm=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;TradingView
-
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;RegistryFinder;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
-Programs_S=IntelliJ^IDEA;X-Mouse^Button;PyCharm;GoLand;Viber;OBS;7-Zip;WinDirStat;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
+Programs_S=IntelliJ^IDEA;X-Mouse^Button;PyCharm;GoLand;Viber;OBS;WinDirStat;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP^Installer
 Flags_S=/S
 Flags_quiet=/quiet
 Flags_VerySilent=/VERYSILENT
 
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_3uTools=https://url.3u.com/zmAJjyaa
-url_7-Zip=https://github.com/ip7z/7zip/releases/download/24.07/7z2407-x64.exe
+url_7-Zip=https://github.com/ip7z/7zip/releases/download/24.09/7z2409-x64.msi
 url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip
 url_Avidemux=https://www.dropbox.com/scl/fi/nzxbti6br7o7vegkegiyz/AviDemux.exe?rlkey=mfzxwa8dqai53uuc22grqtxry&st=ofqskatg&dl=1
 url_Blender=https://www.blender.org/download/release/Blender4.3/blender-4.3.0-windows-x64.msi/
@@ -34,7 +30,7 @@ url_Discord=https://discord.com/api/downloads/distributions/app/installers/lates
 url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
 url_Everything=https://voidtools.com/Everything-1.4.1.1026.x64-Setup.exe
 url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US
-url_Git=https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe
+url_Git=https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe
 url_Go=https://go.dev/dl/go1.23.4.windows-amd64.msi
 url_Google^Earth^Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
 url_Gradle=https://services.gradle.org/distributions/gradle-8.11.1-bin.zip
@@ -50,7 +46,7 @@ url_Minecraft^Legacy^Launcher=https://launcher.mojang.com/download/MinecraftInst
 url_Node.js=https://nodejs.org/dist/v23.3.0/node-v23.3.0-x64.msi
 url_nomacs=https://github.com/nomacs/nomacs/releases/latest/download/nomacs-setup-x64.msi
 url_NVCleanstall=https://nvcleanstall.net/file/NVCleanstall_1.17.0.exe
-url_OBS=https://cdn-fastly.obsproject.com/downloads/OBS-Studio-30.2.2-Windows-Installer.exe
+url_OBS=https://github.com/obsproject/obs-studio/releases/download/30.2.3/OBS-Studio-30.2.3-Windows-Installer.exe
 url_Process^Hacker=https://netcologne.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe?viasf=1
 url_PyCharm=https://download-cdn.jetbrains.com/python/pycharm-professional-2024.1.4.exe
 url_Python=https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
@@ -59,7 +55,7 @@ url_QuteBrowser=https://github.com/qutebrowser/qutebrowser/releases/download/v3.
 url_RegistryFinder=https://registry-finder.com/bin/2.59.0.0/RegistryFinderSetup2.59.exe
 url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe
 url_Revo^Uninstaller^Pro=https://www.dropbox.com/scl/fi/9nc9khsw8wobjhd8rt2xk/RevoUninstallerPro.exe?rlkey=48mvmd79eazgmbqdkrnyaabjq&st=1mte3l8n&dl=1
-url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.5/rufus-4.5.exe
+url_Rufus=https://github.com/pbatard/rufus/releases/download/v4.6/rufus-4.6.exe
 url_Steam=https://cdn.cloudflare.steamstatic.com/client/installer/SteamSetup.exe
 url_Sublime^Text=https://download.sublimetext.com/sublime_text_build_4169_x64_setup.exe
 url_Telegram=https://telegram.org/dl/desktop/win64
@@ -68,7 +64,7 @@ url_Throttlestop=https://www.dropbox.com/scl/fi/b0648d8fnmm7qtmcoe6v4/ThrottleSt
 url_TradingView=https://tvd-packages.tradingview.com/stable/latest/win32/TradingView.msix
 url_TranslucentTB=https://github.com/TranslucentTB/TranslucentTB/releases/download/2024.1/TranslucentTB-portable-x64.zip
 url_TunnelBear=https://tunnelbear.s3.amazonaws.com/downloads/pc/TunnelBear-Installer.exe
-url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/126.0.6478.126-1.1/ungoogled-chromium_126.0.6478.126-1.1_installer_x64.exe 
+url_Ungoogled^Chromium=https://github.com/ungoogled-software/ungoogled-chromium-windows/releases/download/131.0.6778.85-1.1/ungoogled-chromium_131.0.6778.85-1.1_installer_x64.exe
 url_VCRedist^2005-2022=https://github.com/abbodi1406/vcredist/releases/download/v0.85.0/VisualCppRedist_AIO_x86_x64.exe
 url_Viber=https://download.cdn.viber.com/desktop/windows/ViberSetup.exe
 url_VS^2022^Installer=https://c2rsetup.officeapps.live.com/c2r/downloadVS.aspx?sku=enterprise&channel=Release&version=VS2022&source=VSLandingPage&cid=2030
