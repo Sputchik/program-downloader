@@ -1,8 +1,5 @@
 Categories=GeneralDeps;Messengers;Coding;Browsers;Apple;Misc;Cracked;Games
 
-msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
-zip=Telegram^Portable;VCRedist^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
-
 GeneralDeps=.NET^Framework^3.5;DirectX^Runtimes;Git;Go;Gradle;NVCleanstall;Node.js;Python;VCRedist^2005-2022;Wireless^Bluetooth
 Messengers=Discord;Telegram;Telegram^Portable;Viber
 Coding=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;IntelliJ^IDEA;PyCharm;Resource^Hacker;Sublime^Text;VSCode;VS^2022^Installer
@@ -11,6 +8,9 @@ Apple=3uTools;iCloud;iMazing;iTunes
 Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;OBS;Process^Hacker;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button;nomacs;qBitTorrent
 Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
+
+msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
+zip=Telegram^Portable;VCRedist^2005-2022;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
 
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;RegistryFinder;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth
@@ -28,7 +28,7 @@ url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/rele
 url_DirectX^Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x64
 url_Epic^Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
-url_Everything=https://Everything-1.4.1.1026.x64-Setup.exe
+url_Everything=https://voidtools.com/Everything-1.4.1.1026.x64-Setup.exe
 url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US
 url_Git=https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-64-bit.exe
 url_Go=https://go.dev/dl/go1.23.4.windows-amd64.msi
