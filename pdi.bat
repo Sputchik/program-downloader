@@ -4,9 +4,9 @@ setlocal EnableDelayedExpansion
 cls
 net session >nul 2>&1
 if %ErrorLevel% neq 0 (
-	 echo Please run this script as an administrator
-	 pause
-	 exit /b
+	echo Please run this script as an administrator
+	pause
+	exit /b
 )
 
 set "origin=%~dp0"
@@ -15,7 +15,7 @@ set FetchedURLs=0
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
 set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
-set "Extensions=msi;zip;iso"
+set "Extensions=msi;zip"
 set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 
 if exist "%TEMP%" ( set "TempPath=%TEMP%"
@@ -216,10 +216,10 @@ echo.
 curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
 
 if %ERRORLEVEL% neq 0 (
-	 echo Download interrupted... Retrying in %RETRY_WAIT% seconds... ^(Attempt !RETRIES!^)
-	 timeout /T %RETRY_WAIT% /NOBREAK
-	 cls
-	 goto loop
+	echo Download interrupted... Retrying in %RETRY_WAIT% seconds... ^(Attempt !RETRIES!^)
+	timeout /T %RETRY_WAIT% /NOBREAK
+	cls
+	goto loop
 )
 
 goto :eof
@@ -352,15 +352,16 @@ if %~2 == 0 (
 	echo.
 
 	choice /C 123 /N /M " "
+	echo.
 
-	if !ErrorLevel! == 1 (
-		call :%~1
-	) else if !ErrorLevel! == 2 (
-		call :%~1
-		if exist "C:\Users\%username%\Desktop" (
-			del "C:\Users\%username%\Desktop\*.lnk" 2>nul
-		 )
-	)
+	if !ErrorLevel! == 3 goto :eof
+
+	cd "%DLPath%"
+	call :%~1
+	cd "%origin%"
+	
+	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
+
 )
 goto :eof
 
@@ -386,8 +387,6 @@ goto :eof
 
 :ZIP
 
-echo.
-
 if exist "AltStore.zip" (
 	echo Installing AltStore...
 	mkdir AltStore 2>nul
@@ -404,38 +403,17 @@ if exist "Autoruns.zip" (
 	rd /s /q "Autoruns"
 	call :CreateShortcut "C:\Program Files\Autoruns\Autoruns64.exe" "Autoruns"
 )
-if exist "Telegram Portable.zip" (
+
+if exist "Telegram_Portable.zip" (
 	echo Installing Telegram Portable...
 	if exist "Telegram Portable" rd /s /q "Telegram Portable"
 	mkdir "Telegram Portable" 2>nul
-	tar -xf "Telegram Portable.zip" -C "Telegram Portable"
+	tar -xf "Telegram_Portable.zip" -C "Telegram Portable"
 	mkdir "C:\Program Files\Telegram" 2>nul
 	xcopy "%CD%\Telegram Portable\Telegram\*" "C:\Program Files\Telegram" /s /i /q /y
 	rd /s /q "Telegram Portable"
 	call :CreateShortcut "C:\Program Files\Telegram\Telegram.exe" "Telegram"
 )
-if exist "DirectX Runtimes Offline.zip" (
-	echo Installing DX Runtimes...
-	if exist "DXO" rd /s /q "DXO"
-	mkdir "DXO" 2>nul
-	tar -xf "DirectX Runtimes Offline.zip" -C "DXO"
-	cd DXO
-	start /wait dxsetup /silent
-	cd %origin%Programs
-	del "DirectX Runtimes Offline.zip"
-)
-if exist "Cinema4D 2024.3.2.zip" (
-	echo Installing Cinema4D...
-	if exist "Cinema4D" rd /s /q "Cinema4D"
-	mkdir "Cinema4D" 2>nul
-	tar -xf "Cinema4D 2024.3.2.zip" -C "Cinema4D"
-	cd Cinema4D
-	echo Proceed with installation Instructions for Cinema4D and activation
-	start /wait "Cinema4D_2024_2024.3.2_Win.exe"
-
-)
-
-cd "%DLPath%"
 
 for %%A in (%zipf:;= %) do (
 	set "progName=%%A"
@@ -473,10 +451,9 @@ goto :eof
 :MSI
 
 cd "%DLPath%"
-echo.
 
-for %%B in (!msi!) do (
-	set "progName=%%B"
+for %%P in (!msi!) do (
+	set "progName=%%P"
 	set "progName=!progName:^= !"
 	if exist "!progName!.msi" (
 		echo Installing !progName!...
@@ -488,12 +465,8 @@ goto :eof
 
 :EXE
 
-cd "%DLPath%"
-
 ren "Sideloadly.exe" "SideloadlySetup.exe" 2>nul
 ren "Librewolf.exe" "LibrewolfSetup.exe" 2>nul
-
-echo.
 
 if exist "VCRedist_2005-2022.exe" (
 	echo Installng VC Redistributables...
@@ -505,7 +478,7 @@ if exist "3uTools.exe" (
 	start /wait 3uTools_Setup
 )
 
-if exist "avidemux.exe" (
+if exist "AviDemux.exe" (
 	echo Installing AviDemux...
 	start /wait "AviDemux.exe"
 )
@@ -534,8 +507,8 @@ if exist "Rufus.exe" (
 	call :CreateShortcut "C:\Program Files\Rufus\Rufus.exe" "Rufus"
 )
 
-if exist "Google Earth Pro.exe" (
-	call :RunInstaller "Google Earth Pro" "OMAHA=1"
+if exist "Google_Earth_Pro.exe" (
+	call :RunInstaller "Google_Earth_Pro" "OMAHA=1"
 )
 if exist "WinRaR.exe" (
 	ren "WinRaR.exe" "WinRaR_Setup.exe"
