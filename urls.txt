@@ -7,7 +7,10 @@ Browsers=Firefox;Librewolf;QuteBrowser;Ungoogled^Chromium;WaterFox
 Apple=3uTools;iCloud;iMazing;iTunes
 Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;OBS;Process^Hacker;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button;nomacs;qBitTorrent
 Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
+<<<<<<< HEAD
 Games=Steam;Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher
+=======
+>>>>>>> 8cd77bdd643b2cf087d156e9ff9f91dbc66162a6
 
 url_.NET^Framework^3.5=http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
 url_3uTools=https://url.3u.com/zmAJjyaa
@@ -68,4 +71,8 @@ url_iCloud=https://secure-appldnld.apple.com/windows/061-91601-20200323-974a39d0
 url_iMazing=https://downloads.imazing.com/windows/iMazing/iMazing3forWindows.exe
 url_iTunes=https://www.apple.com/itunes/download/win64
 url_nomacs=https://github.com/nomacs/nomacs/releases/latest/download/nomacs-setup-x64.msi
+<<<<<<< HEAD
 url_qBitTorrent=https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-v5.0.2/qbittorrent_v5.0.2_x64_setup.exe?viasf=1
+=======
+url_qBitTorrent=https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-v5.0.2/qbittorrent_v5.0.2_x64_setup.exe?viasf=1
+>>>>>>> 8cd77bdd643b2cf087d156e9ff9f91dbc66162a6

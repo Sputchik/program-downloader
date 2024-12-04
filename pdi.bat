@@ -381,6 +381,10 @@ echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
 echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
 echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
 echo objShortcut.Save >> "%vbsFilePath%"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8cd77bdd643b2cf087d156e9ff9f91dbc66162a6
 "%vbsFilePath%"
 goto :eof
 
