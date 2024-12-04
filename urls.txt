@@ -1,4 +1,4 @@
-Categories=GeneralDeps;Messengers;Coding;Browsers;Apple;Misc;Cracked
+Categories=GeneralDeps;Messengers;Coding;Browsers;Apple;Misc;Cracked;Games
 
 GeneralDeps=.NET^Framework^3.5;DirectX^Runtimes;Git;Go;Gradle;NVCleanstall;Node.js;Python;VCRedist^2005-2022;Wireless^Bluetooth
 Messengers=Discord;Telegram;Telegram^Portable;Viber
