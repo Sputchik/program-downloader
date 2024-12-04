@@ -44,6 +44,7 @@ else:
 github_headers = {
 	'Authorization': f'Bearer {access_token}'
 }
+remote_url = 'https://github.com/Sputchik/program-downloader.git'
 
 def get_line_index(lines, start_pattern):
 	for index, line in enumerate(lines):
@@ -252,29 +253,31 @@ async def update_progs(progmap, session = None):
 
 	return progmap
 
-def push(repo, file):
-	repo.index.add(file)
-	author = repo.config_reader().get_value('user', 'Sputchik')
-	commiter = repo.config_reader().get_value('user', 'sputchik@gmail.com')
-	repo.index.commit('Update urls.txt', author = author, committer = commiter)
-	origin = repo.remote('origin')
-	origin.push('main')
+def push(repo: Repo, file):
+	repo.git.add(A = True)
+	
+	repo.index.commit('Update urls.txt')
+
+	remote_url = f"https://{access_token}@github.com/Sputchik/program-downloader.git"
+	repo.remotes.origin.set_url(remote_url)
+	repo.remotes.origin.push()
 
 async def main(repo: Repo):
 
 	progmap = await parse_github_urls()
 	# print(json.dumps(progmap, indent = 2))
 
-	async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
+	# async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
 	# print(json.dumps(newmap, indent = 2))
 
-	txt = progmap_to_txt(newmap)
+	txt = progmap_to_txt(progmap)
 	input('Press any key to continue . . . ')
 
 	await aio.open(urls_path, 'write', 'w', txt)
-	push(repo, urls_path)
+	push(repo, 'urls.txt')
 
 if __name__ == '__main__':
+	os.chdir(cwd)
 	repo = Repo(cwd)
 	enhance_loop()
 	asyncio.run(main(repo))
