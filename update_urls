@@ -52,7 +52,7 @@ async def parse_github_urls() -> dict:
 	# print(*lines, sep = '\n')
 	url_index = get_line_index(lines, 'url_')
 	url_lines = lines[url_index:]
-
+	print(url_lines)
 	progmap = {
 		'cats': parse_categories(lines),
 		'urls': dict(sorted({
