@@ -2,7 +2,7 @@ from sputchedtools import aio, enhance_loop
 from bs4 import BeautifulSoup
 from git import Repo
 
-import aiohttp, asyncio, json, os
+import aiohttp, asyncio, json, os, time
 
 cwd = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/'
 urls_path = cwd + 'urls.txt'
@@ -286,4 +286,7 @@ if __name__ == '__main__':
 	os.chdir(cwd)
 	repo = Repo(cwd)
 	enhance_loop()
-	asyncio.run(main(repo))
+	
+	while True:
+		asyncio.run(main(repo))
+		time.sleep(3600)
