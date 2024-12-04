@@ -1,23 +1,49 @@
 from sputchedtools import aio, enhance_loop
 from bs4 import BeautifulSoup
+from git import Repo
 
-import aiohttp, aiofiles, asyncio, ssl, ua_generator, json
+import aiohttp, asyncio, json, os
 
+cwd = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/'
+urls_path = cwd + 'urls.txt'
 github_latest_draft = 'https://api.github.com/repos/{}/{}/releases/latest' # Owner, Repo Slug
 urls_link = 'https://raw.githubusercontent.com/Sputchik/program-downloader/refs/heads/main/urls.txt'
 
-RegistryFinder = 'https://registry-finder.com/'
-Go = 'https://go.dev/dl/?mode=json'
-Google_Earth_Pro = 'https://support.google.com/earth/answer/168344?hl=en#zippy=%2Cdownload-a-google-earth-pro-direct-installer'
-Git = 'https://git-scm.com/downloads/win'
-Wireless_Bluetooth = 'https://www.intel.com/content/www/us/en/download/18649/intel-wireless-bluetooth-drivers-for-windows-10-and-windows-11.html'
-Git = 'https://git-scm.com/downloads/win'
-Python = 'https://www.python.org/downloads/'
-Nodejs = 'https://nodejs.org/en'
-NVCleanstall = 'https://nvcleanstall.net/download'
-KLiteCodec = 'https://www.codecguide.com/download_k-lite_codec_pack_standard.htm'
-Everything = 'https://www.voidtools.com/'
-qBitTorrent = 'https://www.qbittorrent.org/download'
+github_map = {
+	'7-Zip': ('ip7z', '7zip'),
+	'ContextMenuManager': ('BluePointLilac', 'ContextMenuManager'),
+	'Git': ('git-for-windows', 'git'),
+	'OBS': ('obsproject', 'obs-studio'),
+	'Rufus': ('pbatard', 'rufus'),
+	'VCRedist 2005-2022': ('abbodi1406', 'vcredist'),
+	'ZXP Installer': ('elements-storage', 'ZXPInstaller'),
+}
+
+parse_map = {
+	'RegistryFinder': 'https://registry-finder.com/',
+	'Go': 'https://go.dev/dl/?mode=json',
+	'Gradle': 'https://gradle.org/releases/',
+	'Google_Earth_Pro': 'https://support.google.com/earth/answer/168344?hl=en#zippy=%2Cdownload-a-google-earth-pro-direct-installer',
+	'Git': 'https://git-scm.com/downloads/win',
+	'Wireless Bluetooth': 'https://www.intel.com/content/www/us/en/download/18649/intel-wireless-bluetooth-drivers-for-windows-10-and-windows-11.html',
+	'Python': 'https://www.python.org/downloads/',
+	'Node.js': 'https://nodejs.org/en',
+	'NVCleanstall': 'https://nvcleanstall.net/download',
+	'K-Lite Codec': 'https://www.codecguide.com/download_k-lite_codec_pack_standard.htm',
+	'Everything': 'https://www.voidtools.com/',
+	'qBitTorrent': 'https://www.qbittorrent.org/download',
+}
+
+if not os.path.exists('token'):
+	access_token = input('Github Access Token: ')
+	open('token', 'w').write(access_token)
+
+else:
+	access_token = open('token', 'r').read()
+
+github_headers = {
+	'Authorization': f'Bearer {access_token}'
+}
 
 def get_line_index(lines, start_pattern):
 	for index, line in enumerate(lines):
@@ -30,14 +56,15 @@ def parse_categories(lines):
 	categories = lines[cat_index].split('=')[1].split(';')
 
 	cat_progs_start = get_line_index(lines, categories[0])
-	cat_progs_end = get_line_index(lines, categories[-1])
+	cat_progs_end = get_line_index(lines, categories[-1]) + 1
 
 	progs_lines = lines[cat_progs_start:cat_progs_end]
+
 	for line in progs_lines:
 		cat, progs = line.split('=')
 		progs = sorted(progs.split(';'))
 		cat_map[cat] = ';'.join(progs)
-	
+
 	return cat_map
 
 async def parse_github_urls() -> dict:
@@ -47,17 +74,16 @@ async def parse_github_urls() -> dict:
 	if not ok:
 		print(f'Fail: Github urls fetch: {urls_link}')
 		return
-	
+
 	lines: list[str] = data.splitlines()
-	# print(*lines, sep = '\n')
 	url_index = get_line_index(lines, 'url_')
 	url_lines = lines[url_index:]
-	print(url_lines)
+
 	progmap = {
 		'cats': parse_categories(lines),
 		'urls': dict(sorted({
 			line.split('url_')[1].split('=')[0].replace('^', ' '): line.split('=', maxsplit = 1)[1] for line in url_lines
-		}.items(), key = lambda x: x.casefold()))
+		}.items(), key = lambda x: (x[0].lower(), x[1:])))
 	}
 
 	return progmap
@@ -68,25 +94,6 @@ def progmap_to_txt(progmap):
 	urls = '\n'.join([f"url_{key.replace(' ', '^')}={value}" for key, value in progmap['urls'].items()])
 	result = '\n\n'.join((first_line, cat_progs, urls))
 	return result
-
-# async def parse_github_urls() -> dict:
-# 	response = await aio.request(urls_link, toreturn = 'text+ok')
-# 	data, ok = response
-
-# 	if not ok:
-# 		print(f'Fail: Github urls fetch: {urls_link}')
-# 		return
-
-# 	lines: list[str] = data.splitlines()
-# 	# print(*lines, sep = '\n')
-
-# 	progmap = {
-# 		'version': lines[0],
-# 		'urls': {
-# 			line.split('url_')[1].split('=')[0].replace('^', ' '): line.split('=', maxsplit = 1)[1] for line in lines[get_url_line_inex(lines):]}
-# 	}
-
-# 	return progmap
 
 def extract_versions(versions: dict[str, str]) -> str:
 	preferred_exe = None
@@ -122,7 +129,8 @@ async def direct_from_github(owner: str, project: str) -> str:
 
 	response = await aio.request(
 		url,
-		toreturn = 'json+ok'
+		toreturn = 'json+ok',
+		headers = github_headers,
 	)
 	data, ok = response
 
@@ -137,47 +145,17 @@ async def direct_from_github(owner: str, project: str) -> str:
 	if not key:
 		print(f'Fail: Github key version extraction: {url}')
 
-	# print(version_map[key])
 	return version_map[key]
 
-async def parse(url, name):
+async def parse_prog(url = None, name = None, session = None):
 
-	if name == 'ZXP Installer':
-		author = 'elements-storage'
-		project = 'ZXPInstaller'
+	try:
+		author, project = github_map[name]
 		return await direct_from_github(author, project)
+	except KeyError:
+		pass
 
-	elif name == '7-Zip':
-		author = 'ip7z'
-		project = '7zip'
-		return await direct_from_github(author, project)
-
-	elif name == 'VCRedist_2005-2022':
-		author = 'abbodi1406'
-		project = 'vcredist'
-		return await direct_from_github(author, project)
-
-	elif name == 'Git':
-		author = 'git-for-windows'
-		project = 'git'
-		return await direct_from_github(author, project)
-	
-	elif name == 'ContextMenuManager':
-		author = 'BluePointLilac'
-		return await direct_from_github(author, name)
-	
-	elif name == 'Rufus':
-		author = 'pbatard'
-		project = 'rufus'
-		return await direct_from_github(author, project)
-	
-	elif name == 'OBS':
-		author = 'obsproject'
-		project = 'obs-studio'
-		return await direct_from_github(author, project)
-
-	# headers = {'User-Agent': ua_generator.generate().text}
-	response = await aio.request(url, toreturn = 'text+status')
+	response = await aio.request(url, toreturn = 'text+status', session = session)
 	data, status = response
 
 	print(f'{status}: {name} - {url}')
@@ -186,8 +164,7 @@ async def parse(url, name):
 
 	if name == 'Go':
 		version = json.loads(data)[0]['version'].split('go')[1]
-		return f'https://go.dev/dl/go{version}.windows-amd64.msi'
-
+		return (name, f'https://go.dev/dl/go{version}.windows-amd64.msi')
 
 	soup = BeautifulSoup(data, 'lxml')
 
@@ -195,7 +172,7 @@ async def parse(url, name):
 		for a_tag in soup.find_all('a'):
 			href = a_tag.get('href')
 			if href and href.startswith('bin/'):
-				return f'https://registry-finder.com/{href}'
+				return (name, f'https://registry-finder.com/{href}')
 
 	elif name == 'Google Earth Pro':
 		lis = soup.find_all('li')
@@ -212,14 +189,13 @@ async def parse(url, name):
 	elif name == 'Gradle':
 		div = soup.find('div', class_ = 'resources-contents')
 		version = div.find('a').get('name')
-		return f'https://services.gradle.org/distributions/gradle-{version}-bin.zip'
+		return (name, f'https://services.gradle.org/distributions/gradle-{version}-bin.zip')
 
 	elif name == 'Python':
 		a = soup.find('a', class_ = 'button')
-		print(a)
 		version = a.text.split(' ')[2]
 
-		return f'https://www.python.org/ftp/python/{version}/python-{version}-amd64.exe'
+		return (name, f'https://www.python.org/ftp/python/{version}/python-{version}-amd64.exe')
 
 	elif name == 'Node.js':
 		a_elems = soup.find_all('b')
@@ -233,35 +209,72 @@ async def parse(url, name):
 	elif name == 'NVCleanstall':
 		a = soup.find('a', class_ = 'btn btn btn-info my-5')
 		return a.get('href')
-	
+
 	elif name == 'K-Lite Codec':
 		a_elems = soup.find_all('a')
 
 		for elem in a_elems:
 			if elem.text and elem.text == 'Server 2':
 				return elem.get('href')
-	
+
 	elif name == 'Everything':
 		a_elems = soup.find_all('a', class_ = 'button')
-		
+
 		for elem in a_elems:
 			if elem.text and elem.text.endswith('64-bit'):
 				url = elem.get('href')
-				return f'https://www.voidtools.com{url}'
-		
+				return (name, f'https://www.voidtools.com{url}')
+
 	elif name == 'qBitTorrent':
 		a_elems = soup.find_all('a')
 
 		for elem in a_elems:
 			if elem.text and elem.text.startswith('Download qBittorrent '):
 				version = elem.text.split(' ')[2]
-				return f'https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-{version}/qbittorrent_{version}_x64_setup.exe?viasf=1'
+				return (name, f'https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-{version}/qbittorrent_{version}_x64_setup.exe?viasf=1')
 
-async def main():
+async def update_progs(progmap, session = None):
+	tasks = []
+	for prog in github_map:
+		tasks.append(parse_prog(name = prog))
+
+	for prog, url in parse_map.items():
+		tasks.append(parse_prog(url, prog, session))
+
+	results = await asyncio.gather(*tasks)
+	parsed_data = ((result[0], result[1]) for result in results if isinstance(result, tuple))
+	print()
+
+	for prog, url in parsed_data:
+		if progmap['urls'][prog] != url:
+			progmap['urls'][prog] = url
+			print(f'New: {prog}')
+
+	return progmap
+
+def push(repo, file):
+	repo.index.add(file)
+	author = repo.config_reader().get_value('user', 'Sputchik')
+	commiter = repo.config_reader().get_value('user', 'sputchik@gmail.com')
+	repo.index.commit('Update urls.txt', author = author, committer = commiter)
+	origin = repo.remote('origin')
+	origin.push('main')
+
+async def main(repo: Repo):
+
 	progmap = await parse_github_urls()
-	#print(json.dumps(progmap, indent = 2))
-	print(progmap_to_txt(progmap))
+	# print(json.dumps(progmap, indent = 2))
+
+	async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
+	# print(json.dumps(newmap, indent = 2))
+
+	txt = progmap_to_txt(newmap)
+	input('Press any key to continue . . . ')
+
+	await aio.open(urls_path, 'write', 'w', txt)
+	push(repo, urls_path)
 
 if __name__ == '__main__':
+	repo = Repo(cwd)
 	enhance_loop()
-	asyncio.run(main())
+	asyncio.run(main(repo))
