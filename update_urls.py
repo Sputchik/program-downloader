@@ -246,12 +246,14 @@ async def update_progs(progmap, session = None):
 	parsed_data = ((result[0], result[1]) for result in results if isinstance(result, tuple))
 	print()
 
+	new = False
 	for prog, url in parsed_data:
 		if progmap['urls'][prog] != url:
 			progmap['urls'][prog] = url
 			print(f'New: {prog}')
+			new = True
 
-	return progmap
+	return progmap, new
 
 def push(repo: Repo, file):
 	repo.git.add([file])
@@ -267,9 +269,13 @@ async def main(repo: Repo):
 	progmap = await parse_github_urls()
 	# print(json.dumps(progmap, indent = 2))
 
-	async with aiohttp.ClientSession() as session: newmap = await update_progs(progmap, session = session)
+	async with aiohttp.ClientSession() as session: progmap, new = await update_progs(progmap, session = session)
 	# print(json.dumps(newmap, indent = 2))
 
+	if not new:
+		print('Everything is Up-To-Date!')
+		return
+	
 	txt = progmap_to_txt(progmap)
 	input('Press any key to continue . . . ')
 
