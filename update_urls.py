@@ -17,6 +17,7 @@ github_map = {
 	'Rufus': ('pbatard', 'rufus'),
 	'VCRedist 2005-2022': ('abbodi1406', 'vcredist'),
 	'ZXP Installer': ('elements-storage', 'ZXPInstaller'),
+	'Ungoogled Chromium': ('ungoogled-software', 'ungoogled-chromium-windows'),
 }
 
 parse_map = {
@@ -61,11 +62,8 @@ def parse_categories(lines):
 	cat_progs_start = get_line_index(lines, categories[0])
 	cat_progs_end = get_line_index(lines, categories[-1]) + 1
 
-	ext_start = get_line_index(lines, 'msi=')
-	ext_end = cat_progs_start - 1
-
-	flags_start =  get_line_index(lines, 'Programs_')
-	flags_end = get_line_index(lines, 'url_') - 1
+	ext_start = cat_progs_end + 1
+	ext_end = get_line_index(lines, 'url_') - 1
 
 	progs_lines = lines[cat_progs_start:cat_progs_end]
 
@@ -74,7 +72,7 @@ def parse_categories(lines):
 		progs = sorted(progs.split(';'))
 		cat_map[cat] = ';'.join(progs)
 
-	return cat_map, '\n'.join(lines[ext_start:ext_end]), '\n'.join(lines[flags_start:flags_end])
+	return cat_map, '\n'.join(lines[ext_start:ext_end])
 
 async def parse_github_urls() -> dict:
 	response = await aio.request(urls_link, toreturn = 'text+status')
@@ -88,12 +86,11 @@ async def parse_github_urls() -> dict:
 	url_index = get_line_index(lines, 'url_')
 	url_lines = lines[url_index:]
 	
-	cats, exts, flags = parse_categories(lines)
+	cats, exts = parse_categories(lines)
 
 	progmap = {
 		'cats': cats,
 		'exts': exts,
-		'flags': flags,
 		'urls': dict(sorted({
 			line.split('url_')[1].split('=')[0].replace('^', ' '): line.split('=', maxsplit = 1)[1] for line in url_lines
 		}.items(), key = lambda x: (x[0].lower(), x[1:])))
@@ -170,7 +167,7 @@ async def parse_prog(url = None, name = None, session = None):
 
 	try:
 		author, project = github_map[name]
-		return await direct_from_github(author, project)
+		return (name, await direct_from_github(author, project))
 	except KeyError:
 		pass
 
@@ -325,7 +322,7 @@ async def main(repo: Repo):
 	# input(json.dumps(progmap, indent = 2))
 
 	if not new:
-		print('Everything is Up-To-Date!')
+		print('Everything is Up-To-Date!\n')
 		return
 	
 	txt = progmap_to_txt(progmap)
@@ -333,8 +330,9 @@ async def main(repo: Repo):
 
 	await aio.open(urls_path, 'write', 'w', txt)
 
-	input('\nPress any key to continue . . . ')
+	input('\nPress any key to push . . . ')
 	push(repo, 'urls.txt')
+	print('Pushed successfully\n')
 
 if __name__ == '__main__':
 	os.chdir(cwd)
