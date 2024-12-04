@@ -10,8 +10,8 @@ Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
 msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
-zip=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView
-zipf=Telegram^Portable
+zip=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView;Gradle
+zipm=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;TradingView
 
 Programs_VerySilent=VSCode;Git;Resource^Hacker;K-Lite^Codec;RegistryFinder;iMazing;Process^Hacker;Revo^Uninstaller^Pro;Sublime^Text;Telegram
 Programs_quiet=iTunes;iCloud;Python;Wireless^Bluetooth

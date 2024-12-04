@@ -3,7 +3,7 @@ setlocal EnableDelayedExpansion
 
 cls
 net session >nul 2>&1
-if %ErrorLevel% neq 0 (
+if !ErrorLevel! neq 0 (
 	echo Please run this script as an administrator
 	pause
 	exit /b
@@ -13,7 +13,7 @@ set "origin=%~dp0"
 set "DLPath=%origin%pdi_downloads"
 set FetchedURLs=0
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
-set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/main/urls.txt"
+set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/refs/heads/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 set "Extensions=msi;zip"
 
@@ -49,13 +49,14 @@ echo Suggest program - @kufla in Telegram
 
 choice /C 123456789 /N /M "Option: "
 
-if %ErrorLevel% == 9 goto :WarmupDownload
-call :MANAGE_CATEGORY !cat_%ErrorLevel%!
+if !ErrorLevel! == 9 goto :WarmupDownload
+call :MANAGE_CATEGORY !ErrorLevel!
 
 goto :eof
 
 :MANAGE_CATEGORY
-set "category=%~1"
+set "num=%~1"
+set "category=!cat_%num%!"
 set "programs=!%category%!"
 
 :DISPLAY_LIST
@@ -121,11 +122,11 @@ goto DISPLAY_LIST
 
 :ClearSelected
 
-for %%C in (!Categories!) do (
+for %%C in (%Categories%) do (
 	set "programs=!%%C!"
 
-	for %%P in (!programs!) do (
-		set "selected_%%P=0"
+	for %%G in (!programs!) do (
+		set "selected_%%G=0"
 	)
 )
 
@@ -157,7 +158,7 @@ echo Checking internet connectivity...
 echo.
 ping -n 1 google.com >nul 2>&1
 
-if %ErrorLevel% == 1 (
+if !ErrorLevel! == 1 (
 	echo Woopise, no internet...
 	echo.
 	timeout /t 2 >nul
@@ -175,7 +176,7 @@ echo [2] Quit
 choice /C 12 /N /M " "
 echo.
 
-if %ErrorLevel% == 1 goto :WaitForConnection
+if !ErrorLevel! == 1 goto :WaitForConnection
 
 goto :eof
 
@@ -183,7 +184,7 @@ goto :eof
 
 ping -n 1 example.com >nul 2>&1
 
-if %ErrorLevel% == 1 (
+if !ErrorLevel! == 1 (
 	echo Retrying in 2 seconds...
 	choice /C Q /T 2 /D Q /N >nul
 	goto :WaitForConnection
@@ -212,7 +213,7 @@ echo.
 
 curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
 
-if %ERRORLEVEL% neq 0 (
+if !ErrorLevel! neq 0 (
 	echo Download interrupted... Retrying in %RETRY_WAIT% seconds... ^(Attempt !RETRIES!^)
 	timeout /T %RETRY_WAIT% /NOBREAK
 	cls
@@ -225,14 +226,14 @@ goto :eof
 
 mkdir "%DLPath%" 2>nul
 
-for %%C in (!Categories!) do (
-	for %%P in (!%%C!) do (
-		set "ProgramRaw=%%P"
+for %%C in (%Categories%) do (
+	for %%G in (!%%C!) do (
+		set "ProgramRaw=%%G"
 		set "ProgramSpaced=!ProgramRaw:^= !"
 		set "ProgramUndered=!ProgramRaw:^=_!"
 
-		if "!selected_%%P!" == "1" (
-			set "DownloadURL=!url_%%P!"
+		if "!selected_%%G!" == "1" (
+			set "DownloadURL=!url_%%G!"
 
 			if DownloadURL neq "" (
 				set FileExt=0
@@ -245,7 +246,8 @@ for %%C in (!Categories!) do (
 
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
-				if "!FileExt!" NEQ "zip" set "ProgramUndered=!ProgramUndered!_Setup"
+				if "!FileExt!" NEQ "zip" ( set "ProgramUndered=!ProgramUndered!_Setup"
+				) else set "ProgramUndered=!ProgramSpaced!"
 				
 				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
 				cls
@@ -265,7 +267,7 @@ choice /N /M "Try installing them silently? [Y/N] "
 set DoneMSI=0
 set DoneZip=0
 
-if %ErrorLevel% == 1 (
+if !ErrorLevel! == 1 (
 	set DoneAll=0
 	goto :DirCheck
 ) else (
@@ -279,13 +281,13 @@ goto :eof
 
 ::EXE
 dir "%DLPath%\*.exe" /b /a-d >nul 2>&1
-set err_exe=%errorlevel%
+set err_exe=!ErrorLevel!
 ::MSI
 dir "%DLPath%\*.msi" /b /a-d >nul 2>&1
-set err_msi=%errorlevel%
+set err_msi=!ErrorLevel!
 ::ZIP
 dir "%DLPath%\*.zip" /b /a-d >nul 2>&1
-set err_zip=%errorlevel%
+set err_zip=!ErrorLevel!
 
 if %err_zip% == 0 (
 	set DoneZip=0
@@ -315,10 +317,10 @@ if %DoneAll% == 1 (
 
 	choice /C 1234 /N /M " "
 
-	if %ErrorLevel% == 1 ( exit /b
-	) else if %ErrorLevel% == 2 ( goto :Start
-	) else if %ErrorLevel% == 3 ( rd /s /q "%DLPath%" 2>nul
-	) else if %ErrorLevel% == 4 ( call :MovePrograms )
+	if !ErrorLevel! == 1 ( exit /b
+	) else if !ErrorLevel! == 2 ( goto :Start
+	) else if !ErrorLevel! == 3 ( rd /s /q "%DLPath%" 2>nul
+	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
 	goto :Pain
 )
@@ -352,13 +354,14 @@ if %~2 == 0 (
 	choice /C 123 /N /M " "
 	echo.
 
-	if %ErrorLevel% == 3 goto :eof
+	if !ErrorLevel! == 3 goto :eof
 
 	cd "%DLPath%"
 	call :%~1
 	cd "%origin%"
 	
-	if %ErrorLevel% == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
+	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
+	timeout /t 3
 
 )
 goto :eof
@@ -385,64 +388,42 @@ goto :eof
 
 :ZIP
 
-if exist "AltStore.zip" (
-	echo Installing AltStore...
-	mkdir AltStore 2>nul
-	tar -xf "AltStore.zip" -C "AltStore"
-	"%CD%\AltStore\setup.exe" /quiet
-)
 if exist "Autoruns.zip" (
 	echo Installing Autoruns...
-	if exist "Autoruns" rd /s /q "Autoruns"
-	mkdir Autoruns 2>nul
-	tar -xf "%DLPath%\Autoruns.zip" -C "Autoruns"
-	mkdir "C:\Program Files\Autoruns" 2>nul
-	xcopy "%CD%\Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
+	call :Extract "Autoruns"
+	xcopy "Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
 	rd /s /q "Autoruns"
 	call :CreateShortcut "C:\Program Files\Autoruns\Autoruns64.exe" "Autoruns"
 )
-
-if exist "Telegram_Portable.zip" (
-	echo Installing Telegram Portable...
-	if exist "Telegram Portable" rd /s /q "Telegram Portable"
-	mkdir "Telegram Portable" 2>nul
-	tar -xf "Telegram_Portable.zip" -C "Telegram Portable"
-	mkdir "C:\Program Files\Telegram" 2>nul
-	xcopy "%CD%\Telegram Portable\Telegram\*" "C:\Program Files\Telegram" /s /i /q /y
-	rd /s /q "Telegram Portable"
-	call :CreateShortcut "C:\Program Files\Telegram\Telegram.exe" "Telegram"
+if exist "Gradle.zip" (
+	echo Installing Gradle...
+	mkdir C:\Gradle 2>nul
+	xcopy /s /e /i /q /y "Gradle\*" C:\Gradle
+	rd /s /q "Gradle"
 )
 
-for %%A in (%zipf:;= %) do (
+for %%A in (!zipm!) do (
 	set "progName=%%A"
 	set "progName=!progName:^= !"
-
+	
 	if exist "!progName!.zip" (
 		echo Installing !progName!...
-		mkdir "!progName!" 2>nul
-		tar -xf "!progName!.zip" -C "!progName!"
+		rd /s /q "!progName!" 2>nul
+		call :Extract "!progName!"
+		call :FindExe "!progName!"
 
-		if "!progName!" == "Gradle" (
-			echo Installing Gradle...
-
-			for /d %%F in ("%DLPath%\Gradle\*") do (
-				mkdir C:\Gradle 2>nul
-				if exist "C:\Gradle\%%F" (
-					echo Gradle Target directory "!targetPath!" already exists. Skipping...
-				) else (
-					move "%%F" "C:\Gradle"
-				)
-
-			)
-		)
-
-		mkdir "C:\Program Files\!progName!\" 2>nul
-		xcopy /s /e /y /i /q "!progName!" "C:\Program Files\!progName!"
-		if "!progName!" NEQ "Gradle" (
-			call :CreateShortcut "C:\Program Files\!progName!\!progName!.exe" "!progName!"
+		if exeDir neq 0 (
+			set "destPath=C:\Program Files\!progName!"
+			cd "!exeDir!"
+			mkdir "!destPath!" 2>nul
+			xcopy /s /e /i /q /y "." "!destPath!\"
+			call :CreateShortcut "!destPath!\!exeName!" "!progName!"
+			cd "%DLPath%"
+			rd /s /q "!progName!"
 		)
 	)
 )
+
 set DoneZip=1
 goto :eof
 
@@ -450,89 +431,50 @@ goto :eof
 
 cd "%DLPath%"
 
-for %%P in (!msi!) do (
-	set "progName=%%P"
+for %%G in (!msi!) do (
+	set "progName=%%G"
 	set "progName=!progName:^= !"
 	if exist "!progName!.msi" (
 		echo Installing !progName!...
 		"!progName!.msi" /passive
 	)
 )
+
 set DoneMSI=1
 goto :eof
 
 :EXE
 
-ren "Sideloadly.exe" "SideloadlySetup.exe" 2>nul
-ren "Librewolf.exe" "LibrewolfSetup.exe" 2>nul
-
-if exist "VCRedist_2005-2022.exe" (
-	echo Installng VC Redistributables...
-	start /wait "VCRedist_2005-2022.exe" /y
-)
-if exist "3uTools.exe" (
-	echo Custom Install 3uTools ^(dumb shit has no slent install^)
-	ren "3uTools.exe" "3uTools_Setup.exe"
-	start /wait 3uTools_Setup
-)
-
-if exist "AviDemux.exe" (
-	echo Installing AviDemux...
-	start /wait "AviDemux.exe"
-)
-
-set "cmm=ContextMenuManager"
-if exist "%cmm%.exe" (
-	echo Installing ContextMenuManager...
-	mkdir "C:\Program Files\%cmm%" 2>nul
-	xcopy "%cmm%.exe" "C:\Program Files\%cmm%" /s /i /q /y
-	call :CreateShortcut "C:\Program Files\%cmm%\%cmm%.exe" "%cmm%"
-
-)
-
-set "nv=NVCleanstall"
-if exist "%nv%.exe" (
-	echo Installing NVCleanstall...
-	mkdir "C:\Program Files\%nv%" 2>nul
-	xcopy "%nv%.exe" "C:\Program Files\%nv%" /s /i /q /y
-	call :CreateShortcut "C:\Program Files\%nv%\%nv%.exe" "%nv%"
-)
-
-if exist "Rufus.exe" (
-	echo Installing Rufus...
-	mkdir "C:\Program Files\Rufus" 2>nul
-	xcopy "Rufus.exe" "C:\Program Files\Rufus" /s /i /q /y
-	call :CreateShortcut "C:\Program Files\Rufus\Rufus.exe" "Rufus"
-)
-
-if exist "Google_Earth_Pro.exe" (
-	call :RunInstaller "Google_Earth_Pro" "OMAHA=1"
-)
-if exist "WinRaR.exe" (
-	ren "WinRaR.exe" "WinRaR_Setup.exe"
-	call :RunInstaller "WinRaR_Setup" "/V"
-)
+:: TO-DO
+:: RE-WRITE CUSTOM EXE INSTALLATIONS
 
 for %%G in (S quiet VerySilent) do (
 	for %%I in (!Programs_%%G!) do (
 		set "progName=%%I"
-		set "progName=!progName:^= !"
-		if exist "!progName!.exe" (
+		set "progName=!progName:^=_!"
+		if exist "!progName!_Setup.exe" (
 			echo Installing !progName!...
 			echo.
-			call :RunInstaller "!progName!" "!Flags_%%G!"
+			start /wait "" "!progName!_Setup" "!Flags_%%G!"
 		)
 	)
 )
+
 set DoneAll=1
-
 goto :eof
 
-:RunInstaller
-set "InstallerName1=%~1"
-set "Flags=%~2"
-set "InstallerName=!InstallerName1:^= !"
-
-start /wait "" "!InstallerName!.exe" !Flags!
-
+:Extract
+set "ZipName=%~1"
+mkdir "%ZipName%" 2>nul
+tar -xf "%DLPath%\%ZipName%.zip" -o -C "%DLPath%\%ZipName%"
 goto :eof
+
+:FindExe
+set "searchPath=%~1"
+set exeDir=0
+
+for /r "%searchPath%" %%F in (*.exe) do (
+    set "exeName=%%~nxF"
+    set "exeDir=%%~dpF"
+	 goto :eof
+)
