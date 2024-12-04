@@ -32,6 +32,8 @@ parse_map = {
 	'K-Lite Codec': 'https://www.codecguide.com/download_k-lite_codec_pack_standard.htm',
 	'Everything': 'https://www.voidtools.com/',
 	'qBitTorrent': 'https://www.qbittorrent.org/download',
+	'Librewolf': 'https://librewolf.net/installation/windows/',
+	'Blender': 'https://www.blender.org/download/',
 }
 
 if not os.path.exists('token'):
@@ -165,7 +167,7 @@ async def parse_prog(url = None, name = None, session = None):
 
 	if name == 'Go':
 		version = json.loads(data)[0]['version'].split('go')[1]
-		return (name, f'https://go.dev/dl/go{version}.windows-amd64.msi')
+		url = f'https://go.dev/dl/go{version}.windows-amd64.msi'
 
 	soup = BeautifulSoup(data, 'lxml')
 
@@ -173,30 +175,31 @@ async def parse_prog(url = None, name = None, session = None):
 		for a_tag in soup.find_all('a'):
 			href = a_tag.get('href')
 			if href and href.startswith('bin/'):
-				return (name, f'https://registry-finder.com/{href}')
+				url = f'https://registry-finder.com/{href}'
+				break
 
 	elif name == 'Google Earth Pro':
 		lis = soup.find_all('li')
 
 		for li in lis:
 			if li.text and 'for Windows (64-bit)' in li.text:
-				return li.find('a').get('href')
+				url = li.find('a').get('href')
+				break
 
 	elif name == 'Wireless Bluetooth':
 		button = soup.find('button', {'data-wap_ref': 'download-button'})
 		url = button.get('data-href')
-		return url
 
 	elif name == 'Gradle':
 		div = soup.find('div', class_ = 'resources-contents')
 		version = div.find('a').get('name')
-		return (name, f'https://services.gradle.org/distributions/gradle-{version}-bin.zip')
+		url = f'https://services.gradle.org/distributions/gradle-{version}-bin.zip'
 
 	elif name == 'Python':
 		a = soup.find('a', class_ = 'button')
 		version = a.text.split(' ')[2]
 
-		return (name, f'https://www.python.org/ftp/python/{version}/python-{version}-amd64.exe')
+		url = f'https://www.python.org/ftp/python/{version}/python-{version}-amd64.exe'
 
 	elif name == 'Node.js':
 		a_elems = soup.find_all('b')
@@ -205,26 +208,28 @@ async def parse_prog(url = None, name = None, session = None):
 			a = elem.find('a')
 			if a:
 				version = a.text
-				return  f'https://nodejs.org/dist/{version}/node-{version}-x64.msi'
+				url = f'https://nodejs.org/dist/{version}/node-{version}-x64.msi'
+				break
 
 	elif name == 'NVCleanstall':
 		a = soup.find('a', class_ = 'btn btn btn-info my-5')
-		return a.get('href')
+		url = a.get('href')
 
 	elif name == 'K-Lite Codec':
 		a_elems = soup.find_all('a')
 
 		for elem in a_elems:
 			if elem.text and elem.text == 'Server 2':
-				return elem.get('href')
+				url = elem.get('href')
+				break
 
 	elif name == 'Everything':
 		a_elems = soup.find_all('a', class_ = 'button')
 
 		for elem in a_elems:
 			if elem.text and elem.text.endswith('64-bit'):
-				url = elem.get('href')
-				return (name, f'https://www.voidtools.com{url}')
+				url = 'https://voidtools.com'+ elem.get('href')
+				break
 
 	elif name == 'qBitTorrent':
 		a_elems = soup.find_all('a')
@@ -232,7 +237,38 @@ async def parse_prog(url = None, name = None, session = None):
 		for elem in a_elems:
 			if elem.text and elem.text.startswith('Download qBittorrent '):
 				version = elem.text.split(' ')[2]
-				return (name, f'https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-{version}/qbittorrent_{version}_x64_setup.exe?viasf=1')
+				url = f'https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-{version}/qbittorrent_{version}_x64_setup.exe?viasf=1'
+				break
+	
+	elif name == 'Librewolf':
+		a_elems = soup.find_all('a')
+
+		for elem in a_elems:
+			url = elem.get('href')
+			if url and url.startswith('https://gitlab.com/'):
+				break
+	
+	elif name == 'Blender':
+		a_elems = soup.find_all('a')
+
+		for elem in a_elems:
+			title = elem.get('title')
+			if title and title == 'Download Blender for Windows Installer':
+				url = elem.get('href')
+				break
+	
+	elif name == 'Git':
+		a_elems = soup.find_all('a')
+
+		for elem in a_elems:
+			text = elem.text
+			if text and text == '64-bit Git for Windows Setup':
+				url = elem.get('href')
+				break
+
+	else: return
+
+	return (name, url)
 
 async def update_progs(progmap, session = None):
 	tasks = []
@@ -277,9 +313,9 @@ async def main(repo: Repo):
 		return
 	
 	txt = progmap_to_txt(progmap)
-	input('Press any key to continue . . . ')
-
 	await aio.open(urls_path, 'write', 'w', txt)
+
+	input('\nPress any key to continue . . . ')
 	push(repo, 'urls.txt')
 
 if __name__ == '__main__':
