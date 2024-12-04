@@ -19,6 +19,12 @@ set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application)
 set "Extensions=msi;zip;iso"
 set "zipf=TradingView;TranslucentTB;Gradle;Chromium;ThrottleStop"
 
+if exist "%TEMP%" ( set "TempPath=%TEMP%"
+) else set "TempPath=%~dp0"
+
+set "vbsFilePath=%TempPath%\createShortcut.vbs"
+set "downloadPath=%TempPath%\urls.txt"
+
 :Start
 
 if %FetchedURLs%==0 (
@@ -158,11 +164,7 @@ goto :eof
 
 :FetchURLs
 
-if exist "%TEMP%\" (
-	set "downloadPath=%TEMP%\urls.txt"
-) else (
-	set "downloadPath=%~dp0urls.txt"
-)
+
 curl -A "%UserAgent%" -s %URLsURL% -o "%downloadPath%"
 
 :: Define all variables from 'urls.txt' starting from the third line
@@ -230,7 +232,8 @@ if exist "%OUTPUT%" del /Q "%OUTPUT%"
 
 echo If download is very slow, try pressing Ctrl+C and `N` ^(Don't terminate script^)
 echo.
-echo Downloading !NAME! from !URL!
+echo Downloading !NAME!...
+echo.
 
 curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
 
@@ -364,7 +367,7 @@ if %~2 == 0 (
 	echo %~1 Programs
 	echo.
 	echo [1] Install with Shortcuts
-	echo [2] Opposite ^(Removes all shortcuts^)
+	echo [2] Opposite ^(Removes all Desktop shortcuts^)
 	echo [3] Proceed further
 	echo.
 
@@ -382,36 +385,29 @@ if %~2 == 0 (
 goto :eof
 
 :MovePrograms
-for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "folder=%%I"
-if "!folder!" NEQ "%DLPath%" (
-	 robocopy "%DLPath%" "!folder!" /E /cOPY:DATSO /MOVE
-)
-if %errorlevel% EQU 16 (
-	 echo A serious error occurred. Possible "Access Denied."
-) else if %errorlevel% EQU 8 (
-	 echo Some files or directories could not be copied.
-) else if %errorlevel% EQU 0 (
-	 echo No errors occurred
-)
-
+for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "SelectedFolder=%%I"
+move /y "%DLPath%" "%SelectedFolder%"
 timeout /t 2 >nul
 cls
+
+goto :eof
+
+:CreateShortcutScript
+
+echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
+echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
+echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
+echo objShortcut.Save >> "%vbsFilePath%"
 goto :eof
 
 :CreateShortcut
 
 set "exePath=%~1"
 set "shortcutName=%~2"
-set "vbsFilePath=%temp%\createShortcut.vbs"
 
-:: Generate the VBScript to create the shortcut
-echo Set objShell = CreateObject("WScript.Shell") > "%vbsFilePath%"
-echo Set objShortcut = objShell.CreateShortcut(objShell.SpecialFolders("Programs") ^& "\%shortcutName%.lnk") >> "%vbsFilePath%"
-echo objShortcut.TargetPath = "%exePath%" >> "%vbsFilePath%"
-echo objShortcut.Save >> "%vbsFilePath%"
+if not exist "%vbsFilePath%" call :CreateShortcutScript
 
 "%vbsFilePath%"
-del "%vbsFilePath%"
 goto :eof
 
 :ZIP
@@ -504,6 +500,7 @@ for %%A in (%zipf:;= %) do (
 		)
 	)
 )
+set DoneZip=1
 goto :eof
 
 :MSI
@@ -516,10 +513,10 @@ for %%B in (!msi!) do (
 	set "progName=!progName:^= !"
 	if exist "!progName!.msi" (
 		echo Installing !progName!...
-		"!progName!.msi" /quiet
+		"!progName!.msi" /passive
 	)
 )
-set "DoneMSI=1"
+set DoneMSI=1
 goto :eof
 
 :EXE
@@ -576,16 +573,16 @@ if exist "WinRaR.exe" (
 
 for %%G in (S quiet VerySilent Q SilentNoRestart Vivaldi VS2022 WaterFox) do (
 	for %%I in (!Programs_%%G!) do (
-		set "ProgramName=%%I"
-		set "ProgramName=!ProgramName:^= !"
-		if exist "%CD%\!ProgramName!.exe" (
-			echo Installing !ProgramName!...
+		set "progName=%%I"
+		set "progName=!progName:^= !"
+		if exist "!progName!.exe" (
+			echo Installing !progName!...
 			echo.
-			call :RunInstaller "!ProgramName!" "!Flags_%%G!"
+			call :RunInstaller "!progName!" "!Flags_%%G!"
 		)
 	)
 )
-set "done=1"
+set DoneAll=1
 
 goto :eof
 
