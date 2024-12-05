@@ -1,4 +1,5 @@
 from sputchedtools import aio, enhance_loop
+from datetime import datetime
 from bs4 import BeautifulSoup
 from git import Repo
 
@@ -340,5 +341,6 @@ if __name__ == '__main__':
 	enhance_loop()
 	
 	while True:
+		print(f'[{datetime.now()}]')
 		asyncio.run(main(repo))
 		time.sleep(3600)
