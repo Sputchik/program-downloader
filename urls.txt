@@ -9,7 +9,7 @@ Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Li
 Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
-msi=Blender;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js
+msi=7-Zip;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js;Blender
 zip=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView;Gradle
 zipm=Telegram^Portable;Gradle;TranslucentTB;ThrottleStop;TradingView
 
