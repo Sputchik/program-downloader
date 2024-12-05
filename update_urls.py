@@ -330,7 +330,7 @@ async def main(repo: Repo):
 
 	await aio.open(urls_path, 'write', 'w', txt)
 
-	input('\nPress any key to push . . . ')
+	# input('\nPress any key to push . . . ')
 	push(repo, 'urls.txt')
 	print('Pushed successfully\n')
 
