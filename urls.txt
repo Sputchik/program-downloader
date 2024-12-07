@@ -6,7 +6,7 @@ Coding=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;IntelliJ^IDEA;PyCharm;Resourc
 Browsers=Firefox;Librewolf;QuteBrowser;Ungoogled^Chromium;WaterFox
 Apple=3uTools;iCloud;iMazing;iTunes
 Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;OBS;Process^Hacker;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button;nomacs;qBitTorrent
-Cracked=MediaHuman;Revo^Uninstaller^Pro;WinRaR
+Cracked=MediaHuman;Revo^Uninstaller^Pro
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
 msi=7-Zip;Go;Blender^3.3.X^LTS;Blender^3.6.X^LTS;nomacs;Minecraft^Legacy^Launcher;Epic^Games;Node.js;Blender
