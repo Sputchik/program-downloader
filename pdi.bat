@@ -122,7 +122,7 @@ goto DISPLAY_LIST
 
 :ClearSelected
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	set "programs=!%%C!"
 
 	for %%G in (!programs!) do (
@@ -226,7 +226,7 @@ goto :eof
 
 mkdir "%DLPath%" 2>nul
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	for %%G in (!%%C!) do (
 		set "ProgramRaw=%%G"
 		set "ProgramSpaced=!ProgramRaw:^= !"
