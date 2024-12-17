@@ -77,6 +77,6 @@ url_WaterFox=https://cdn1.waterfox.net/waterfox/releases/latest/windows
 url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe
 url_WinDirStat=https://github.com/windirstat/windirstat/releases/latest/download/WinDirStat-x64.msi
 url_WinRaR=https://www.dropbox.com/scl/fi/96vx5v6m2w407me6gonzw/WinRaR.exe?rlkey=m443jfy5o5tqdofxqblneetbc&st=emqrl1aq&dl=1
-url_Wireless^Bluetooth=https://downloadmirror.intel.com/837889/BT-23.90.0-64UWD-Win10-Win11.exe
+url_Wireless^Bluetooth=https://downloadmirror.intel.com/843147/BT-23.100.1-64UWD-Win10-Win11.exe
 url_X-Mouse^Button=https://www.highrez.co.uk/scripts/download.asp?package=XMouse
 url_ZXP^Installer=https://github.com/elements-storage/ZXPInstaller/releases/download/v1.8.2/ZXPInstaller-Setup-1.8.2.exe
