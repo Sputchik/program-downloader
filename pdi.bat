@@ -13,7 +13,7 @@ set "origin=%~dp0"
 set "DLPath=%origin%pdi_downloads"
 set FetchedURLs=0
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
-set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/refs/heads/main/urls.txt"
+set "URLsURL=https://raw.githubusercontent.com/Sputchik/pdi/refs/heads/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 set "Extensions=msi;zip"
 

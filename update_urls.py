@@ -8,7 +8,7 @@ import aiohttp, asyncio, json, os, time
 cwd = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/') + '/'
 urls_path = cwd + 'urls.txt'
 github_latest_draft = 'https://api.github.com/repos/{}/{}/releases/latest' # Owner, Repo Slug
-urls_link = 'https://raw.githubusercontent.com/Sputchik/program-downloader/refs/heads/main/urls.txt'
+urls_link = 'https://raw.githubusercontent.com/Sputchik/pdi/refs/heads/main/urls.txt'
 
 github_map = {
 	'7-Zip': ('ip7z', '7zip'),
@@ -48,7 +48,7 @@ else:
 github_headers = {
 	'Authorization': f'Bearer {access_token}'
 }
-remote_url = 'https://github.com/Sputchik/program-downloader.git'
+remote_url = 'https://github.com/Sputchik/pdi.git'
 
 def get_line_index(lines, start_pattern):
 	for index, line in enumerate(lines):
@@ -310,7 +310,7 @@ def push(repo: Repo, file):
 
 	repo.index.commit('Update urls.txt')
 
-	remote_url = f"https://{access_token}@github.com/Sputchik/program-downloader.git"
+	remote_url = f"https://{access_token}@github.com/Sputchik/pdi.git"
 	repo.remotes.origin.set_url(remote_url)
 	repo.remotes.origin.push()
 
