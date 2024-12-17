@@ -40,7 +40,7 @@ echo Select category:
 for %%G in (!Categories!) do (
 	set "cat=%%G"
 	set "cat=!cat:^= !"
-	echo [!index!] !cat! 
+	echo [!index!] !cat!
 	set /a index+=1
 )
 echo [9] Download Selected
@@ -122,7 +122,7 @@ goto DISPLAY_LIST
 
 :ClearSelected
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	set "programs=!%%C!"
 
 	for %%G in (!programs!) do (
@@ -226,7 +226,7 @@ goto :eof
 
 mkdir "%DLPath%" 2>nul
 
-for %%C in (%Categories%) do (
+for %%C in (!Categories!) do (
 	for %%G in (!%%C!) do (
 		set "ProgramRaw=%%G"
 		set "ProgramSpaced=!ProgramRaw:^= !"
@@ -248,7 +248,7 @@ for %%C in (%Categories%) do (
 				if !FileExt! == 0 set FileExt=exe
 				if "!FileExt!" NEQ "zip" ( set "ProgramUndered=!ProgramUndered!_Setup"
 				) else set "ProgramUndered=!ProgramSpaced!"
-				
+
 				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
 				cls
 
@@ -359,7 +359,7 @@ if %~2 == 0 (
 	cd "%DLPath%"
 	call :%~1
 	cd "%origin%"
-	
+
 	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
 	timeout /t 3
 
@@ -405,7 +405,7 @@ if exist "Gradle.zip" (
 for %%A in (!zipm!) do (
 	set "progName=%%A"
 	set "progName=!progName:^= !"
-	
+
 	if exist "!progName!.zip" (
 		echo Installing !progName!...
 		rd /s /q "!progName!" 2>nul
@@ -429,15 +429,13 @@ goto :eof
 
 :MSI
 
-cd "%DLPath%"
+for %%G in ("%DLPath%\*.msi") do (
+	set "progName=%%~nG"
+	set "readableName=!progName:_= !"
+	set "progPath=%%G"
 
-for %%G in (!msi!) do (
-	set "progName=%%G"
-	set "progName=!progName:^= !"
-	if exist "!progName!.msi" (
-		echo Installing !progName!...
-		"!progName!.msi" /passive
-	)
+	echo Running !readableName!...
+	"!progPath!" /passive
 )
 
 set DoneMSI=1
@@ -474,7 +472,7 @@ set "searchPath=%~1"
 set exeDir=0
 
 for /r "%searchPath%" %%F in (*.exe) do (
-    set "exeName=%%~nxF"
-    set "exeDir=%%~dpF"
+	 set "exeName=%%~nxF"
+	 set "exeDir=%%~dpF"
 	 goto :eof
 )
