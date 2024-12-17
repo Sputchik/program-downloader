@@ -6,7 +6,7 @@
 
 >**From CMD**
 ```
-curl -sL https://bit.ly/pDi -o pdi.bat && pdi
+curl -sL https://bit.ly/PdI -o pdi.bat && pdi
 ```
 
 ## Preview
