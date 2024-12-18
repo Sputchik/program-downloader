@@ -45,6 +45,11 @@ if not os.path.exists('token'):
 else:
 	access_token = open('token', 'r').read()
 
+remote_url = f"https://{access_token}@github.com/Sputchik/pdi.git"
+os.chdir(cwd)
+repo = Repo(cwd)
+repo.remotes.origin.set_url(remote_url)
+
 github_headers = {
 	'Authorization': f'Bearer {access_token}'
 }
@@ -307,14 +312,11 @@ async def update_progs(progmap, session = None):
 
 def push(repo: Repo, file):
 	repo.git.add([file])
-
 	repo.index.commit('Update urls.txt')
-
-	remote_url = f"https://{access_token}@github.com/Sputchik/pdi.git"
-	repo.remotes.origin.set_url(remote_url)
 	repo.remotes.origin.push()
 
 async def main(repo: Repo):
+	repo.remotes.orrigin.pull()
 
 	progmap = await parse_github_urls()
 	# input(json.dumps(progmap, indent = 2))
@@ -336,8 +338,6 @@ async def main(repo: Repo):
 	print('Pushed successfully\n')
 
 if __name__ == '__main__':
-	os.chdir(cwd)
-	repo = Repo(cwd)
 	enhance_loop()
 	
 	while True:
