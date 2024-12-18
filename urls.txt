@@ -54,7 +54,7 @@ url_OBS=https://github.com/obsproject/obs-studio/releases/download/31.0.0/OBS-St
 url_Process^Hacker=https://netcologne.dl.sourceforge.net/project/processhacker/processhacker2/processhacker-2.39-setup.exe?viasf=1
 url_PyCharm=https://download-cdn.jetbrains.com/python/pycharm-professional-2024.1.4.exe
 url_Python=https://www.python.org/ftp/python/3.13.1/python-3.13.1-amd64.exe
-url_qBitTorrent=https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-v5.0.2/qbittorrent_v5.0.2_x64_setup.exe?viasf=1
+url_qBitTorrent=https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-v5.0.3/qbittorrent_v5.0.3_x64_setup.exe?viasf=1
 url_QuteBrowser=https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0-amd64.exe
 url_RegistryFinder=https://registry-finder.com/bin/2.59.0.0/RegistryFinderSetup2.59.exe
 url_Resource^Hacker=https://www.angusj.com/resourcehacker/reshacker_setup.exe
@@ -77,6 +77,6 @@ url_WaterFox=https://cdn1.waterfox.net/waterfox/releases/latest/windows
 url_Windhawk=https://ramensoftware.com/downloads/windhawk_setup.exe
 url_WinDirStat=https://github.com/windirstat/windirstat/releases/latest/download/WinDirStat-x64.msi
 url_WinRaR=https://www.dropbox.com/scl/fi/96vx5v6m2w407me6gonzw/WinRaR.exe?rlkey=m443jfy5o5tqdofxqblneetbc&st=emqrl1aq&dl=1
-url_Wireless^Bluetooth=https://downloadmirror.intel.com/837889/BT-23.90.0-64UWD-Win10-Win11.exe
+url_Wireless^Bluetooth=https://downloadmirror.intel.com/843147/BT-23.100.1-64UWD-Win10-Win11.exe
 url_X-Mouse^Button=https://www.highrez.co.uk/scripts/download.asp?package=XMouse
 url_ZXP^Installer=https://github.com/elements-storage/ZXPInstaller/releases/download/v1.8.2/ZXPInstaller-Setup-1.8.2.exe
