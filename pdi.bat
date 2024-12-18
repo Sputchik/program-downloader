@@ -1,6 +1,19 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+if "%~1" == "--help" (
+	echo.
+	echo Usage: pdi.bat [--passive] [--output Path] [--select Programs]
+	echo.
+	echo    --passive            Only Displays download process for programs defined using --select Flag
+	echo.
+	echo    --output Path        Sets download Path
+	echo.
+	echo    --select Programs    Select Programs, Separate them by semicolon `;`.
+	echo                         Example: --select "Telegram Portable;Librewolf;Discord;Steam"
+	exit /b
+)
+
 cls
 net session >nul 2>&1
 if !ErrorLevel! neq 0 (
@@ -21,7 +34,7 @@ if exist "%TEMP%" ( set "TempPath=%TEMP%"
 ) else set "TempPath=%~dp0"
 
 set "vbsFilePath=%TempPath%\createShortcut.vbs"
-set "downloadPath=%TempPath%\urls.txt"
+set "urlPath=%TempPath%\urls.txt"
 
 :Start
 
@@ -32,6 +45,44 @@ if %FetchedURLs%==0 (
 	cls
 	goto :MAIN_MENU
 )
+
+set passive=0
+
+if "%~1" NEQ "" (
+	set arg_index=0
+
+	for %%G in (%*) do (
+		set /a arg_index+=1
+		set "arg=%%~G"
+
+		if defined selecting (
+			set "arg=!arg: =^!"
+
+			for %%G in (!arg!) do (
+				set "selected_%%G=1"
+			)
+
+		) else if defined outputting (
+			set "DLPath=!arg!"
+			set outputting=
+
+		) else (
+
+			if "!arg!"=="--select" (
+				set selecting=1
+			
+			) else if "!arg!" == "--passive" (
+				set passive=1
+
+			) else if "!arg!" == "--output" (
+				set outputting=1
+			)
+
+		)
+	)
+)
+
+if %passive% == 1 goto :DownloadAll
 
 :MAIN_MENU
 set index=1
@@ -134,10 +185,9 @@ goto :eof
 
 :FetchURLs
 
-curl -A "%UserAgent%" -s %URLsURL% -o "%downloadPath%"
+curl -A "%UserAgent%" -s %URLsURL% -o "%urlPath%"
 
-:: Define all variables from 'urls.txt' starting from the third line
-for /f "usebackq tokens=1* delims==" %%a in ("%downloadPath%") do (
+for /f "usebackq tokens=1* delims==" %%a in ("%urlPath%") do (
 	set "%%a=%%b"
 )
 
@@ -259,10 +309,12 @@ for %%C in (!Categories!) do (
 	)
 )
 
+if %passive% == 1 goto :eof
+
 :AfterDownload
 echo Programs downloaded (%DLPath%)
 echo.
-choice /N /M "Try installing them silently? [Y/N] "
+choice /N /M "Try installing them? [Y/N] "
 
 set DoneMSI=0
 set DoneZip=0
@@ -319,7 +371,7 @@ if %DoneAll% == 1 (
 
 	if !ErrorLevel! == 1 ( exit /b
 	) else if !ErrorLevel! == 2 ( goto :Start
-	) else if !ErrorLevel! == 3 ( rd /s /q "%DLPath%" 2>nul
+	) else if !ErrorLevel! == 3 ( del /S /Q "%DLPath%\*" 2>nul
 	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
 	goto :Pain
@@ -446,14 +498,31 @@ goto :eof
 :: TO-DO
 :: RE-WRITE CUSTOM EXE INSTALLATIONS
 
-for %%G in (S quiet VerySilent) do (
-	for %%I in (!Programs_%%G!) do (
-		set "progName=%%I"
-		set "progName=!progName:^=_!"
-		if exist "!progName!_Setup.exe" (
-			echo Installing !progName!...
-			echo.
-			start /wait "" "!progName!_Setup" "!Flags_%%G!"
+choice /N /M "Install Silently? (Not Recommended) [Y/N] "
+echo.
+
+if !ErrorLevel! == 2 (
+	for %%G in ("%DLPath%\*.exe") do (
+		set "progName=%%~nG"
+		set "readableName=!progName:_= !"
+		set "progPath=%%G"
+
+		echo Running !readableName!...
+		"!progPath!"
+	)
+
+) else (
+	for %%G in (S quiet VerySilent) do (
+		for %%I in (!Programs_%%G!) do (
+
+			set "progName=%%I"
+			set "progName=!progName:^=_!"
+
+			if exist "!progName!_Setup.exe" (
+				echo Installing !progName!...
+				echo.
+				start /wait "" "!progName!_Setup" "!Flags_%%G!"
+			)
 		)
 	)
 )
