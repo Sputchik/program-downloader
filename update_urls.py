@@ -38,6 +38,19 @@ parse_map = {
 	'Blender': 'https://www.blender.org/download/',
 }
 
+jetbrains_api = "https://data.services.jetbrains.com/products/releases"
+
+jetbrains_progs = {
+	'PyCharm': 'PCP',
+	'IntelliJ IDEA': 'IIU',
+}
+
+jetbrains_params = {
+	# "code": ['PCP', 'IIU', ],
+	"latest": "true",
+	"type": "release"
+}
+
 if not os.path.exists('token'):
 	access_token = input('Github Access Token: ')
 	open('token', 'w').write(access_token)
@@ -154,7 +167,7 @@ async def direct_from_github(owner: str, project: str) -> str:
 	)
 	data, status = response
 
-	print(f'{status}: {project}')
+	print(f'{status}: {project} - {url}')
 
 	if status != 200 or not isinstance(data, dict) or 'assets' not in data:
 		print(f'Fail: Github latest version for `{project}`: {url}')
@@ -169,13 +182,25 @@ async def direct_from_github(owner: str, project: str) -> str:
 
 	return version_map[key]
 
-async def parse_prog(url = None, name = None, session = None):
+async def parse_prog(url = None, name = None, session = None, github = False, jetbrains = False):
 
-	try:
+	if github:
 		author, project = github_map[name]
 		return (name, await direct_from_github(author, project))
-	except KeyError:
-		pass
+	
+	elif jetbrains:
+		params = jetbrains_params
+		params['code'] = url
+
+		response, status, url = await aio.request(jetbrains_api, params = params, toreturn = 'json+status+real_url', session = session)
+		print(f'{status}: {name} - {url}')
+
+		try:
+			download_url = response["downloads"]["windows"]["link"]
+			return name, download_url
+		
+		except (ValueError, TypeError, IndexError, KeyError):
+			return
 
 	response = await aio.request(url, toreturn = 'text+status', session = session)
 	data, status = response
@@ -292,8 +317,11 @@ async def parse_prog(url = None, name = None, session = None):
 async def update_progs(progmap, session = None):
 	tasks = []
 	for prog in github_map:
-		tasks.append(parse_prog(name = prog))
-
+		tasks.append(parse_prog(name = prog, github = True))
+	
+	for prog, slug in jetbrains_progs.items():
+		tasks.append(parse_prog(slug, prog, session, jetbrains = True))
+	
 	for prog, url in parse_map.items():
 		tasks.append(parse_prog(url, prog, session))
 
@@ -316,7 +344,7 @@ def push(repo: Repo, file):
 	repo.remotes.origin.push()
 
 async def main(repo: Repo):
-	repo.remotes.orrigin.pull()
+	repo.remotes.origin.pull()
 
 	progmap = await parse_github_urls()
 	# input(json.dumps(progmap, indent = 2))
