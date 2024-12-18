@@ -1,6 +1,19 @@
 @echo off
 setlocal EnableDelayedExpansion
 
+if "%~1" == "--help" (
+	echo.
+	echo Usage: pdi.bat [--passive] [--output Path] [--select Programs]
+	echo.
+	echo    --passive            Only Displays download process for programs defined using --select Flag
+	echo.
+	echo    --output Path        Sets download Path
+	echo.
+	echo    --select Programs    Select Programs, Separate them by semicolon `;`.
+	echo                         Example: --select "Telegram Portable;Librewolf;Discord;Steam"
+	exit /b
+)
+
 cls
 net session >nul 2>&1
 if !ErrorLevel! neq 0 (
@@ -13,7 +26,7 @@ set "origin=%~dp0"
 set "DLPath=%origin%pdi_downloads"
 set FetchedURLs=0
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
-set "URLsURL=https://raw.githubusercontent.com/Sputchik/program-downloader/refs/heads/main/urls.txt"
+set "URLsURL=https://raw.githubusercontent.com/Sputchik/pdi/refs/heads/main/urls.txt"
 set "ChooseFolder=powershell -Command "(new-object -ComObject Shell.Application).BrowseForFolder(0,'Please choose a folder.',0,0).Self.Path""
 set "Extensions=msi;zip"
 
@@ -21,7 +34,7 @@ if exist "%TEMP%" ( set "TempPath=%TEMP%"
 ) else set "TempPath=%~dp0"
 
 set "vbsFilePath=%TempPath%\createShortcut.vbs"
-set "downloadPath=%TempPath%\urls.txt"
+set "urlPath=%TempPath%\urls.txt"
 
 :Start
 
@@ -33,6 +46,44 @@ if %FetchedURLs%==0 (
 	goto :MAIN_MENU
 )
 
+set passive=0
+
+if "%~1" NEQ "" (
+	set arg_index=0
+
+	for %%G in (%*) do (
+		set /a arg_index+=1
+		set "arg=%%~G"
+
+		if defined selecting (
+			set "arg=!arg: =^!"
+
+			for %%G in (!arg!) do (
+				set "selected_%%G=1"
+			)
+
+		) else if defined outputting (
+			set "DLPath=!arg!"
+			set outputting=
+
+		) else (
+
+			if "!arg!"=="--select" (
+				set selecting=1
+			
+			) else if "!arg!" == "--passive" (
+				set passive=1
+
+			) else if "!arg!" == "--output" (
+				set outputting=1
+			)
+
+		)
+	)
+)
+
+if %passive% == 1 goto :DownloadAll
+
 :MAIN_MENU
 set index=1
 
@@ -40,7 +91,7 @@ echo Select category:
 for %%G in (!Categories!) do (
 	set "cat=%%G"
 	set "cat=!cat:^= !"
-	echo [!index!] !cat! 
+	echo [!index!] !cat!
 	set /a index+=1
 )
 echo [9] Download Selected
@@ -134,10 +185,9 @@ goto :eof
 
 :FetchURLs
 
-curl -A "%UserAgent%" -s %URLsURL% -o "%downloadPath%"
+curl -A "%UserAgent%" -s %URLsURL% -o "%urlPath%"
 
-:: Define all variables from 'urls.txt' starting from the third line
-for /f "usebackq tokens=1* delims==" %%a in ("%downloadPath%") do (
+for /f "usebackq tokens=1* delims==" %%a in ("%urlPath%") do (
 	set "%%a=%%b"
 )
 
@@ -248,7 +298,7 @@ for %%C in (!Categories!) do (
 				if !FileExt! == 0 set FileExt=exe
 				if "!FileExt!" NEQ "zip" ( set "ProgramUndered=!ProgramUndered!_Setup"
 				) else set "ProgramUndered=!ProgramSpaced!"
-				
+
 				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
 				cls
 
@@ -259,10 +309,12 @@ for %%C in (!Categories!) do (
 	)
 )
 
+if %passive% == 1 goto :eof
+
 :AfterDownload
 echo Programs downloaded (%DLPath%)
 echo.
-choice /N /M "Try installing them silently? [Y/N] "
+choice /N /M "Try installing them? [Y/N] "
 
 set DoneMSI=0
 set DoneZip=0
@@ -319,7 +371,7 @@ if %DoneAll% == 1 (
 
 	if !ErrorLevel! == 1 ( exit /b
 	) else if !ErrorLevel! == 2 ( goto :Start
-	) else if !ErrorLevel! == 3 ( rd /s /q "%DLPath%" 2>nul
+	) else if !ErrorLevel! == 3 ( del /S /Q "%DLPath%\*" 2>nul
 	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
 	goto :Pain
@@ -359,7 +411,7 @@ if %~2 == 0 (
 	cd "%DLPath%"
 	call :%~1
 	cd "%origin%"
-	
+
 	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
 	timeout /t 3
 
@@ -405,7 +457,7 @@ if exist "Gradle.zip" (
 for %%A in (!zipm!) do (
 	set "progName=%%A"
 	set "progName=!progName:^= !"
-	
+
 	if exist "!progName!.zip" (
 		echo Installing !progName!...
 		rd /s /q "!progName!" 2>nul
@@ -429,15 +481,13 @@ goto :eof
 
 :MSI
 
-cd "%DLPath%"
+for %%G in ("%DLPath%\*.msi") do (
+	set "progName=%%~nG"
+	set "readableName=!progName:_= !"
+	set "progPath=%%G"
 
-for %%G in (!msi!) do (
-	set "progName=%%G"
-	set "progName=!progName:^= !"
-	if exist "!progName!.msi" (
-		echo Installing !progName!...
-		"!progName!.msi" /passive
-	)
+	echo Running !readableName!...
+	"!progPath!" /passive
 )
 
 set DoneMSI=1
@@ -448,14 +498,31 @@ goto :eof
 :: TO-DO
 :: RE-WRITE CUSTOM EXE INSTALLATIONS
 
-for %%G in (S quiet VerySilent) do (
-	for %%I in (!Programs_%%G!) do (
-		set "progName=%%I"
-		set "progName=!progName:^=_!"
-		if exist "!progName!_Setup.exe" (
-			echo Installing !progName!...
-			echo.
-			start /wait "" "!progName!_Setup" "!Flags_%%G!"
+choice /N /M "Install Silently? (Not Recommended) [Y/N] "
+echo.
+
+if !ErrorLevel! == 2 (
+	for %%G in ("%DLPath%\*.exe") do (
+		set "progName=%%~nG"
+		set "readableName=!progName:_= !"
+		set "progPath=%%G"
+
+		echo Running !readableName!...
+		"!progPath!"
+	)
+
+) else (
+	for %%G in (S quiet VerySilent) do (
+		for %%I in (!Programs_%%G!) do (
+
+			set "progName=%%I"
+			set "progName=!progName:^=_!"
+
+			if exist "!progName!_Setup.exe" (
+				echo Installing !progName!...
+				echo.
+				start /wait "" "!progName!_Setup" "!Flags_%%G!"
+			)
 		)
 	)
 )
@@ -474,7 +541,7 @@ set "searchPath=%~1"
 set exeDir=0
 
 for /r "%searchPath%" %%F in (*.exe) do (
-    set "exeName=%%~nxF"
-    set "exeDir=%%~dpF"
+	 set "exeName=%%~nxF"
+	 set "exeDir=%%~dpF"
 	 goto :eof
 )

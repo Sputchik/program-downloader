@@ -6,7 +6,22 @@
 
 >**From CMD**
 ```
-curl -sL https://bit.ly/pDi -o pdi.bat && pdi
+curl -sL https://bit.ly/PdI -o pdi.bat && pdi
+```
+
+## Usage
+
+>**Flags**
+
+```
+Usage: pdi.bat [--passive] [--output Path] [--select Programs]
+
+   --passive            Only Displays download process for programs defined using --select Flag
+
+   --output Path        Sets download Path
+
+   --select Programs    Select Programs, Separate them by semicolon `;`.
+                        Example: --select "Telegram Portable;Librewolf;Discord;Steam"
 ```
 
 ## Preview
