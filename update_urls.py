@@ -88,7 +88,7 @@ def parse_categories(lines):
 
 	for line in progs_lines:
 		cat, progs = line.split('=')
-		progs = sorted(progs.split(';'))
+		progs = sorted(progs.split(';'), key = lambda x: (x[0].lower(), x[1:]))
 		cat_map[cat] = ';'.join(progs)
 
 	return cat_map, '\n'.join(lines[ext_start:ext_end])

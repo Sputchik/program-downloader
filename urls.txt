@@ -5,7 +5,7 @@ Messengers=Discord;Telegram;Telegram^Portable;Viber
 Coding=Blender;Blender^3.3.X^LTS;Blender^3.6.X^LTS;IntelliJ^IDEA;PyCharm;Resource^Hacker;Sublime^Text;VSCode;VS^2022^Installer
 Browsers=Firefox;Librewolf;QuteBrowser;Ungoogled^Chromium;WaterFox
 Apple=3uTools;iCloud;iMazing;iTunes
-Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;OBS;Process^Hacker;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button;nomacs;qBitTorrent
+Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google^Earth^Pro;K-Lite^Codec;nomacs;OBS;Process^Hacker;qBitTorrent;RegistryFinder;Rufus;ThrottleStop;TradingView;TranslucentTB;TunnelBear;WinDirStat;WinRaR;Windhawk;X-Mouse^Button
 Cracked=MediaHuman;Revo^Uninstaller^Pro
 Games=Epic^Games;Minecraft^Launcher;Minecraft^Legacy^Launcher;Steam
 
