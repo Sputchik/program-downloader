@@ -9,14 +9,14 @@ Misc=7-Zip;Autoruns;AviDemux;ContextMenuManager;Everything;Google_Earth_Pro;K-Li
 Cracked=MediaHuman;Revo_Uninstaller_Pro
 Games=Epic_Games;Minecraft_Launcher;Minecraft_Legacy_Launcher;Steam
 
-msi=7-Zip;Go;Blender_3.3.X_LTS;Blender_3.6.X_LTS;nomacs;Minecraft_Legacy_Launcher;Epic_Games;Node.js;Blender
-zip=Telegram_Portable;Gradle;TranslucentTB;ThrottleStop;Autoruns;TradingView;Gradle
-zipm=Telegram_Portable;Gradle;TranslucentTB;ThrottleStop;TradingView
-pfexe=NVCleanstall;ContextMenuManager;ThrottleStop;Rufus
+msi=7-Zip;Blender;Blender_3.3.X_LTS;Blender_3.6.X_LTS;Epic_Games;Go;Minecraft_Legacy_Launcher;Node.js;nomacs
+zip=Autoruns;Gradle;Gradle;Telegram_Portable;ThrottleStop;TradingView;TranslucentTB
+zipm=Gradle;Telegram_Portable;ThrottleStop;TradingView;TranslucentTB
+pfexe=ContextMenuManager;NVCleanstall;Rufus;ThrottleStop
 
-Programs_VerySilent=VSCode;Git;Resource_Hacker;K-Lite_Codec;RegistryFinder;iMazing;Process_Hacker;Revo_Uninstaller_Pro;Sublime_Text;Telegram
-Programs_quiet=iTunes;iCloud;Python;Wireless_Bluetooth
-Programs_S=IntelliJ_IDEA;X-Mouse_Button;PyCharm;GoLand;Viber;OBS;7-Zip;WinDirStat;Steam;Windhawk;Everything;Firefox;Librewolf;qBitTorrent;QuteBrowser;ZXP_Installer
+Programs_VerySilent=Git;iMazing;K-Lite_Codec;Process_Hacker;RegistryFinder;Resource_Hacker;Revo_Uninstaller_Pro;Sublime_Text;Telegram;VSCode
+Programs_quiet=iCloud;iTunes;Python;Wireless_Bluetooth
+Programs_S=7-Zip;Everything;Firefox;GoLand;IntelliJ_IDEA;Librewolf;OBS;PyCharm;qBitTorrent;QuteBrowser;Steam;Viber;WinDirStat;Windhawk;X-Mouse_Button;ZXP_Installer
 Flags_S=/S
 Flags_quiet=/quiet
 Flags_VerySilent=/VERYSILENT
@@ -28,14 +28,14 @@ url_Autoruns=https://download.sysinternals.com/files/Autoruns.zip
 url_Avidemux=https://www.dropbox.com/scl/fi/nzxbti6br7o7vegkegiyz/AviDemux.exe?rlkey=mfzxwa8dqai53uuc22grqtxry&st=ofqskatg&dl=1
 url_Blender=https://www.blender.org/download/release/Blender4.3/blender-4.3.2-windows-x64.msi/
 url_Blender_3.3.X_LTS=https://ftp.nluug.nl/pub/graphics/blender/release/Blender3.3/blender-3.3.20-windows-x64.msi
-url_Blender_3.6.X_LTS=https://mirrors.dotsrc.org/blender/release/Blender3.6/blender-3.6.13-windows-x64.msi
+url_Blender_3.6.X_LTS=https://mirrors.dotsrc.org/blender/release/Blender3.6/blender-3.6.13-windows-x64.msi  
 url_ContextMenuManager=https://github.com/BluePointLilac/ContextMenuManager/releases/download/3.3.3.1/ContextMenuManager.NET.3.5.exe
 url_DirectX_Runtimes=https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe
 url_Discord=https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x64
 url_Epic_Games=https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi
 url_Everything=https://voidtools.com/Everything-1.4.1.1026.x64-Setup.exe
 url_Firefox=https://download.mozilla.org/?product=firefox-stub&os=win&lang=en-US
-url_Git=https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe
+url_Git=https://github.com/git-for-windows/git/releases/download/v2.47.1.windows.1/Git-2.47.1-64-bit.exe    
 url_Go=https://go.dev/dl/go1.23.4.windows-amd64.msi
 url_Google_Earth_Pro=https://dl.google.com/dl/earth/client/advanced/current/googleearthprowin-7.3.6-x64.exe?sjid=6101201665916555278-EU
 url_Gradle=https://services.gradle.org/distributions/gradle-8.11.1-bin.zip

@@ -367,6 +367,7 @@ async def main(repo: Repo):
 
 	progmap = await parse_github_urls()
 	# input(json.dumps(progmap, indent = 2))
+	# input(progmap_to_txt(progmap))
 
 	async with aiohttp.ClientSession() as session: progmap, new = await update_progs(progmap, session = session)
 	# input(json.dumps(progmap, indent = 2))
