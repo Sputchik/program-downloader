@@ -19,7 +19,7 @@ github_map = {
 	'VCRedist 2005-2022': ('abbodi1406', 'vcredist'),
 	'ZXP Installer': ('elements-storage', 'ZXPInstaller'),
 	'Ungoogled Chromium': ('ungoogled-software', 'ungoogled-chromium-windows'),
-	'DB_Browser': ('sqlitebrowser', 'sqlitebrowser'),
+	'DB Browser': ('sqlitebrowser', 'sqlitebrowser'),
 
 }
 
