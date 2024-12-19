@@ -18,6 +18,8 @@ Usage: pdi.bat [--passive] [--output Path] [--select Programs]
 
    --passive            Only Displays download process for programs defined using --select Flag
 
+   --no-install         Downloads programs without installing them
+
    --output Path        Sets download Path
 
    --select Programs    Select Programs, Separate them by semicolon `;`.

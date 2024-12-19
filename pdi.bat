@@ -7,6 +7,8 @@ if "%~1" == "--help" (
 	echo.
 	echo    --passive            Only Displays download process for programs defined using --select Flag
 	echo.
+	echo    --no-install         Downloads programs without installing them
+	echo.
 	echo    --output Path        Sets download Path
 	echo.
 	echo    --select Programs    Select Programs, Separate them by semicolon `;`.
@@ -48,6 +50,7 @@ if %FetchedURLs%==0 (
 )
 
 set passive=0
+set EOF_Download=0
 
 if "%~1" NEQ "" (
 	set arg_index=0
@@ -77,6 +80,8 @@ if "%~1" NEQ "" (
 
 			) else if "!arg!" == "--output" (
 				set outputting=1
+			) else if "!arg!" == "--no-install" (
+				set EOF_Download=1
 			)
 
 		)
@@ -318,7 +323,7 @@ for %%G in (!Categories!) do (
 	)
 )
 
-if %passive% == 1 goto :eof
+if %EOF_Download% == 1 goto :eof
 
 :AfterDownload
 echo Programs downloaded (%DLPath%)
