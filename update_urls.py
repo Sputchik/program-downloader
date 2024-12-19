@@ -19,6 +19,8 @@ github_map = {
 	'VCRedist 2005-2022': ('abbodi1406', 'vcredist'),
 	'ZXP Installer': ('elements-storage', 'ZXPInstaller'),
 	'Ungoogled Chromium': ('ungoogled-software', 'ungoogled-chromium-windows'),
+	'DB_Browser': ('sqlitebrowser', 'sqlitebrowser'),
+
 }
 
 parse_map = {
@@ -36,6 +38,7 @@ parse_map = {
 	'qBitTorrent': 'https://www.qbittorrent.org/download',
 	'Librewolf': 'https://librewolf.net/installation/windows/',
 	'Blender': 'https://www.blender.org/download/',
+	
 }
 
 jetbrains_api = "https://data.services.jetbrains.com/products/releases"
