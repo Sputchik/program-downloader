@@ -224,7 +224,7 @@ if !ErrorLevel! == 1 (
 )
 
 cls
-echo You are not connected to internet :(
+echo You are not connected to internet :^(
 echo.
 echo [1] Retry Connection
 echo [2] Quit
@@ -260,7 +260,7 @@ if exist "%OUTPUT%" del /Q "%OUTPUT%"
 
 :loop
 
-echo If download is very slow, try pressing Ctrl+C and `N` (Don't terminate script)
+echo If download is very slow, try pressing Ctrl+C and `N` ^(Don't terminate script^)
 echo.
 echo Downloading !NAME!...
 echo.
@@ -326,7 +326,7 @@ for %%G in (!Categories!) do (
 if %EOF_Download% == 1 goto :eof
 
 :AfterDownload
-echo Programs downloaded (%DLPath%)
+echo Programs downloaded ^(%DLPath%^)
 echo.
 choice /N /M "Try installing them? [Y/N] "
 
@@ -418,7 +418,7 @@ if %~2 == 0 (
 	echo %~1 Programs
 	echo.
 	echo [1] Install with Shortcuts
-	echo [2] Opposite (Removes all Desktop shortcuts)
+	echo [2] Opposite ^(Removes all Desktop shortcuts^)
 	echo [3] Proceed further
 
 	choice /C 123 /N /M " "
@@ -432,8 +432,8 @@ if %~2 == 0 (
 
 	if !ErrorLevel! == 2 del /S /Q "C:\Users\%username%\Desktop\*.lnk" 2>nul
 	timeout /T 2
-
 )
+
 goto :eof
 
 :MovePrograms
