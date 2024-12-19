@@ -420,7 +420,6 @@ if %~2 == 0 (
 	echo [1] Install with Shortcuts
 	echo [2] Opposite (Removes all Desktop shortcuts)
 	echo [3] Proceed further
-	:: echo.
 
 	choice /C 123 /N /M " "
 	echo.
