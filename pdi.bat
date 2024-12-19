@@ -56,10 +56,10 @@ if "%~1" NEQ "" (
 		set "arg=%%~G"
 
 		if defined selecting (
-			set "arg=!arg: =^!"
+			set "arg=!arg: =_!"
 
-			for %%G in (!arg!) do (
-				set "selected_%%G=1"
+			for %%H in (!arg!) do (
+				set "selected_%%H=1"
 			)
 
 		) else if defined outputting (
@@ -70,7 +70,7 @@ if "%~1" NEQ "" (
 
 			if "!arg!"=="--select" (
 				set selecting=1
-			
+
 			) else if "!arg!" == "--passive" (
 				set passive=1
 
@@ -90,7 +90,7 @@ set index=1
 echo Select category:
 for %%G in (!Categories!) do (
 	set "cat=%%G"
-	set "cat=!cat:^= !"
+	set "cat=!cat:_= !"
 	echo [!index!] !cat!
 	set /a index+=1
 )
@@ -113,14 +113,14 @@ set "programs=!%category%!"
 :DISPLAY_LIST
 
 cls
-echo Category: %category:^= %
+echo Category: %category:_= %
 
 set index=1
 
-for %%a in (!programs!) do (
-	set "RawProgName=%%a"
-	set "ProgName=!RawProgName:^= !"
-	set "IsSelected=!selected_%%a!"
+for %%G in (!programs!) do (
+	set "RawProgName=%%G"
+	set "ProgName=!RawProgName:_= !"
+	set "IsSelected=!selected_%%G!"
 
 	if !IsSelected! == 1 (
 		echo [!index!] [*] !ProgName!
@@ -142,14 +142,14 @@ if /I "%selection%" == "Q" goto MAIN_MENU
 if /I "%selection%" == "A" goto TOGGLE_ALL
 
 set /a index=1
-for %%a in (!programs!) do (
+for %%G in (!programs!) do (
 	if "%selection%" == "!index!" (
-		set SelectValue=!selected_%%a!
+		set SelectValue=!selected_%%G!
 
 		if !SelectValue! == 1 (
-			set "selected_%%a=0"
+			set "selected_%%G=0"
 		) else (
-			set "selected_%%a=1"
+			set "selected_%%G=1"
 		)
 	)
 	set /a index+=1
@@ -159,13 +159,13 @@ goto DISPLAY_LIST
 
 :TOGGLE_ALL
 
-for %%a in (!programs!) do (
-	set "isSelected=!selected_%%a!"
+for %%G in (!programs!) do (
+	set "isSelected=!selected_%%G!"
 
 	if !isSelected! == 1 (
-		set "selected_%%a=0"
+		set "selected_%%G=0"
 	) else (
-		set "selected_%%a=1"
+		set "selected_%%G=1"
 	)
 )
 
@@ -173,11 +173,11 @@ goto DISPLAY_LIST
 
 :ClearSelected
 
-for %%C in (!Categories!) do (
-	set "programs=!%%C!"
+for %%G in (!Categories!) do (
+	set "programs=!%%G!"
 
-	for %%G in (!programs!) do (
-		set "selected_%%G=0"
+	for %%H in (!programs!) do (
+		set "selected_%%H="
 	)
 )
 
@@ -187,8 +187,8 @@ goto :eof
 
 curl -A "%UserAgent%" -s %URLsURL% -o "%urlPath%"
 
-for /f "usebackq tokens=1* delims==" %%a in ("%urlPath%") do (
-	set "%%a=%%b"
+for /f "usebackq tokens=1* delims==" %%G in ("%urlPath%") do (
+	set "%%G=%%H"
 )
 
 set index=1
@@ -211,7 +211,7 @@ ping -n 1 google.com >nul 2>&1
 if !ErrorLevel! == 1 (
 	echo Woopise, no internet...
 	echo.
-	timeout /t 2 >nul
+	timeout /T 1 >nul
 ) else (
 	cls
 	goto :DownloadAll
@@ -264,8 +264,8 @@ echo.
 curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
 
 if !ErrorLevel! neq 0 (
-	echo Download interrupted... Retrying in %RETRY_WAIT% seconds... ^(Attempt !RETRIES!^)
-	timeout /T %RETRY_WAIT% /NOBREAK
+	echo Download interrupted... Retrying in 2 seconds... ^(Attempt !RETRIES!^)
+	timeout /T 2
 	cls
 	goto loop
 )
@@ -276,30 +276,29 @@ goto :eof
 
 mkdir "%DLPath%" 2>nul
 
-for %%C in (!Categories!) do (
-	for %%G in (!%%C!) do (
-		set "ProgramRaw=%%G"
-		set "ProgramSpaced=!ProgramRaw:^= !"
-		set "ProgramUndered=!ProgramRaw:^=_!"
+for %%G in (!Categories!) do (
+	for %%H in (!%%G!) do (
+		set "ProgramRaw=%%H"
+		set "ProgramSpaced=!ProgramRaw:_= !"
 
-		if "!selected_%%G!" == "1" (
-			set "DownloadURL=!url_%%G!"
+		if "!selected_%%H!" == "1" (
+			set "DownloadURL=!url_%%H!"
 
 			if DownloadURL neq "" (
 				set FileExt=0
 
-				for %%E in (!Extensions!) do (
-					for %%I in (!%%E!) do (
-						if "!ProgramRaw!" == "%%I" set FileExt=%%E
+				for %%I in (!Extensions!) do (
+					for %%J in (!%%I!) do (
+						if "!ProgramRaw!" == "%%J" set FileExt=%%I
 					)
 				)
 
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
-				if "!FileExt!" NEQ "zip" ( set "ProgramUndered=!ProgramUndered!_Setup"
-				) else set "ProgramUndered=!ProgramSpaced!"
+				if "!FileExt!" NEQ "zip" ( set "ProgramRaw=!ProgramRaw!_Setup"
+				) else set "ProgramRaw=!ProgramSpaced!"
 
-				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramUndered!.!FileExt!"
+				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramRaw!.!FileExt!"
 				cls
 
 			) else (
@@ -332,10 +331,10 @@ goto :eof
 :DirCheck
 
 ::EXE
-dir "%DLPath%\*.exe" /b /a-d >nul 2>&1
+dir "%DLPath%\*_Setup.exe" /b /a-d >nul 2>&1
 set err_exe=!ErrorLevel!
 ::MSI
-dir "%DLPath%\*.msi" /b /a-d >nul 2>&1
+dir "%DLPath%\*_Setup.msi" /b /a-d >nul 2>&1
 set err_msi=!ErrorLevel!
 ::ZIP
 dir "%DLPath%\*.zip" /b /a-d >nul 2>&1
@@ -351,7 +350,7 @@ if %err_zip% == 0 (
 ) else (
 	echo.
 	echo You have no programs dumb ass
-	timeout /t 1 >nul
+	timeout /T 1 >nul
 	goto :Start
 )
 
@@ -371,9 +370,13 @@ if %DoneAll% == 1 (
 
 	if !ErrorLevel! == 1 ( exit /b
 	) else if !ErrorLevel! == 2 ( goto :Start
-	) else if !ErrorLevel! == 3 ( del /S /Q "%DLPath%\*" 2>nul
+	) else if !ErrorLevel! == 3 (
+		echo.
+		del /S /Q "%DLPath%\*" 2>nul
+
 	) else if !ErrorLevel! == 4 ( call :MovePrograms )
 
+	timeout /T 2
 	goto :Pain
 )
 
@@ -413,15 +416,15 @@ if %~2 == 0 (
 	cd "%origin%"
 
 	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
-	timeout /t 3
+	timeout /T 2
 
 )
 goto :eof
 
 :MovePrograms
-for /f "usebackq delims=" %%I in (`%ChooseFolder%`) do set "SelectedFolder=%%I"
+for /f "usebackq delims=" %%G in (`%ChooseFolder%`) do set "SelectedFolder=%%G"
 move /y "%DLPath%" "%SelectedFolder%"
-timeout /t 2 >nul
+timeout /T 1
 cls
 
 goto :eof
@@ -444,23 +447,23 @@ if exist "Autoruns.zip" (
 	echo Installing Autoruns...
 	call :Extract "Autoruns"
 	xcopy "Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
-	rd /s /q "Autoruns"
+	rmdir /s /q "Autoruns"
 	call :CreateShortcut "C:\Program Files\Autoruns\Autoruns64.exe" "Autoruns"
 )
 if exist "Gradle.zip" (
 	echo Installing Gradle...
 	mkdir C:\Gradle 2>nul
 	xcopy /s /e /i /q /y "Gradle\*" C:\Gradle
-	rd /s /q "Gradle"
+	rmdir /s /q "Gradle"
 )
 
-for %%A in (!zipm!) do (
-	set "progName=%%A"
-	set "progName=!progName:^= !"
+for %%G in (!zipm!) do (
+	set "progName=%%G"
+	set "progName=!progName:_= !"
 
 	if exist "!progName!.zip" (
 		echo Installing !progName!...
-		rd /s /q "!progName!" 2>nul
+		rmdir /s /q "!progName!" 2>nul
 		call :Extract "!progName!"
 		call :FindExe "!progName!"
 
@@ -471,7 +474,7 @@ for %%A in (!zipm!) do (
 			xcopy /s /e /i /q /y "." "!destPath!\"
 			call :CreateShortcut "!destPath!\!exeName!" "!progName!"
 			cd "%DLPath%"
-			rd /s /q "!progName!"
+			rmdir /s /q "!progName!"
 		)
 	)
 )
@@ -481,10 +484,11 @@ goto :eof
 
 :MSI
 
-for %%G in ("%DLPath%\*.msi") do (
+for %%G in ("%DLPath%\*_Setup.msi") do (
 	set "progName=%%~nG"
-	set "readableName=!progName:_= !"
 	set "progPath=%%G"
+	set "readableName=!progName:_= !"
+	set "readableName=!readableName:~0,-6!"
 
 	echo Running !readableName!...
 	"!progPath!" /passive
@@ -502,10 +506,11 @@ choice /N /M "Install Silently? (Not Recommended) [Y/N] "
 echo.
 
 if !ErrorLevel! == 2 (
-	for %%G in ("%DLPath%\*.exe") do (
+	for %%G in ("%DLPath%\*_Setup.exe") do (
 		set "progName=%%~nG"
-		set "readableName=!progName:_= !"
 		set "progPath=%%G"
+		set "readableName=!progName:_= !"
+		set "readableName=!readableName:~0,-6!"
 
 		echo Running !readableName!...
 		"!progPath!"
@@ -513,10 +518,10 @@ if !ErrorLevel! == 2 (
 
 ) else (
 	for %%G in (S quiet VerySilent) do (
-		for %%I in (!Programs_%%G!) do (
+		for %%H in (!Programs_%%G!) do (
 
-			set "progName=%%I"
-			set "progName=!progName:^=_!"
+			set "progName=%%H"
+			set "readableName=!progName:~0,-6!"
 
 			if exist "!progName!_Setup.exe" (
 				echo Installing !progName!...
@@ -540,8 +545,8 @@ goto :eof
 set "searchPath=%~1"
 set exeDir=0
 
-for /r "%searchPath%" %%F in (*.exe) do (
-	 set "exeName=%%~nxF"
-	 set "exeDir=%%~dpF"
+for /r "%searchPath%" %%G in (*.exe) do (
+	 set "exeName=%%~nxG"
+	 set "exeDir=%%~dpG"
 	 goto :eof
 )
