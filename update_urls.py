@@ -68,6 +68,21 @@ github_headers = {
 }
 remote_url = 'https://github.com/Sputchik/pdi.git'
 
+def sortify_batch_list(line: str):
+	unpack = line.split('=', 1)
+	if len(unpack) != 2: return line
+	key, value = unpack
+
+	value_list = value.split(';')
+	if len(value_list) == 1:
+		return line
+
+	value_list = sorted(value_list, key = lambda x: (x[0].lower(), x[1:]))
+	value = ';'.join(value_list)
+
+	line = key + '=' + value
+	return line
+
 def get_line_index(lines, start_pattern):
 	for index, line in enumerate(lines):
 		if line.startswith(start_pattern):
@@ -83,6 +98,10 @@ def parse_categories(lines):
 
 	ext_start = cat_progs_end + 1
 	ext_end = get_line_index(lines, 'url_') - 1
+
+	for i in range(ext_start, ext_end):
+		line = lines[i]
+		lines[i] = sortify_batch_list(line)
 
 	progs_lines = lines[cat_progs_start:cat_progs_end]
 
@@ -104,14 +123,14 @@ async def parse_github_urls() -> dict:
 	lines: list[str] = data.splitlines()
 	url_index = get_line_index(lines, 'url_')
 	url_lines = lines[url_index:]
-	
+
 	cats, exts = parse_categories(lines)
 
 	progmap = {
 		'cats': cats,
 		'exts': exts,
 		'urls': dict(sorted({
-			line.split('url_')[1].split('=')[0].replace('^', ' '): line.split('=', maxsplit = 1)[1] for line in url_lines
+			line.split('url_')[1].split('=')[0].replace('_', ' '): line.split('=', maxsplit = 1)[1] for line in url_lines
 		}.items(), key = lambda x: (x[0].lower(), x[1:])))
 	}
 
@@ -120,11 +139,11 @@ async def parse_github_urls() -> dict:
 def progmap_to_txt(progmap):
 	first_line = 'Categories=' + ';'.join(list(progmap['cats'].keys()))
 	cat_progs = '\n'.join([f"{key}={value}" for key, value in progmap['cats'].items()])
-	urls = '\n'.join([f"url_{key.replace(' ', '^')}={value}" for key, value in progmap['urls'].items()])
-	
+	urls = '\n'.join([f"url_{key.replace(' ', '_')}={value}" for key, value in progmap['urls'].items()])
+
 	del progmap['cats']
 	del progmap['urls']
-	
+
 	result = '\n\n'.join((first_line, cat_progs, *progmap.values(), urls))
 	return result
 
@@ -187,7 +206,7 @@ async def parse_prog(url = None, name = None, session = None, github = False, je
 	if github:
 		author, project = github_map[name]
 		return (name, await direct_from_github(author, project))
-	
+
 	elif jetbrains:
 		params = jetbrains_params
 		params['code'] = url
@@ -198,7 +217,7 @@ async def parse_prog(url = None, name = None, session = None, github = False, je
 		try:
 			download_url = response["downloads"]["windows"]["link"]
 			return name, download_url
-		
+
 		except (ValueError, TypeError, IndexError, KeyError):
 			return
 
@@ -283,7 +302,7 @@ async def parse_prog(url = None, name = None, session = None, github = False, je
 				version = elem.text.split(' ')[2]
 				url = f'https://netcologne.dl.sourceforge.net/project/qbittorrent/qbittorrent-win32/qbittorrent-{version}/qbittorrent_{version}_x64_setup.exe?viasf=1'
 				break
-	
+
 	elif name == 'Librewolf':
 		a_elems = soup.find_all('a')
 
@@ -291,7 +310,7 @@ async def parse_prog(url = None, name = None, session = None, github = False, je
 			url = elem.get('href')
 			if url and url.startswith('https://gitlab.com/'):
 				break
-	
+
 	elif name == 'Blender':
 		a_elems = soup.find_all('a')
 
@@ -300,7 +319,7 @@ async def parse_prog(url = None, name = None, session = None, github = False, je
 			if title and title == 'Download Blender for Windows Installer':
 				url = elem.get('href')
 				break
-	
+
 	elif name == 'Git':
 		a_elems = soup.find_all('a')
 
@@ -318,10 +337,10 @@ async def update_progs(progmap, session = None):
 	tasks = []
 	for prog in github_map:
 		tasks.append(parse_prog(name = prog, github = True))
-	
+
 	for prog, slug in jetbrains_progs.items():
 		tasks.append(parse_prog(slug, prog, session, jetbrains = True))
-	
+
 	for prog, url in parse_map.items():
 		tasks.append(parse_prog(url, prog, session))
 
@@ -355,7 +374,7 @@ async def main(repo: Repo):
 	if not new:
 		print('Everything is Up-To-Date!\n')
 		return
-	
+
 	txt = progmap_to_txt(progmap)
 	# input(txt)
 
@@ -367,7 +386,7 @@ async def main(repo: Repo):
 
 if __name__ == '__main__':
 	enhance_loop()
-	
+
 	while True:
 		print(f'[{datetime.now()}]')
 		asyncio.run(main(repo))
