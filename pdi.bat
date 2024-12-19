@@ -16,7 +16,7 @@ if "%~1" == "--help" (
 
 cls
 net session >nul 2>&1
-if !ErrorLevel! neq 0 (
+if !ErrorLevel! NEQ 0 (
 	echo Please run this script as an administrator
 	pause
 	exit /b
@@ -24,6 +24,7 @@ if !ErrorLevel! neq 0 (
 
 set "origin=%~dp0"
 set "DLPath=%origin%pdi_downloads"
+set "PF=C:\Program Files"
 set FetchedURLs=0
 set "UserAgent=Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0"
 set "URLsURL=https://raw.githubusercontent.com/Sputchik/pdi/refs/heads/main/urls.txt"
@@ -218,8 +219,7 @@ if !ErrorLevel! == 1 (
 )
 
 cls
-echo You are not connected to internet :^(
-echo As this is a light version of pdi, it doesn't come with WiFi Drivers in it
+echo You are not connected to internet :(
 echo.
 echo [1] Retry Connection
 echo [2] Quit
@@ -250,24 +250,32 @@ goto :eof
 set "NAME=%~1%"
 set "URL=%~2%"
 set "OUTPUT=%~3%"
-set RETRIES=1
 
 if exist "%OUTPUT%" del /Q "%OUTPUT%"
 
 :loop
 
-echo If download is very slow, try pressing Ctrl+C and `N` ^(Don't terminate script^)
+echo If download is very slow, try pressing Ctrl+C and `N` (Don't terminate script)
 echo.
 echo Downloading !NAME!...
 echo.
 
 curl -# -A "%UserAgent%" -L -C - -o "%OUTPUT%" "%URL%"
 
-if !ErrorLevel! neq 0 (
-	echo Download interrupted... Retrying in 2 seconds... ^(Attempt !RETRIES!^)
-	timeout /T 2
+if !ErrorLevel! NEQ 0 (
+	echo.
+	echo Download interrupted...
+	echo.
+	echo [1] Retry Download
+	echo [2] Skip
+	choice /C 12 /N /M " "
 	cls
-	goto loop
+
+	if !ErrorLevel! == 1 (
+		goto :loop
+	) else (
+		goto :eof
+	)
 )
 
 goto :eof
@@ -284,7 +292,7 @@ for %%G in (!Categories!) do (
 		if "!selected_%%H!" == "1" (
 			set "DownloadURL=!url_%%H!"
 
-			if DownloadURL neq "" (
+			if DownloadURL NEQ "" (
 				set FileExt=0
 
 				for %%I in (!Extensions!) do (
@@ -295,10 +303,12 @@ for %%G in (!Categories!) do (
 
 				:: Default to .exe if no specific extension is found
 				if !FileExt! == 0 set FileExt=exe
-				if "!FileExt!" NEQ "zip" ( set "ProgramRaw=!ProgramRaw!_Setup"
-				) else set "ProgramRaw=!ProgramSpaced!"
 
-				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramRaw!.!FileExt!"
+				if !FileExt! NEQ zip (
+					set "ProgramFinal=!ProgramRaw!_Setup"
+				) else set "ProgramFinal=!ProgramSpaced!"
+
+				call :DownloadFile "!ProgramSpaced!" "!DownloadURL!" "%DLPath%\!ProgramFinal!.!FileExt!"
 				cls
 
 			) else (
@@ -355,6 +365,7 @@ if %err_zip% == 0 (
 )
 
 :Pain
+
 if %DoneAll% == 1 (
 	cd "%origin%"
 	cls
@@ -364,7 +375,7 @@ if %DoneAll% == 1 (
 	echo [2] Go Back
 	echo [3] Clean
 	echo [4] Move programs folder
-	echo.
+	@REM echo.
 
 	choice /C 1234 /N /M " "
 
@@ -402,9 +413,9 @@ if %~2 == 0 (
 	echo %~1 Programs
 	echo.
 	echo [1] Install with Shortcuts
-	echo [2] Opposite ^(Removes all Desktop shortcuts^)
+	echo [2] Opposite (Removes all Desktop shortcuts)
 	echo [3] Proceed further
-	echo.
+	:: echo.
 
 	choice /C 123 /N /M " "
 	echo.
@@ -415,7 +426,7 @@ if %~2 == 0 (
 	call :%~1
 	cd "%origin%"
 
-	if !ErrorLevel! == 2 del "C:\Users\%username%\Desktop\*.lnk" 2>nul
+	if !ErrorLevel! == 2 del /S /Q "C:\Users\%username%\Desktop\*.lnk" 2>nul
 	timeout /T 2
 
 )
@@ -423,9 +434,11 @@ goto :eof
 
 :MovePrograms
 for /f "usebackq delims=" %%G in (`%ChooseFolder%`) do set "SelectedFolder=%%G"
-move /y "%DLPath%" "%SelectedFolder%"
-timeout /T 1
-cls
+
+if defined SelectedFolder (
+	move /y "%DLPath%" "%SelectedFolder%"
+	timeout /T 1
+)
 
 goto :eof
 
@@ -446,15 +459,15 @@ goto :eof
 if exist "Autoruns.zip" (
 	echo Installing Autoruns...
 	call :Extract "Autoruns"
-	xcopy "Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns" /s /i /q /y
-	rmdir /s /q "Autoruns"
-	call :CreateShortcut "C:\Program Files\Autoruns\Autoruns64.exe" "Autoruns"
+	xcopy /E /-I /Q /Y "Autoruns\Autoruns64.exe" "C:\Program Files\Autoruns\Autoruns.exe"
+	rmdir /S /Q "Autoruns"
+	call :CreateShortcut "C:\Program Files\Autoruns\Autoruns.exe" "Autoruns"
 )
 if exist "Gradle.zip" (
 	echo Installing Gradle...
 	mkdir C:\Gradle 2>nul
-	xcopy /s /e /i /q /y "Gradle\*" C:\Gradle
-	rmdir /s /q "Gradle"
+	xcopy /E /I /Q /Y "Gradle\*" C:\Gradle
+	rmdir /S /Q "Gradle"
 )
 
 for %%G in (!zipm!) do (
@@ -463,18 +476,18 @@ for %%G in (!zipm!) do (
 
 	if exist "!progName!.zip" (
 		echo Installing !progName!...
-		rmdir /s /q "!progName!" 2>nul
+		rmdir /S /Q "!progName!" 2>nul
 		call :Extract "!progName!"
 		call :FindExe "!progName!"
 
-		if exeDir neq 0 (
+		if exeDir NEQ 0 (
 			set "destPath=C:\Program Files\!progName!"
 			cd "!exeDir!"
 			mkdir "!destPath!" 2>nul
 			xcopy /s /e /i /q /y "." "!destPath!\"
 			call :CreateShortcut "!destPath!\!exeName!" "!progName!"
 			cd "%DLPath%"
-			rmdir /s /q "!progName!"
+			rmdir /S /Q "!progName!"
 		)
 	)
 )
@@ -500,7 +513,25 @@ goto :eof
 :EXE
 
 :: TO-DO
-:: RE-WRITE CUSTOM EXE INSTALLATIONS
+:: RE-WRITE CUSTOM EXE INSTALLATIONS - 33% Done
+
+for %%G in (!pfexe!) do (
+	set "progName=%%G"
+
+	if exist "!progName!_Setup.exe" (
+		set "readableName=!progName:_= !"
+		set "PF_EXEPath=C:\Program Files\!readableName!\!progName!.exe"
+		echo Installing !readableName!...
+
+		move /Y "!progName!_Setup.exe" "!progName!.exe"
+		mkdir "%PF%\!readableName!\" 2>nul
+		xcopy /E /I /Q /Y "!progName!.exe" "!PF_EXEPath!"
+
+		call :CreateShortcut "!PF_EXEPath!" "!readableName!"
+		del /S /Q "!progName!.exe"
+		echo.
+	)
+)
 
 choice /N /M "Install Silently? (Not Recommended) [Y/N] "
 echo.
