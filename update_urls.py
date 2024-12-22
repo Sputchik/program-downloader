@@ -38,7 +38,7 @@ parse_map = {
 	'qBitTorrent': 'https://www.qbittorrent.org/download',
 	'Librewolf': 'https://librewolf.net/installation/windows/',
 	'Blender': 'https://www.blender.org/download/',
-	
+
 }
 
 jetbrains_api = "https://data.services.jetbrains.com/products/releases"
@@ -351,18 +351,18 @@ async def update_progs(progmap, session = None):
 	parsed_data = ((result[0], result[1]) for result in results if isinstance(result, tuple))
 	print()
 
-	new = False
+	new = set()
 	for prog, url in parsed_data:
 		if progmap['urls'][prog] != url:
 			progmap['urls'][prog] = url
 			print(f'New: {prog}')
-			new = True
+			new.add(prog)
 
 	return progmap, new
 
-def push(repo: Repo, file):
+def push(repo: Repo, file, commit_msg):
 	repo.git.add([file])
-	repo.index.commit('Update urls.txt')
+	repo.index.commit(commit_msg)
 	repo.remotes.origin.push()
 
 async def main(repo: Repo):
@@ -372,7 +372,8 @@ async def main(repo: Repo):
 	# input(json.dumps(progmap, indent = 2))
 	# input(progmap_to_txt(progmap))
 
-	async with aiohttp.ClientSession() as session: progmap, new = await update_progs(progmap, session = session)
+	async with aiohttp.ClientSession() as session:
+		progmap, new = await update_progs(progmap, session = session)
 	# input(json.dumps(progmap, indent = 2))
 
 	if not new:
@@ -383,9 +384,10 @@ async def main(repo: Repo):
 	# input(txt)
 
 	await aio.open(urls_path, 'write', 'w', txt)
+	commit_msg = 'Update urls.txt: ' + ', '.join(new)
 
 	# input('\nPress any key to push . . . ')
-	push(repo, 'urls.txt')
+	push(repo, 'urls.txt', commit_msg)
 	print('Pushed successfully\n')
 
 if __name__ == '__main__':
